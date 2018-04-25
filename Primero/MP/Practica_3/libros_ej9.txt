@@ -1,0 +1,8 @@
+libro
+mio
+12
+213
+cuaderno
+tuyo
+134
+1234

@@ -31,6 +31,4 @@ int main(int argc, char const *argv[]){
 	free(numero);
 	return 0;
 
-
-
 }
