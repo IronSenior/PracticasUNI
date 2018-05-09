@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
 		printf("Error al abrir el archivo\n");
 		exit(-1);
 	}
-
+	
 	
 	return 0;
 }
