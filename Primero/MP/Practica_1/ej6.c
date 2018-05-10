@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+//Esta función lo hará y lo devolverá
 int minimo(int num1,int num2){
   if (num1<num2){
     return num1;
@@ -9,7 +10,8 @@ int minimo(int num1,int num2){
   }
 }
 
-int minimo2(int num1, int num2, int * resultado){
+//Esta función lo hará y lo guardará en una variable pasada por referencia
+void minimo_referencia(int num1, int num2, int * resultado){
   if (num1<num2){
     *resultado = num1;
   }
@@ -18,8 +20,8 @@ int minimo2(int num1, int num2, int * resultado){
   }
 }
 
-
-int main(void){
+//Este ejercicio pide hacer dos funciones que calculan cual es el mas pequeño de dos numeros
+int main(int argc, char const *argv[]){
   int num1 = 1;
   int num2 = 2;
   int resultado = 0;
@@ -29,7 +31,7 @@ int main(void){
   scanf("%d", &num2);
 
   int min = minimo(num1, num2);
-  minimo2(num1, num2, &resultado);
+  minimo_referencia(num1, num2, &resultado);
 
   printf(" - Minimo por versión 1: %d\n", min);
   printf(" - Minimo por versión 2: %d\n", resultado);

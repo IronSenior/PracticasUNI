@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+//Este ejercicio pide crear funciones para leer, imprimir y sumar los positivos de un vector de doubles
+
 void leeVector(double v[], int *tmn){
   for(int i=0; i<*tmn; i++){
     printf("Introduzca elemento del vector\n");

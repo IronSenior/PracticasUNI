@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
+//Este ejercico te pide implemtar un programa que detecte si una cadena es prefijo o no de otra cadena
+//ESTÄ SIN TERMINAR
+
 int es_prefijo(char cadena, char prefijo){
   printf("Hola he entrado\n");
   //int tmnpref = sizeof(prefijo);

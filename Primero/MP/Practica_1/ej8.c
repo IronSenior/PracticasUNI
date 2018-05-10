@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <ctype.h>
 
+
+//En este ejercicio se pide hacer una funcio que cuente cuantas mayusculas, minusculas y espacios hay en una cadena
+//Utilizando ctype.h
+
 void estadisticasCadena(char *cadena, int *mayus, int *minus, int *spac){
   int count = 0;
+  //Recorre la cadena clasificando cada caracter
   while (cadena[count] != ('\0')) {
     if islower(cadena[count]){
       (*minus)++;
