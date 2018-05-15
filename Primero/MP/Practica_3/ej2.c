@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Calcula el MCD por el algoritmo de euclides
 void euclides(int* x, int* y, int* mcd){
 	int resto = 0;
 	*mcd = *y;
 	resto = *x % *y;
 	if (resto != 0){
-		euclides(y, &resto, mcd);
+		euclides(y, &resto, mcd); //Si haces un return te ahorras el pasarlo por referencia
 	}
 }
 
+//Pide dos numeros y calcula su MCD
 int main(int argc, char const *argv[]){
 	int x=0, y=0;
 	int mcd = 0;

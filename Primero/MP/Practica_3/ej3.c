@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Calcula la división
 void division(int *dividendo, int divisor, int *cociente){
 	if (divisor == 0){
 		printf("No se puede dividir entre 0\n");
@@ -13,6 +14,7 @@ void division(int *dividendo, int divisor, int *cociente){
 	}
 }
 
+//Pide dos numeros a los que le calcula la division
 int main(int argc, char const *argv[])
 {
 	int dividendo, divisor, cociente = 0;

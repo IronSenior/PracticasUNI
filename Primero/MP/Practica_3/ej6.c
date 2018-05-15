@@ -7,7 +7,7 @@ void convertir_en_mayus(FILE* entrada){
 	//He limitado ha 50 el tamaño de cada linea
 	char linea[50];
 	FILE* salida;
-	if ((salida = fopen("mayusculas.txt", "w"))==NULL){ //Debe guardarlo con combre Mayusculas_nombredelfichero.txt
+	if ((salida = fopen("mayusculas.txt", "w"))==NULL){ //Debe guardarlo con combre Mayusculas_nombredelfichero.txt  (Se hce con sprintf)
 		printf("Error al crear el archivo\n");
 		exit(-1);
 	}
