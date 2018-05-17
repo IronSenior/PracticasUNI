@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include "funciones.h"
-#include <math.h>
+
 
 int main(int argc, char const *argv[]){
+
 	float (*func) (float);
 	int elec;
 
 	//Menú de selección para la función matemática
-	printf("¿Que funcion quiere aplicar?\n");
+	printf("Elija funcion\n");
 	printf("0 --> f(x)\n");
 	printf("1 --> g(x)\n");
 	printf("2 --> z(x)\n");
@@ -23,18 +24,15 @@ int main(int argc, char const *argv[]){
 			func = &z;
 	}
 
-	//Pide x al usuario
-	int x = 0;
-	printf("Introduzca el valor entero de x\n");
-	scanf("%d", &x);
+	//Pide N al usuario
+	int n = 0;
+	printf("Introduzca el valor de N\n");
+	scanf("%d", &n);
 
-	//Ejecuta la función e imprime el resultado
-	float resultado = (*func)(x);
-	printf("El resultado es %f\n", resultado);
+	//Ejecuta la función e imprime el resultado 
+	for (float i=0; i<n; i+=0.2){
+		float resultado = (*func)(i);
+		printf("El resultado para %f es %f\n", i, resultado);
+	}
 	return 0;
 }
-
-//Los siguienes comandos permiten el uso de la libreria math.h
-//gcc -c main.c -lm
-//gcc -c funciones.c -lm
-//gcc -o ej1 main.o funciones.o -lm
