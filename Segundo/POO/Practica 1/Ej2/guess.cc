@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
 		if (user_number > random_number){
 			std:: cout << "Te has pasado\n";
 		}
-
+r
 		if (user_number < random_number){
 			std:: cout << "Te has quedado corto\n";
 		}
