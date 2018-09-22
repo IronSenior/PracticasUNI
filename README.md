@@ -1,2 +1,2 @@
 # PracticasUNI
-En este repositorio subiré todas mis practicas de la UCO
+En este repositorio subiré todas mis prácticas de la UCO
