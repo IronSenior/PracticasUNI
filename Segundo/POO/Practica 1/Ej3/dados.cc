@@ -1,5 +1,7 @@
 //dados.cc
 //Cuerpo de los métodos de la clase Dados
+#include "dados.h"
+#include <cstdlib>
 
 Dados::Dados(){
 	//It will change the random seed and set a initial value for d1_ and d2_
@@ -35,6 +37,7 @@ Dados::setDado1(int valor){
 		return false;
 	}
 }
+
 Dados::setDado2(int valor){
 	//It assigns valor to d2_  if it is correct return True
 	if (0 < valor < 7){

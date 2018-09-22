@@ -5,6 +5,5 @@
 
 int main(int argc, char const *argv[]){
 	Dados d;
-	
 	return 0;
 }

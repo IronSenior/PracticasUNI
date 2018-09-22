@@ -7,7 +7,7 @@ class Dados{
 		int d2_;
 	public:
 		Dados();
-		int lanzamiento();
+		void lanzamiento();
 		int getDado1();
 		int getDado2();
 		bool setDado1(int valor);
