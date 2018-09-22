@@ -1,6 +1,9 @@
 //dados.h
 //La clase dados representa el lanzamiento de dos dados
 
+#ifndef DADOS_H
+#define DADOS_H
+
 class Dados{
 	private:
 		int d1_;
@@ -14,3 +17,5 @@ class Dados{
 		bool setDado2(int valor);
 		int getSuma();
 };
+
+#endif
