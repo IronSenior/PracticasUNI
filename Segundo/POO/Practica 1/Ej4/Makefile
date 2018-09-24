@@ -78,4 +78,4 @@ dados_unittest.o : dados_unittest.cc dados.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c dados_unittest.cc
 
 dados_unittest : dados.o dados_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o dados_unittest.out
