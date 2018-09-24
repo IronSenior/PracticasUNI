@@ -10,6 +10,8 @@ class Dados{
 		int d2_;
 		int lanzdado1_;
 		int lanzdado2_;
+		int d1Suma_;
+		int d2Suma_;
 	public:
 		Dados();
 		void lanzamiento();
@@ -20,6 +22,8 @@ class Dados{
 		int getSuma();
 		int getLanzamientos1();
 		int getLanzamientos2();
+		float getMedia1();
+		float getMedia2();
 };
 
 #endif

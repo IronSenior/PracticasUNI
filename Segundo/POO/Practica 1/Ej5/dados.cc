@@ -11,6 +11,8 @@ Dados::Dados(){
 	d2_ = 1;
 	lanzdado1_ = 0;
 	lanzdado2_ = 0;
+	d1Suma_ = 0;
+	d2Suma_ = 0;
 
 }
 
@@ -20,6 +22,8 @@ void Dados::lanzamiento(){
 	d2_ = (rand() % 6)+1;
 	lanzdado1_ ++;
 	lanzdado2_ ++;
+	d1Suma_ += d1_;
+	d2Suma_ += d2_;
 }
 
 int Dados::getDado1(){
@@ -37,6 +41,7 @@ bool Dados::setDado1(int valor){
 	if ((0 < valor) && (valor < 7)){
 		d1_ = valor;
 		lanzdado1_ ++;
+		d1Suma_ += d1_;
 		return true;
 	}
 	else{
@@ -49,6 +54,7 @@ bool Dados::setDado2(int valor){
 	if ((0 < valor) && (valor < 7)){
 		d2_ = valor;
 		lanzdado2_ ++;
+		d2Suma_ += d2_;
 		return true;
 	}
 	else{
@@ -62,7 +68,24 @@ int Dados::getSuma(){
 	suma = d1_ + d2_;
 	return suma;
 }
-
+float Dados::getMedia1(){
+	//Devuelve la media de todos los lanzamientos del dado 1
+	if (lanzdado1_ == 0){
+		return 0;
+	}
+	else{
+		return (d1Suma_ / lanzdado1_);
+	}
+}
+float Dados::getMedia2(){
+	//Devuelve la media de todos los lanzamientos del dado 2
+	if (lanzdado2_ == 0){
+		return 0;
+	}
+	else{
+		return (d2Suma_ / lanzdado2_);
+	}
+}
 int Dados::getLanzamientos1(){
 	//Decuelve el numero de veces que ha sido lanzado el dado 1
 	return lanzdado1_;

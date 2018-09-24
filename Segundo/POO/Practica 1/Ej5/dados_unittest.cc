@@ -76,3 +76,16 @@ TEST(Dados, GetLanzamientos) {
   EXPECT_EQ(5, d.getLanzamientos2());
 
 }
+
+//Test getMedia con setDado
+TEST(Dados, Medias) {
+  Dados d;
+  EXPECT_EQ(0, d.getMedia1());
+  EXPECT_EQ(0, d.getMedia2());
+  d.setDado1(6);
+  d.setDado1(4);
+  d.setDado2(3);
+  d.setDado2(1);
+  EXPECT_EQ(2, d.getMedia2());
+  EXPECT_EQ(5, d.getMedia1());
+}
