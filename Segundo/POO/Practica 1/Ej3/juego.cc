@@ -10,7 +10,7 @@ int main(int argc, char const *argv[]){
 	Dados d;
 
 	std::cout<<"Bienvenido a 'El juego de los DADOS'\n";
-	menu_func(d);
+	menu_func(d); //Lamada a la funcion de menu
 
 	std::cout<<"El juego ha terminado\n";
 

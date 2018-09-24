@@ -1,49 +1,50 @@
 //funciones.c
-//Funcion en la que se realizan las acciones
+//Fichero con todas las funcionalidades del juego (Menu y opciones)
 #include "dados.h"
 #include "funciones.h"
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
 
+
 void accion_func(int eleccion, Dados d){
 	switch(eleccion){
-		case 0: {
+		case 0: { //Elección erronia
 			std::cout<<"No has elegido ninguna acción\n\n";
 			menu_func(d);
 		}
-		case 1: {
+		case 1: { //Llamada a la funcion de lanzamiento() de la clase Dados
 			d.lanzamiento();
 			std::cout<<"Lanzamiento realizado con éxito\n";
 			menu_func(d);
 		}
-		case 2: {
+		case 2: { //Llamada a la función getDado1() de la clase Dados
 			std::cout<<"El valor del dado 1 es "<<d.getDado1()<<std::endl;
 			menu_func(d);
 		}
-		case 3: {
+		case 3: { //Llamada a la función getDado2() de la clase Dados
 			std::cout<<"El valor del dado 2 es "<<d.getDado2()<<std::endl;
 			menu_func(d);
 		}
-		case 4: {
+		case 4: { //Llamada a la función getSuma() de la clase Dados
 			std::cout<<"El valor de la suma es "<<d.getSuma()<<std::endl;
 			menu_func(d);
 		}
-		case 5: {
+		case 5: { //Llamada a la función serDado1() de la clase Dados
 			int valor;
 			std::cout<<"Introduzca el valor del dado 1\n";
 			std::cin>>valor;
 			d.setDado1(valor);
 			menu_func(d);
 		}
-		case 6: {
+		case 6: { //Llamada a la función setDado2() de la clase Dados
 			int valor;
 			std::cout<<"Introduzca el valor del dado 2\n";
 			std::cin>>valor;
 			d.setDado2(valor);
 			menu_func(d);
 		}
-		case 7:{
+		case 7:{ //Salir del programa
 			exit(0);
 		}
 	}
