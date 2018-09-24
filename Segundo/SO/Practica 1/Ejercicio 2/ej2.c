@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
 	int status;
     int hijo = 0;
 
-    printf("Se van a crear los tres hijo\n")
+    printf("Se van a crear los tres hijo\n");
 	for(int i=0; i<3; i++){
         hijo ++;
 		if(!fork()){ //De esta manera creamos varios hijos que ejecutaran lo mismo
@@ -38,10 +38,10 @@ int main(int argc, char const *argv[])
 }
 
 //Cada hijo ejecutará una tarea distinta
-bool func_hijo(int hijo){
+int func_hijo(int hijo){
     switch(hijo){
         case 1: {
-            printf("Introduzca la posición para insertar el valor")
+            printf("Introduzca la posición para insertar el valor");
         }
     }
 }
