@@ -1,17 +1,18 @@
 //juego.cc
 // Programa principal prueba funcionamiento de la clase Dados
 #include <iostream>
+#include <cstdlib>
 #include "dados.h"
 #include "funciones.h"
 
 int main(int argc, char const *argv[]){
+	system("clear");
 	Dados d;
-	int eleccion;
 
 	std::cout<<"Bienvenido a 'El juego de los DADOS'\n";
-	eleccion = menu_func(d);
+	menu_func(d);
 
-	std::cout<<"Proceso terminado";
+	std::cout<<"El juego ha terminado\n";
 
 	return 0;
 }

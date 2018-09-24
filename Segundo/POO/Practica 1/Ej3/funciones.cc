@@ -3,6 +3,8 @@
 #include "dados.h"
 #include "funciones.h"
 #include <iostream>
+#include <cstdio>
+#include <cstdlib>
 
 void accion_func(int eleccion, Dados d){
 	switch(eleccion){
@@ -47,9 +49,13 @@ void accion_func(int eleccion, Dados d){
 	}
 
 }
-//Funcion para llamar al menu
-int menu_func(Dados d){
+
+
+//Menu principal
+void menu_func(Dados d){
 	int eleccion = 0;
+
+	std::cout<<"\n\n\n";
 
 	std::cout<<"Elige la acción a realizar\n";
 	std::cout<<"1- Realizar lanzamiento\n";
@@ -59,6 +65,9 @@ int menu_func(Dados d){
 	std::cout<<"5- Set Dado 1\n";
 	std::cout<<"6- Set Dadp 2\n";
 	std::cout<<"7- Salir\n";
+
+	std::cin>>eleccion;
+	system("clear");
 
 	accion_func(eleccion, d);
 }

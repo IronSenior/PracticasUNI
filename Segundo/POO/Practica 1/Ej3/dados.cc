@@ -30,7 +30,7 @@ int Dados::getDado2(){
 
 bool Dados::setDado1(int valor){
 	//It assigns valor to d1_  if it is correct return True
-	if (0 < valor < 7){
+	if ((0 < valor) && (valor < 7)){
 		d1_ = valor;
 		return true;
 	}
@@ -41,7 +41,7 @@ bool Dados::setDado1(int valor){
 
 bool Dados::setDado2(int valor){
 	//It assigns valor to d2_  if it is correct return True
-	if (0 < valor < 7){
+	if ((0 < valor) && (valor < 7)){
 		d2_ = valor;
 		return true;
 	}

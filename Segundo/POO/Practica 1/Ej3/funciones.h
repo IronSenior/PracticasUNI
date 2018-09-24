@@ -6,6 +6,6 @@
 
 void accion_func(int eleccion, Dados d);
 
-int menu_func(Dados d);
+void menu_func(Dados d);
 
 #endif
