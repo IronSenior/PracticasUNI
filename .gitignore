@@ -1,3 +1,6 @@
 *.zip
 *.o
+*.out
 .vscode/
+dados_unitest/
+googletest-master/

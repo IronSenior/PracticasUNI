@@ -8,7 +8,7 @@ Dados::Dados(){
 	//It will change the random seed and set a initial value for d1_ and d2_
 	srand(time(NULL)); //time(NULL) returns "UNIX Epoch"
 	d1_ = 1;
-	d2_ = 2;
+	d2_ = 1;
 
 }
 
