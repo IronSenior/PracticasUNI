@@ -60,7 +60,7 @@ void accion_func(int eleccion, Dados d){
 			std::cout<<"La media del dado 2 es "<<d.getMedia2()<<std::endl;
 			menu_func(d);
 		}
-		case 11:{ //Salir del programa
+		case 13:{ //Salir del programa
 			exit(0);
 		}
 	}
@@ -85,7 +85,9 @@ void menu_func(Dados d){
 	std::cout<<"8- Ver lanzamientos 2\n";
 	std::cout<<"9- Ver media de dado 1\n";
 	std::cout<<"10- Ver media de dado 2\n";
-	std::cout<<"11- Salir\n";
+	std::cout<<"11- Ver ultimos 5 resultados del dado 1";
+	std::cout<<"12- Ver ultimos 5 resultados del dado 2";
+	std::cout<<"13- Salir\n";
 
 	std::cin>>eleccion;
 	system("clear");
