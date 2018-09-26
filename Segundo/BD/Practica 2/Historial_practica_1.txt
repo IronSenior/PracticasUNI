@@ -21,3 +21,19 @@ FROM
 
 --Muestra información sobre la tabla
 DESCRIBE partidos;
+
+--Insertamos los valores de Maria
+INSERT INTO votantes VALUES 
+(30653845,'Maria Gonzalez Ramirez', 'Doctorado', 'Activo', 'goram@telefonica.es', 1, '21/08/1989', 677544822);
+
+--Comprobamos que los hemos metido bien
+SELECT * FROM votantes;
+
+--Los borramos
+DELETE FROM votantes WHERE dni=30653845;
+
+-- Sacamos solo el nombre, el tipo y la fecha de los eventos
+SELECT nombre, tipo, fecha FROM eventos;
+
+-- || sirve para concatenar textos
+SELECT nombre||' de tipo '||tipo as "Convocatoria" FROM eventos;
