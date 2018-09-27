@@ -52,7 +52,7 @@ int main(int argc, char const *argv[])
 	//El proceso padre esperará a los tres procesos
   	for(int i=0; i<3; i++){
 		pid_t pid = wait(&status);
-		printf("Finalizado proceso %i con valor %i", pid, WEXITSTATUS(status));
+		printf("Finalizado proceso %i con valor %i\n", pid, WEXITSTATUS(status));
 	}
 
 	//Libera memoria del vector
@@ -118,8 +118,8 @@ void func_hijo(int hijo){
 			}
         }
     }
+	
 	shmdt(vector);
-
 	exit(hijo);
 
 }
