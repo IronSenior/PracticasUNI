@@ -22,3 +22,9 @@ UPDATE prueba SET edad=46 WHERE edad=23;
 DELETE FROM prueba;
 
 DROP Table prueba;
+
+DESCRIBE votantes;
+
+
+
+

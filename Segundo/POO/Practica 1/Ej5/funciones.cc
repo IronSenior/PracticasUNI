@@ -44,7 +44,23 @@ void accion_func(int eleccion, Dados d){
 			d.setDado2(valor);
 			menu_func(d);
 		}
-		case 7:{ //Salir del programa
+		case 7:{ //Llamada a la funciín getLanzamientos1() de la clase Dados
+			std::cout<<"Se han realizado "<<d.getLanzamientos1()<<" del dado 1\n";
+			menu_func(d);
+		}
+		case 8:{ //Llamada a la función getLanzamientos2() de la clase Dados
+			std::cout<<"Se han realizado "<<d.getLanzamientos2()<<" del dado 2\n";
+			menu_func(d);
+		}	
+		case 9:{
+			std::cout<<"La media del dado 1 es "<<d.getMedia1()<<std::endl;
+			menu_func(d);
+		}
+		case 10:{
+			std::cout<<"La media del dado 2 es "<<d.getMedia2()<<std::endl;
+			menu_func(d);
+		}
+		case 13:{ //Salir del programa
 			exit(0);
 		}
 	}
@@ -65,7 +81,13 @@ void menu_func(Dados d){
 	std::cout<<"4- Ver suma de los dados\n";
 	std::cout<<"5- Set Dado 1\n";
 	std::cout<<"6- Set Dadp 2\n";
-	std::cout<<"7- Salir\n";
+	std::cout<<"7- Ver lanzamientos 1\n";
+	std::cout<<"8- Ver lanzamientos 2\n";
+	std::cout<<"9- Ver media de dado 1\n";
+	std::cout<<"10- Ver media de dado 2\n";
+	std::cout<<"11- Ver ultimos 5 resultados del dado 1";
+	std::cout<<"12- Ver ultimos 5 resultados del dado 2";
+	std::cout<<"13- Salir\n";
 
 	std::cin>>eleccion;
 	system("clear");

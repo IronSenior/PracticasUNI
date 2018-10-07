@@ -11,37 +11,115 @@
 
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/shm.h>
+#include <sys/ipc.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 
 
 int main(int argc, char const *argv[])
 {
 	int status;
     int hijo = 0;
+	int *vector;
+	key_t key;
+	struct shmid_ds buf;
+	int shmid;
+	void func_hijo(int);
 
-    printf("Se van a crear los tres hijo\n")
+    // Memoria compartida
+    key = ftok("ej2.c", 1);
+    if ((shmid = shmget(key, 100*sizeof(int), IPC_CREAT | 0777)) == -1)
+	exit(1);
+
+    vector = (int *) shmat(shmid, NULL, 0);
+
+	//Inicializamos el vector con 100 valores aleatorios
+	for(int i=0; i<100; i++){
+		vector[i] = rand() % 1000;
+	}
+
+	//Creación de procesos hijos
+    printf("Se van a crear los tres hijo\n");
 	for(int i=0; i<3; i++){
-        hijo ++;
-		if(!fork()){ //De esta manera creamos varios hijos que ejecutaran lo mismo
-			func_hijo(hijo); //Los tres hijo llamaran a la misma funcion que hará una cosa distinta para cada uno
-			exit(EXIT_SUCCESS); //EXIT_SUCCESS indica que el proceso termino con exito (es igual a 0)
+		if(!fork()){
+			func_hijo(i);
 		}
 	}
-  	for(int i=0; i<3; i++){ //Esperará a que terminen los 3 procesos (No sé si esto está correcto)
-		wait(&status);
+
+	//El proceso padre esperará a los tres procesos
+  	for(int i=0; i<3; i++){
+		pid_t pid = wait(&status);
+		printf("Finalizado proceso %i con valor %i\n", pid, WEXITSTATUS(status));
 	}
+
+	//Libera memoria del vector
+	shmdt(vector);
+	//Y lo destruye
+	shmctl(shmid, IPC_RMID, &buf);
 
 	printf("Procesos hijos terminados\n");
 	return 0;
 }
 
 //Cada hijo ejecutará una tarea distinta
-bool func_hijo(int hijo){
+//Hay que compartir memoria
+void func_hijo(int hijo){
+
+	int *vector;
+	int shmid;
+	key_t key;
+	int index, value, suma;
+
+
+	// Memoria compartida
+    key = ftok("ej2.c", 1);
+    if ((shmid = shmget(key, 100*sizeof(int), 0)) == -1)
+	perror("Child: ");
+
+    vector = (int *) shmat(shmid, NULL, 0);
+
+
     switch(hijo){
-        case 1: {
-            printf("Introduzca la posición para insertar el valor")
+        case 0: {//Ejecución del proceso 1
+			for (int i=0; i<10; i++){
+				//Pide al usuario el indice y el valor
+				printf("Introduzca la posición para insertar el valor\n");
+				scanf("%i", &index);
+				printf("Introduzca el valor que quiere introducir\n");
+				scanf("%i", &value);
+				//Comprueba que el indice es correcto 
+				if ((index < 100) && (index >= 0)){
+					vector[index] = value;
+				}else{
+					printf("Indice no valido\n");
+				}
+			}
+        }
+		case 1: {//Ejecución del proceso 2
+			for (int i=0; i<100; i++){
+				//Asigna los valores aleatorios
+				index = rand() %100;
+				value = rand() %1000;
+				vector[index] = value;
+				sleep(1); //Se espera un segundo 
+			}
+        }
+		case 2: {//Ejecución del proceso 3
+			for(int i=0; i<5; i++){
+				suma = 0;//Ejecución del proceso 3
+				for(int j=0; i<100; i++){
+					suma += vector[i];
+				}
+				printf("La suma del vector es %i\n", suma);
+				sleep(30); //Se espera 30 segundos
+			}
         }
     }
+	
+	shmdt(vector);
+	exit(hijo);
+
 }
