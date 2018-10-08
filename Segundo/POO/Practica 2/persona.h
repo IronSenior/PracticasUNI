@@ -19,7 +19,9 @@ class Persona{
 
     public:
         //Constructor
-        Persona(string new_dni, string new_name="", string new_lname="", int new_age=0, string new_adress="", string new_location="", string new_province="", string new_country="");
+        Persona(string new_dni, string new_name="", string new_lname="",
+        int new_age=0, string new_adress="", string new_location="", 
+        string new_province="", string new_country="");
 
         //Modifiers
         void setDNI(string new_dni){dni_ = new_dni;};
