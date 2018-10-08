@@ -1,10 +1,11 @@
 //persona.h
 //Cabecera de la clase persona
+#ifndef PERSONA_H
+#define PERSONA_H
+
 #include <string>
 using std::string;
 
-#ifndef PERSONA_H
-#define PERSONA_H
 
 class Persona{
     private:
