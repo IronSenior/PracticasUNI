@@ -1,10 +1,10 @@
 //persona.h
 //Cabecera de la clase persona
 #include <string>
+using std::string;
 
 #ifndef PERSONA_H
 #define PERSONA_H
-
 
 class Persona{
     private:
@@ -17,7 +17,7 @@ class Persona{
         string provincia_;
         string pais_;
 
-    private:
+    public:
         //Constructor
         Persona(string new_dni, string new_name="", string new_lname="", int new_age=0, string new_adress="", string new_location="", string new_province="", string new_country="");
 
@@ -34,16 +34,16 @@ class Persona{
         //Observers
         string getDNI(){return dni_;};
         string getNombre(){return nombre_;};
-        string getApellido(){return apellidos_;};
+        string getApellidos(){return apellidos_;};
         string getApellidosyNombre();
-        string getEdad(){return edad_;};
+        int getEdad(){return edad_;};
         string getDireccion(){return direccion_;};
         string getLocalidad(){return localidad_;};
         string getProvincia(){return provincia_;};
         string getPais(){return pais_;};
 
         //Otras funciones
-        bool mayor(){};
+        bool mayor();
 };
 
 

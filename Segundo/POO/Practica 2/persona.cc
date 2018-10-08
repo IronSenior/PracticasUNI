@@ -4,8 +4,10 @@
 #include <string>
 #include "persona.h"
 
+using std::string;
+
 //Asigna los valores predeterminados al crear la instancia
-Persona::Persona(string new_dni, string new_name="", string new_lname="", int new_age=0, string new_adress="", string new_location="", string new_province="", string new_country=""){
+Persona::Persona(string new_dni, string new_name, string new_lname, int new_age, string new_adress, string new_location, string new_province, string new_country){
     dni_= new_dni;
     nombre_ = new_name;
     apellidos_ = new_lname;
@@ -31,6 +33,8 @@ bool Persona::setEdad(int new_age){
 string Persona::getApellidosyNombre(){
     string name_lname;
     name_lname = apellidos_ + ", " + nombre_;
+
+    return name_lname;
 }
 
 //DEvuelve True si la persona es mayor de edad
