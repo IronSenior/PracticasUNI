@@ -1,0 +1,12 @@
+7 5
+8 2
+@
+0
+@
+CRA
+ADD 8
+CTA
+ITA
+ADD 7
+STA 9
+HALT
