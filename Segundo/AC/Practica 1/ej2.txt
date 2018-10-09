@@ -1,0 +1,29 @@
+#CALCULO DE SUMA DE DOS VALORES ABSOLUTOS
+0 3
+1 FFFF
+@
+3
+@
+CRA
+ADD 0
+ROL_F_ACC
+SFZ
+CSR 13
+ROR_F_ACC
+STA 0
+CRA
+ADD 1
+ROL_F_ACC
+SFZ
+CSR 13
+ROR_F_ACC
+ADD 0
+STA 2
+HALT
+#Comienza la subrutina que calcula el valor absoluto
+HALT
+ROR_F_ACC
+CTA
+ITA
+ROL_F_ACC
+JMPI 13
