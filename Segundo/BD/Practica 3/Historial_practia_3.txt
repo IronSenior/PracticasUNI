@@ -22,6 +22,8 @@ SELECT partido, COUNT(consulta) FROM consultas_datos group by partido;
 
 --Ejercicio 8
 SELECT p.nombrecompleto FROM consultas_datos c, partidos p
-  WHERE c.partido = p.idpartido
-  HAVING COUNT(c.consulta) > 10
-  GROUP BY p.nombrecompleto;
+    WHERE c.partido = p.idpartido
+    HAVING COUNT(c.consulta) > 10
+    GROUP BY p.nombrecompleto;
+
+--Ejercicio 9 
