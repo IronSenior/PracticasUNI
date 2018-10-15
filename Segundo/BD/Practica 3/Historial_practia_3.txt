@@ -26,4 +26,4 @@ SELECT p.nombrecompleto FROM consultas_datos c, partidos p
     HAVING COUNT(c.consulta) > 10
     GROUP BY p.nombrecompleto;
 
---Ejercicio 9 
+--Ejercicio 9
