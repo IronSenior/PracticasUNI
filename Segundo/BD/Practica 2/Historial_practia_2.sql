@@ -34,5 +34,5 @@ SELECT p.nombrecompleto, COUNT(c.consulta) as "conteo" FROM consultas_datos c, p
 
 --Ejercicio 10 (Me salen numeros distintos a la solucion)
 SELECT p.nombrecompleto, COUNT(c.consulta) as "Conteo" FROM consultas_datos c, partidos p
-    WHERE c.partido = p.idpartido and c.certidumbre > 0.8 and c.respusta = 'Si'
+    WHERE c.partido = p.idpartido and c.certidumbre > 0.8 and c.respuesta = 'Si'
     GROUP BY p.nombrecompleto;
