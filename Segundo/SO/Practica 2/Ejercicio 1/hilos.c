@@ -10,7 +10,7 @@ double counter = 0;
 
 int main()
 {
-    pthread_t hilos[NHILOS];
+    pthread_t hilos[NHILOS]; //Identificadores de los hilos
     int status, i, v[NHILOS];
     extern double counter;
     void *adder(void *);
@@ -35,7 +35,7 @@ int main()
     return 0;
 }
 
-void *adder(void *p)
+void *adder(void *p) //Se le pasa un void * siempres
 {
     double l, *to_return;
     extern double counter;
@@ -43,6 +43,7 @@ void *adder(void *p)
 
     id = (int *) p;
 
+    //Sección Crítica
     for (i = 0; i < ITER; i++) {
 	l = counter;
 	fprintf(stdout, "Hilo %d: %f\n", *id, counter);
