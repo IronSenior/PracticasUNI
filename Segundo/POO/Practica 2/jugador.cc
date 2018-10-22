@@ -3,15 +3,23 @@
 #include <list>
 #include <fstream>
 #include <cstdlib>
+#include <iostream>
 
 using std::string;
 using std::list;
+using std::getline;
 
 bool Jugador::setApuestas(list<apuesta> new_apuesta){
-    std::ofstream apuesta_file;
     string file_name;
+    char linea[20];
     file_name = getDNI() + ".txt";
-    apuesta_file.open(file_name);
-    apuesta_file.close();
-    
+
+    std::ifstream apuesta_file(file_name);
+
+    while(!apuesta_file.eof()){
+        apuesta_file.getline(linea, 20);
+        std::cout<<linea<<std::endl;
+        
+    }
+
 }

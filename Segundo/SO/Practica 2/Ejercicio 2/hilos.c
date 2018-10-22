@@ -52,7 +52,7 @@ void *adder(void *p) //Se le pasa un void * siempres
 
     id = (int *) p;
 
-
+/*
     //Sección Crítica
     for (i = 0; i < ITER; i++) {
         eligiendo[*id] = true;
@@ -68,7 +68,7 @@ void *adder(void *p) //Se le pasa un void * siempres
         l++;
         counter = l;
     }
-
+*/
     to_return = malloc(sizeof(double));
 
     *to_return = counter;
