@@ -12,8 +12,29 @@ double counter = 0;
 bool eligiendo[NHILOS];
 int numero[NHILOS];
 
-eligiendo = {false, false, false, false};
-numero = {0,0,0,0};
+void initialize_elig_and_num(){
+    extern int numero[];
+    extern bool eligiendo[];
+    for (int i = 0; i<NHILOS; i++){
+        eligiendo[i] = false;
+        numero[i] = false;
+    }
+}
+
+//Funcion que calcula el maximo del vector numero[]
+int maximo(){
+    extern int numero[];
+    int max = 0;
+
+    for (int i=0; i<NHILOS; i++){
+        if(numero[i]> max){
+            max = numero[i];
+        }
+    }
+    return max;
+}
+
+
 
 int main()
 {
@@ -22,6 +43,8 @@ int main()
     extern double counter;
     void *adder(void *);
     double *r_value;
+
+    initialize_elig_and_num();
 
     // Create NHILOS threads
     for (i = 0; i < NHILOS; i++) {
@@ -32,43 +55,54 @@ int main()
 
     // Wait threads
     for (i = 0; i < NHILOS; i++) {
-	pthread_join(hilos[i], (void **) &r_value);
-	printf("Value returned by %lu thread: %lf\n", hilos[i], *r_value);
+	    pthread_join(hilos[i], (void **) &r_value);
+	    printf("Value returned by %lu thread: %lf\n", hilos[i], *r_value);
     }
 
     // Final result
-    fprintf(stdout, "%f\n", counter);
+    fprintf(stdout, "Cuenta final (Tiene que ser 4000) = %f\n", counter);
 
     return 0;
 }
 
 void *adder(void *p) //Se le pasa un void * siempres
 {
-    double l, *to_return;
     extern double counter;
-    int *id, i;
     extern bool eligiendo[];
     extern int numero[];
+    int *id;
+    double l, *to_return;
 
+    //Como le hemos pasado un void* hay que hacer un casting a int
     id = (int *) p;
 
-/*
-    //Sección Crítica
-    for (i = 0; i < ITER; i++) {
+    //Sección Crítica (Algoritmo de Lamport)
+    for (int i = 0; i < ITER; i++) {
+
+        //Cola donde de coge numero
         eligiendo[*id] = true;
-        numero[*id] = maximo(); //Hay que definir la funcion maximo
+        numero[*id] = maximo() + 1;
         eligiendo[*id] = false;
+
+        //Zona de espera
         for(int j=0; j<NHILOS; j++){
             while(eligiendo[j]);
-            while()
-
+            while((numero[j] != 0) && ((numero[j] < numero[*id]) || ((numero[j] == numero[*id]) && (j<*id))));
         }
+
+        //Sección Crítica
         l = counter;
         fprintf(stdout, "Hilo %d: %f\n", *id, counter);
         l++;
         counter = l;
+        //Final Seccion Crítica
+
+        //IMPORTANTE: hay que poner el numero a 0 
+        numero[*id] = 0;
     }
-*/
+    
+
+    //Para hacer el return de los hilos hay que reservar memoria
     to_return = malloc(sizeof(double));
 
     *to_return = counter;
