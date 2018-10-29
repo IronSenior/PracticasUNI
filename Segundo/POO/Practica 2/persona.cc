@@ -37,7 +37,7 @@ string Persona::getApellidosyNombre(){
     return name_lname;
 }
 
-//DEvuelve True si la persona es mayor de edad
+//Devuelve True si la persona es mayor de edad
 bool Persona::mayor(){
     if (edad_ < 18){
         return false;

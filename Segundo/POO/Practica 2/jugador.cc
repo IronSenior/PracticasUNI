@@ -10,6 +10,7 @@ using std::list;
 using std::getline;
 using std::ifstream;
 
+//Asigna las apuestas del jugador que hay en su archivo
 void Jugador::setApuestas(){
     string file_name;
     file_name = getDNI() + ".txt";
@@ -18,6 +19,7 @@ void Jugador::setApuestas(){
 }
 
 
+//Devuelve la lista de apuestas que hay en el archivo de ese jugador
 list<Apuesta> Jugador::ApuestaFile_(string file_name){
   list <Apuesta> lapuesta;
   Apuesta apuesta;

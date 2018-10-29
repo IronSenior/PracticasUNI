@@ -24,7 +24,7 @@ class Persona{
         int new_age=0, string new_adress="", string new_location="", 
         string new_province="", string new_country="");
 
-        //Modifiers
+        //Modificadores
         void setDNI(string new_dni){dni_ = new_dni;};
         void setNombre(string new_name){nombre_ = new_name;};
         void setApellido(string new_lname){apellidos_ = new_lname;};
@@ -34,7 +34,7 @@ class Persona{
         void setProvincia(string new_province){provincia_ = new_province;};
         void setPais(string new_country){pais_ = new_country;};
 
-        //Observers
+        //Observadores
         string getDNI(){return dni_;};
         string getNombre(){return nombre_;};
         string getApellidos(){return apellidos_;};
@@ -45,7 +45,7 @@ class Persona{
         string getProvincia(){return provincia_;};
         string getPais(){return pais_;};
 
-        //Otras funciones
+        //Devuelve True si es mayor de edad (>18)
         bool mayor();
 };
 
