@@ -11,33 +11,33 @@
 using std::string;
 using std::list;
 
-struct apuesta{
-    int type;
-    string value;
-    int amount;
+struct Apuesta{
+    int tipo;
+    string valor;
+    int cantidad;
 };
 
 class Jugador : public Persona{
     private:
         string codigo_;
-        int dinero_ = 1000;
-        list<apuesta> apuestas_;
+        int dinero_;
+        list<Apuesta> apuestas_;
+        list<Apuesta> ApuestaFile_(string file_name);
 
     public:
         Jugador(string new_dni, string new_code, string new_name="", string new_lname="", 
         int new_age=0, string new_adress="", string new_location="", string new_province="", 
         string new_country=""):Persona(new_dni, new_name, new_lname, 
         new_age, new_adress, new_location, new_province, 
-        new_country){codigo_ = new_code;};
+        new_country){codigo_ = new_code; dinero_ = 1000;};
 
         inline string const getCodigo(){return codigo_;};
-        inline int const getDinero(){return dinero_;};
-        inline list<apuesta> const getApuestas(){return apuestas_;};
+        inline int getDinero() const {return dinero_;};
+        inline list<Apuesta> getApuestas() const {return apuestas_;};
 
-        inline bool setDinero(int new_money){dinero_ = new_money;};
-        inline bool setCodigo(int new_code){codigo_ = new_code;};
-
-        bool setApuestas(list<apuesta> new_apuesta);
+        inline void setDinero(int new_money){dinero_ = new_money;};
+        inline void setCodigo(string new_code){codigo_ = new_code;};
+        void setApuestas();
 
 };
 

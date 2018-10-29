@@ -8,18 +8,34 @@
 using std::string;
 using std::list;
 using std::getline;
+using std::ifstream;
 
-bool Jugador::setApuestas(list<apuesta> new_apuesta){
+void Jugador::setApuestas(){
     string file_name;
-    char linea[20];
     file_name = getDNI() + ".txt";
 
-    std::ifstream apuesta_file(file_name);
+    apuestas_ = ApuestaFile_(file_name);
+}
 
-    while(!apuesta_file.eof()){
-        apuesta_file.getline(linea, 20);
-        std::cout<<linea<<std::endl;
-        
-    }
 
+list<Apuesta> Jugador::ApuestaFile_(string file_name){
+  list <Apuesta> lapuesta;
+  Apuesta apuesta;
+  
+  string value;
+  
+  ifstream file(file_name);
+  
+  //file.eof() do an extra read when all lines are read
+  //getline returns false when there is not any line to read
+  while(getline(file, value, ',')) {
+    apuesta.tipo = stoi(value);
+    getline(file, value, ',');
+    apuesta.valor = value;
+    getline(file, value);
+    apuesta.cantidad = stoi(value);
+
+    lapuesta.push_back(apuesta);
+   }  
+  return lapuesta;
 }
