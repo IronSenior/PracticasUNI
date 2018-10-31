@@ -38,6 +38,7 @@ list<Apuesta> Jugador::ApuestaFile_(string file_name){
     apuesta.cantidad = stoi(value);
 
     lapuesta.push_back(apuesta);
-   }  
+   }
+  file.close();
   return lapuesta;
 }

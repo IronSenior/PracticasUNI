@@ -16,6 +16,9 @@ class Ruleta{
         int bola_;
         Crupier crupier_;
         list<Jugador> jugadores_;
+        bool player_exist_(Jugador player);
+        int count_players_();
+
     private:
         Ruleta(Crupier new_crupier);
 
@@ -27,6 +30,9 @@ class Ruleta{
         inline void setCrupier(Crupier new_crupier){crupier_ = new_crupier;};
         bool setBanca(int new_banca);
         bool setBola(int new_bola);
+
+        bool addJugador(Jugador new_player);
+        int deleteJugador(Jugador player);
 };
 
 #endif
