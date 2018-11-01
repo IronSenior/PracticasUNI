@@ -82,7 +82,7 @@ int Ruleta::deleteJugador(Jugador player){
 }
 
 //Escribe en jugadores.txt la lista de jugadores
-void Ruleta::escribeJugador() const {
+void Ruleta::escribeJugador() {
     std::ofstream ficheplayers;
     ficheplayers.open("jugadores.txt");
 
