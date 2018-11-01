@@ -150,38 +150,47 @@ void Ruleta::getPremios(){
         for (itapuesta = itplayer->getApuestas.begin(); itapuesta != itplayer->getApuestas.end(); itapuesta++){
             if (itapuesta->tipo == 1){
                 if(stoi(itapuesta->valor) == bola_){
+                    banca_ = banca_ - (35 * itapuesta->cantidad);
                     itplayer->setDinero(itplayer->getDinero + (35 * itapuesta->cantidad));
                 }
                 else{
+                    banca_ = banca_ + itapuesta->cantidad;
                     itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
                 }
             }
-            /*else if (itapuesta->tipo == 2){ //Nop hemos determinado que color sale
+            /*else if (itapuesta->tipo == 2){ //No hemos determinado que color sale
                 if ((bola_ == 0) || (itapuesta->valor != ))
             }*/
             else if (bola_ == 0){
+                banca_ = banca_ + itapuesta->cantidad;
                 itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
             }
             
             else if(itapuesta->tipo == 3){
                 if((itapuesta->valor == "par")&& (bola_%2==0)){
+                    banca_ = banca_ - itapuesta->cantidad;
                     itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
                 }
                 else if((itapuesta->valor == "impar")&& (bola_%2!=0)){
+                    banca_ = banca_ - itapuesta->cantidad;
                     itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
                 }
                 else {
+                    banca_ = banca_ + itapuesta->cantidad;
                     itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
                 }
             }
             else if(itapuesta->tipo == 4){
                 if((itapuesta->valor == "alto") && (bola_>18)){
+                    banca_ = banca_ - itapuesta->cantidad;
                     itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
                 }
                 else if((itapuesta->valor == "bajo")&&(bola_<18)){
+                    banca_ = banca_ - itapuesta->cantidad;
                     itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
                 }
                 else {
+                    banca_ = banca_ + itapuesta->cantidad;
                     itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
                 }
             }
