@@ -140,6 +140,7 @@ void Ruleta::giraRuleta(){
 }
 
 //Suma o quita el dinero a los jugadores en función de su apuesta y el tipo de la misma
+//hay que revisar y optimizar esta función
 void Ruleta::getPremios(){
     list<Jugador>::iterator itplayer;
     
