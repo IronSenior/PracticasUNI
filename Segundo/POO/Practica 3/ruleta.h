@@ -33,6 +33,11 @@ class Ruleta{
 
         bool addJugador(Jugador new_player);
         int deleteJugador(Jugador player);
+        void escribeJugador() const;
+        void leeJugadores();
+        void giraRuleta();
+        void getPremios();
+
 };
 
 #endif

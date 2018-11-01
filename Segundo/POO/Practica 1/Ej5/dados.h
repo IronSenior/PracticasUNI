@@ -36,7 +36,7 @@ class Dados{
 
 		//Devuelven la lista de los 5 ultimos lanzamientos
 		//El último elemento de la lista es el último lanzamiento
-		//No cuenta como lanzamiento el setDadox
+		//No cuenta como lanzamiento el setDados
 		inline list<int> getVultimos1() const {return vultimos1_;};
 		inline list<int> getVultimos2() const {return vultimos1_;};
 };
