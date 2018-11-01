@@ -34,6 +34,7 @@ class Persona{
         inline void setProvincia(string new_province){provincia_ = new_province;};
         inline void setPais(string new_country){pais_ = new_country;};
 
+
         //Observers
         inline string getDNI(){return dni_;};
         inline string getNombre(){return nombre_;};
@@ -45,7 +46,7 @@ class Persona{
         inline string getProvincia(){return provincia_;};
         inline string getPais(){return pais_;};
 
-        //Otras funciones
+        //Devuelve True si es mayor de edad (>18)
         bool mayor();
 };
 

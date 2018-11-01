@@ -23,14 +23,14 @@ SELECT partido, COUNT(consulta) FROM consultas_datos group by partido;
 --Ejercicio 8
 SELECT p.nombrecompleto FROM consultas_datos c, partidos p
     WHERE c.partido = p.idpartido
-    HAVING COUNT(c.consulta) > 10
-    GROUP BY p.nombrecompleto;
+    GROUP BY p.nombrecompleto
+    HAVING COUNT(c.consulta) > 10;
 
 --Ejercicio 9
 SELECT p.nombrecompleto, COUNT(c.consulta) as "conteo" FROM consultas_datos c, partidos p
     WHERE c.partido = p.idpartido
-    HAVING COUNT(c.consulta) > 10
     GROUP BY p.nombrecompleto
+    HAVING COUNT(c.consulta) > 10;
 
 --Ejercicio 10 (Me salen numeros distintos a la solucion)
 SELECT p.nombrecompleto, COUNT(c.consulta) as "Conteo" FROM consultas_datos c, partidos p

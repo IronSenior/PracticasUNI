@@ -35,7 +35,7 @@ int main()
     return 0;
 }
 
-void *adder(void *p) //Se le pasa un void * siempres
+void *adder(void *p) //Se le pasa un void * siempre
 {
     double l, *to_return;
     extern double counter;
