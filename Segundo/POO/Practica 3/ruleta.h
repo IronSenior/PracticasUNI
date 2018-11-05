@@ -20,7 +20,7 @@ class Ruleta{
         int count_players_();
 
     private:
-        Ruleta(Crupier new_crupier);
+        Ruleta(Crupier new_crupier); //Error extraño
 
         inline int getBola() const {return bola_;};
         inline int getBanca() const {return banca_;};
@@ -33,6 +33,11 @@ class Ruleta{
 
         bool addJugador(Jugador new_player);
         int deleteJugador(Jugador player);
+        void escribeJugador(); //No puede ser const
+        void leeJugadores();
+        void giraRuleta();
+        void getPremios();
+
 };
 
 #endif

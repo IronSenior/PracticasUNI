@@ -3,6 +3,9 @@
 #include "dados.h"
 #include <cstdlib>
 #include <ctime>
+#include <list>
+
+using std::list;
 
 Dados::Dados(){
 	//Asigna los valores iniciales
@@ -24,16 +27,8 @@ void Dados::lanzamiento(){
 	lanzdado2_ ++;
 	d1Suma_ += d1_;
 	d2Suma_ += d2_;
-}
-
-int Dados::getDado1(){
-	//Devuelve el valor del dado 1
-	return d1_;
-}
-
-int Dados::getDado2(){
-	//Devuelve el valor del dado 2
-	return d2_;
+	savelanzamiento1_(d1_);
+	savelanzamiento2_(d2_);
 }
 
 bool Dados::setDado1(int valor){
@@ -86,12 +81,25 @@ float Dados::getMedia2(){
 		return (d2Suma_ / lanzdado2_);
 	}
 }
-int Dados::getLanzamientos1(){
-	//Decuelve el numero de veces que ha sido lanzado el dado 1
-	return lanzdado1_;
+
+//Guarda en la lista de lanzamientos el ultimo del dado 1
+void Dados::savelanzamiento1_(int lanz){
+	if (vultimos1_.size() == 5){
+		list<int>::iterator comienzo;
+		comienzo = vultimos1_.begin();
+		vultimos1_.remove(*comienzo);
+	}
+	vultimos1_.push_back(lanz);
+
 }
 
-int Dados::getLanzamientos2(){
-	//Decuelve el numero de veces que ha sido lanzado el dado 2
-	return lanzdado2_;
+//Guarda en la lista de lanzamientos el ultimo del dado 2
+void Dados::savelanzamiento2_(int lanz){
+	if (vultimos2_.size() == 5){
+		list<int>::iterator comienzo;
+		comienzo = vultimos2_.begin();
+		vultimos2_.remove(*comienzo);
+	}
+	vultimos2_.push_back(lanz);
+
 }
