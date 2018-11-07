@@ -1,6 +1,10 @@
 --Ejercicio 1
 SELECT v.nombrecompleto FROM votantes v, localidades l 
-    WHERE (SUBSTR(v.dni,8,8) - 1 = l.idlocalidad) and (l.idlocalidad = v.localidad);
+    WHERE (SUBSTR(v.dni,-1) - 1 = l.idlocalidad) and (l.idlocalidad = v.localidad);
+
+--Ejercicio 1 (Resuelto por el Profesor)
+SELECT nombrecompleto FROM votantes 
+    WHERE dni LIKE Concat('%', (localidad+1));
 
 --Ejercicio 2
 SELECT v.nombrecompleto, DECODE(l.provincia, 1, "Madrid", l.nombre) as ciudad
