@@ -3,6 +3,7 @@
 
 #include "auxfunc.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h>
 
 void get_matrix(int** matrix){
@@ -36,17 +37,21 @@ void multiplyBase(int* vector, int** matrix, int* result){
     }
 }
 
-void *multiplyThread(int* vector, int** matrix, int* result, void *thread_index){
+void *multiplyThread(void *thread_index){
     int *index;
     int j;
-    double *to_return;
+    int *to_return;
+    extern int vector[VECTOR];
+    extern int matrix[MATRIXI][MATRIXJ];
+    extern int result[VECTOR];
+
     index = (int*) thread_index;
     for (j = 0; j < MATRIXJ; j++){
         result[*index] += matrix[*index][j] * vector[j];
     }
-    to_return = malloc(sizeof(double));
+    to_return = malloc(sizeof(int)*VECTOR);
 
-    *to_return = *index;
+    *to_return = *result;
 
     pthread_exit((void *) to_return);
 }

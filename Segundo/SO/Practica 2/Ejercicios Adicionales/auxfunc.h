@@ -9,13 +9,20 @@
 #define MATRIXJ 3
 #define VECTOR  3
 
+//Creacion del vector
+int vector[VECTOR];
+
+int matrix[MATRIXI][MATRIXJ];
+
+int result[VECTOR];
+
 void get_matrix(int** matrix);
 
 void get_vector(int* vector);
 
 void multiplyBase(int* vector, int** matrix, int* result);
 
-void *multiplyThread(int* vector, int** matrix, int* result, void *thread_index);
+void *multiplyThread(void *thread_index);
 
 void print_result(int* result);
 
