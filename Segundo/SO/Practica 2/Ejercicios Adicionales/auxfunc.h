@@ -15,6 +15,8 @@ void get_vector(int* vector);
 
 void multiplyBase(int* vector, int** matrix, int* result);
 
+void *multiplyThread(int* vector, int** matrix, int* result, void *thread_index);
+
 void print_result(int* result);
 
 #endif
