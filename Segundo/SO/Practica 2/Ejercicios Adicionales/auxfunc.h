@@ -18,7 +18,11 @@ int result[VECTOR];
 
 void get_matrix(int** matrix);
 
+void get_matrix_thread();
+
 void get_vector(int* vector);
+
+void get_vector_thread();
 
 void multiplyBase(int* vector, int** matrix, int* result);
 

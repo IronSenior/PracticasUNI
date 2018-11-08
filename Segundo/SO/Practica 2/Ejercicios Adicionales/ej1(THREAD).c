@@ -9,8 +9,8 @@ int main(int argc, char const *argv[]){
     extern int matrix[MATRIXI][MATRIXJ];
     extern int result[VECTOR];
 
-    get_vector(vector);
-    get_matrix(matrix); 
+    get_vector_thread();
+    get_matrix_thread(); 
 
     // Create NHILOS threads
     pthread_t hilos[MATRIXI];
