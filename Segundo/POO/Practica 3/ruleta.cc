@@ -81,12 +81,30 @@ int Ruleta::deleteJugador(Jugador player){
     if (!player_exist_(player)){
         return -2;
     }
-    jugadores_.remove(player);
+    list<Jugador>::iterator itplayer;
+    for(itplayer = jugadores_.begin(); itplayer != jugadores_.end(); itplayer++){
+        if(player.getDNI() == itplayer->getDNI()){
+            itplayer = jugadores_.erase(itplayer);
+        }
+    }
     return 1;
+}
+int Ruleta::deleteJugador(string dni){
+    if(jugadores_.empty()){
+        return -1;
+    }
+    list<Jugador>::iterator itplayer;
+    for(itplayer = jugadores_.begin(); itplayer != jugadores_.end(); itplayer++){
+        if(dni == itplayer->getDNI()){
+            itplayer = jugadores_.erase(itplayer);
+            return 1;
+        }
+    }
+    return -2;
 }
 
 //Escribe en jugadores.txt la lista de jugadores
-void Ruleta::escribeJugador() {
+void Ruleta::escribeJugadores() {
     std::ofstream ficheplayers;
     ficheplayers.open("jugadores.txt");
 
