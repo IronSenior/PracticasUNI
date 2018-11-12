@@ -47,6 +47,7 @@ bool Ruleta::addJugador(Jugador new_player){
     }
     std::ofstream file;
     file.open(filename);
+    file.close();
     return true;
 
 }
