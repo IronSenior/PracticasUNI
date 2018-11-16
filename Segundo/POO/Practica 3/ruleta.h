@@ -19,7 +19,7 @@ class Ruleta{
         bool player_exist_(Jugador player);
         int count_players_();
 
-    private:
+    public:
         Ruleta(Crupier new_crupier); //Error extraño
 
         inline int getBola() const {return bola_;};
@@ -27,13 +27,14 @@ class Ruleta{
         inline Crupier getCrupier() const {return crupier_;};
         inline list<Jugador> getJugadores() const {return jugadores_;};
 
-        inline void setCrupier(Crupier new_crupier{crupier_ = new_crupier;};
+        inline void setCrupier(Crupier new_crupier){crupier_ = new_crupier;};
         bool setBanca(int new_banca);
         bool setBola(int new_bola);
 
         bool addJugador(Jugador new_player);
         int deleteJugador(Jugador player);
-        void escribeJugador(); //No puede ser const
+        int deleteJugador(string dni);
+        void escribeJugadores(); //No puede ser const
         void leeJugadores();
         void giraRuleta();
         void getPremios();

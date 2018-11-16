@@ -1,11 +1,13 @@
 #include "ruleta.h"
 #include <cstdbool>
 #include <fstream>
+#include <string>
+#include <iostream>
 #include <cstdlib>
 
 
-Ruleta::Ruleta(Crupier new_crupier){
-    crupier_ = new_crupier;
+//Inicializacion de crupier como parametro
+Ruleta::Ruleta(Crupier new_crupier) : crupier_(new_crupier) {
     banca_ = 1000000;
     bola_ = -1;
 }
@@ -43,7 +45,9 @@ bool Ruleta::addJugador(Jugador new_player){
     if (std::ifstream(filename)){
         return true;
     }
-    std::ofstream(filename);
+    std::ofstream file;
+    file.open(filename);
+    file.close();
     return true;
 
 }
@@ -66,6 +70,7 @@ int Ruleta::count_players_(){
     for(itplayer = jugadores_.begin(); itplayer != jugadores_.end(); itplayer++){
         counter++;
     }
+    return counter;
 }
 
 //Devuelve 1 al eliminar un jugador, -1 si no hay jugadores y -2 si no existe ese jugador
@@ -77,12 +82,30 @@ int Ruleta::deleteJugador(Jugador player){
     if (!player_exist_(player)){
         return -2;
     }
-    jugadores_.remove(player);
+    list<Jugador>::iterator itplayer;
+    for(itplayer = jugadores_.begin(); itplayer != jugadores_.end(); itplayer++){
+        if(player.getDNI() == itplayer->getDNI()){
+            itplayer = jugadores_.erase(itplayer);
+        }
+    }
     return 1;
+}
+int Ruleta::deleteJugador(string dni){
+    if(jugadores_.empty()){
+        return -1;
+    }
+    list<Jugador>::iterator itplayer;
+    for(itplayer = jugadores_.begin(); itplayer != jugadores_.end(); itplayer++){
+        if(dni == itplayer->getDNI()){
+            itplayer = jugadores_.erase(itplayer);
+            return 1;
+        }
+    }
+    return -2;
 }
 
 //Escribe en jugadores.txt la lista de jugadores
-void Ruleta::escribeJugador() {
+void Ruleta::escribeJugadores() {
     std::ofstream ficheplayers;
     ficheplayers.open("jugadores.txt");
 
@@ -91,8 +114,8 @@ void Ruleta::escribeJugador() {
 
     //Equivalente en python a for itplayer in jugadores_
     for (itplayer = jugadores_.begin(); itplayer != jugadores_.end(); itplayer++){
-        linea = itplayer->getDNI + "," + itplayer->getCodigo() + "," + itplayer->getNombre() + "," + itplayer->getApellidos() + "," + 
-            itplayer->getDireccion() + "," + itplayer->getLocalidad + "," + itplayer->getPais() + "," + itplayer->getDinero();
+        linea = itplayer->getDNI() + "," + itplayer->getCodigo() + "," + itplayer->getNombre() + "," + itplayer->getApellidos() + "," + 
+            itplayer->getDireccion() + "," + itplayer->getLocalidad() + "," + itplayer->getPais() + "," + std::to_string(itplayer->getDinero());
         ficheplayers << linea << std::endl;
     }
     ficheplayers.close();
@@ -143,20 +166,19 @@ void Ruleta::giraRuleta(){
 //hay que revisar y optimizar esta función
 void Ruleta::getPremios(){
     list<Jugador>::iterator itplayer;
-    
 
     for (itplayer = jugadores_.begin(); itplayer != jugadores_.end(); itplayer++){
         itplayer->setApuestas();
         list<Apuesta>::iterator itapuesta;
-        for (itapuesta = itplayer->getApuestas.begin(); itapuesta != itplayer->getApuestas.end(); itapuesta++){
+        for (itapuesta = itplayer->getApuestas().begin(); itapuesta != itplayer->getApuestas().end(); itapuesta++){
             if (itapuesta->tipo == 1){
                 if(stoi(itapuesta->valor) == bola_){
                     banca_ = banca_ - (35 * itapuesta->cantidad);
-                    itplayer->setDinero(itplayer->getDinero + (35 * itapuesta->cantidad));
+                    itplayer->setDinero(itplayer->getDinero() + (35 * itapuesta->cantidad));
                 }
                 else{
                     banca_ = banca_ + itapuesta->cantidad;
-                    itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
+                    itplayer->setDinero(itplayer->getDinero() - itapuesta->cantidad);
                 }
             }
             /*else if (itapuesta->tipo == 2){ //No hemos determinado que color sale
@@ -164,35 +186,35 @@ void Ruleta::getPremios(){
             }*/
             else if (bola_ == 0){
                 banca_ = banca_ + itapuesta->cantidad;
-                itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
+                itplayer->setDinero(itplayer->getDinero() - itapuesta->cantidad);
             }
             
             else if(itapuesta->tipo == 3){
                 if((itapuesta->valor == "par")&& (bola_%2==0)){
                     banca_ = banca_ - itapuesta->cantidad;
-                    itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
+                    itplayer->setDinero(itplayer->getDinero() + itapuesta->cantidad);
                 }
                 else if((itapuesta->valor == "impar")&& (bola_%2!=0)){
                     banca_ = banca_ - itapuesta->cantidad;
-                    itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
+                    itplayer->setDinero(itplayer->getDinero() + itapuesta->cantidad);
                 }
                 else {
                     banca_ = banca_ + itapuesta->cantidad;
-                    itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
+                    itplayer->setDinero(itplayer->getDinero() - itapuesta->cantidad);
                 }
             }
             else if(itapuesta->tipo == 4){
                 if((itapuesta->valor == "alto") && (bola_>18)){
                     banca_ = banca_ - itapuesta->cantidad;
-                    itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
+                    itplayer->setDinero(itplayer->getDinero() + itapuesta->cantidad);
                 }
                 else if((itapuesta->valor == "bajo")&&(bola_<18)){
                     banca_ = banca_ - itapuesta->cantidad;
-                    itplayer->setDinero(itplayer->getDinero + itapuesta->cantidad);
+                    itplayer->setDinero(itplayer->getDinero() + itapuesta->cantidad);
                 }
                 else {
                     banca_ = banca_ + itapuesta->cantidad;
-                    itplayer->setDinero(itplayer->getDinero - itapuesta->cantidad);
+                    itplayer->setDinero(itplayer->getDinero() - itapuesta->cantidad);
                 }
             }
             

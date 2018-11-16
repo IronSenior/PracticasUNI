@@ -1,0 +1,7 @@
+$
+CB 4000000
+CB 0201000
+CB B000200
+$
+HALT false 0
+LDA true 
