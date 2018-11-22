@@ -13,16 +13,21 @@ sem_t empty, full, mutex;
 
 int main(int argc, char const *argv[]){
 
-    pthread_t producerthread, consumerthread; //Identificadores de los hilos
+    //Thread identification
+    pthread_t producerthread, consumerthread;
     int status;
+    //Parameter for thread function
     int p = 1;
+    //Predefinition of functions
     void *producer(void *);
     void *consumer(void *);
+    //Returns values
     int *r_producer_value;
     int *r_consumer_value;
 
     srand(time(NULL));
 
+    //Semaphores inicialization
     sem_init(&mutex, 0, 1);
     sem_init(&empty, 0, V);
     sem_init(&full, 0, 0);
@@ -42,6 +47,7 @@ int main(int argc, char const *argv[]){
     printf("Valor suma del productor %i \n", *r_producer_value);
     printf("Valor suma del consumidor %i \n", *r_consumer_value);
 
+    //Destoy Semaphores
     sem_destroy(&mutex);
     sem_destroy(&empty);
     sem_destroy(&full);
