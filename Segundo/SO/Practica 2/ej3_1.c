@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define V   5
-#define NHILOS 2
+#define V   1000
 
 int buffer[V];
 sem_t empty, full, mutex;
@@ -69,7 +68,7 @@ void *producer(void *p){
         dato = rand() % 1001; //generate data
         sem_wait(&empty);
         sem_wait(&mutex);
-        puntero = i%5;  
+        puntero = i%V;  
         buffer[puntero] = dato;
         sem_post(&mutex);
         sem_post(&full);
@@ -92,7 +91,7 @@ void *consumer(void *p){
     for(i=0; i<1000; i++){
         sem_wait(&full);
         sem_wait(&mutex);
-        puntero = i%5;
+        puntero = i%V;
         dato =  buffer[puntero];
         sem_post(&mutex);
         sem_post(&empty);
