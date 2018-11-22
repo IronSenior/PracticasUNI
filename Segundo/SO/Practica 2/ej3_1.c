@@ -63,8 +63,8 @@ void *producer(void *p){
         dato = rand() % 1001; //generate data
         sem_wait(&empty);
         sem_wait(&mutex);
-        puntero = i%5; //No Error checking 
-        buffer[puntero] = dato; //El puntero puede ser el error puesto que no es seguro
+        puntero = i%5;  
+        buffer[puntero] = dato;
         sem_post(&mutex);
         sem_post(&full);
         suma = suma + dato;
@@ -86,7 +86,7 @@ void *consumer(void *p){
     for(i=0; i<1000; i++){
         sem_wait(&full);
         sem_wait(&mutex);
-        puntero = i%5; //No Error checking
+        puntero = i%5;
         dato =  buffer[puntero];
         sem_post(&mutex);
         sem_post(&empty);
