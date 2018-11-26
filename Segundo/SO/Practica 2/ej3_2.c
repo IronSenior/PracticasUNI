@@ -1,0 +1,114 @@
+#include <pthread.h>
+#include <semaphore.h>
+#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define V   5   //Buffer
+#define P   2   //Number of producers
+#define C   2   //Number of consumers
+
+int buffer[V];
+sem_t empty, full, mutex;
+
+
+int main(int argc, char const *argv[]){
+
+    //Thread identification
+    pthread_t producers[P];
+    pthread_t consumers[C];
+    int status;
+    //iterator
+    int i;
+    //Predefinition of functions
+    void *producer(void *);
+    void *consumer(void *);
+    //Returns values
+    int *r_producer_value;
+    int *r_consumer_value;
+
+    srand(time(NULL));
+
+    //Semaphores inicialization
+    sem_init(&mutex, 0, 1);
+    sem_init(&empty, 0, V);
+    sem_init(&full, 0, 0);
+
+    //Producer Thread creation
+    for(i=0; i<P; i++){
+        if ((status = pthread_create(&producers[i], NULL, producer, (void *) &i)))
+            exit(status);
+    }
+
+    //Producer Thread creation
+    for(i=0; i<C; i++){
+        if ((status = pthread_create(&consumers[i], NULL, consumer, (void *) &i)))
+            exit(status);
+    }
+    //Waiting for threads
+    pthread_join(producers, (void **) &r_producer_value);
+    pthread_join(consumers, (void **) &r_consumer_value);
+
+    printf("Valor suma del productor %i \n", *r_producer_value);
+    printf("Valor suma del consumidor %i \n", *r_consumer_value);
+
+    //Destoy Semaphores
+    sem_destroy(&mutex);
+    sem_destroy(&empty);
+    sem_destroy(&full);
+
+    return 0;
+}
+
+void *producer(void *p){
+
+    //Variable declaration
+    int i, dato, puntero;
+    int suma = 0;
+    int *to_return;
+    extern int buffer[V];
+    extern sem_t empty, full, mutex;
+
+
+    for(i=0; i<1000; i++){
+        dato = rand() % 1001; //generate data
+        sem_wait(&empty);
+        sem_wait(&mutex);
+        puntero = i%5;  
+        buffer[puntero] = dato;
+        sem_post(&mutex);
+        sem_post(&full);
+        suma = suma + dato;
+    }
+    to_return = malloc(sizeof(int));
+    *to_return = suma;
+
+    pthread_exit((void *) to_return);
+}
+
+void *consumer(void *p){
+
+    int i, dato, puntero;
+    int suma = 0;
+    int *to_return;
+    extern int buffer[V];
+    extern sem_t empty, full, mutex;
+
+    for(i=0; i<1000; i++){
+        sem_wait(&full);
+        sem_wait(&mutex);
+        puntero = i%5;
+        dato =  buffer[puntero];
+        sem_post(&mutex);
+        sem_post(&empty);
+        suma = suma + dato;
+    }
+
+    //Para hacer el return de los hilos hay que reservar memoria
+    to_return = malloc(sizeof(int));
+
+    *to_return = suma;
+
+    pthread_exit((void *) to_return);
+}
+
