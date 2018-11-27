@@ -1,5 +1,4 @@
 #include "ruleta.h"
-#include <cstdbool>
 #include <fstream>
 #include <string>
 #include <iostream>

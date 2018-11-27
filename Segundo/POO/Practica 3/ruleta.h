@@ -5,7 +5,6 @@
 
 #include "jugador.h"
 #include "crupier.h"
-#include <cstdbool>
 #include <cstdlib>
 
 using std::list;
