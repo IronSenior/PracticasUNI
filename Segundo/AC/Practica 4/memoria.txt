@@ -1,0 +1,37 @@
+La practica consiste en cargar un programa mips y ejecutarlo. 
+
+El programa a realizar es sencillo, simplemente es un bucle que suma 4 a un registro hasta llegar a 24(Hexadecimal)
+mientras va haciendo accesos de memoria
+
+Cargamos el programa y los registros, compilamos para simulación y ejecutamos.
+
+*La primera ejecución da un tiempo de 13,46 microsegundos, una tasa de aciertos en nivel 1 de 77,7% y de 71,4% en nivel 2.
+Con una configuración de tiempos de L1(4,8,12) y L2(12,16,20)
+
+Si cambio la configuracion de tiempos a L1(4,8,12) y L2(4,8,12) tenemos un tiempo de 11,94 microsegundos y una tasa de 
+aciertos exactamente igual
+
+Con tres niveles de caché tenemos un tiempo de 15,98 microsegundos y una tasa de aciertos de 73,3% en nivel 3 (Las otras
+permanecen igual)
+
+
+Con mapeo directo y configuracion L2(12,16,20) el tiempo es 14,42 más lento que en asociativo de 2 vias
+
+
+Tamaño de bloque de L1 a 4, el tiempo de ejecucion aumenta. La tasa de aciertos de L1 es 88,8% y de L2 es 60%
+
+He aumentado el tamaño de bloque de L1 y L2 a 8 ambas acabando con un tiempo de ejecución de 18,14 microsegundos, 
+la tasa de aciertos de L1 es de 92,5% y la de L2 es de 69,2%
+
+Tamaño de bloque de L1 a 4 y de L2 a 8. Resultando en un tiempo de 16,46 y unas tasas de acierto de 88,8% y 73,3% 
+respectivamente.
+
+
+Configurando la L1 a 4 vias con la configuracion inicial* tenemos un tiempo de 14,42 y unas tasas identicas al inicio.
+
+
+L1 y L2 en asociativo puro. Resultando en un tiempo de 14,42 y una tasa de acierto exactamente igual que la anterior.
+
+Con un nivel de caché solamente tenemos un tiempo de 11,06 y una tasa de aciertos de 77,7%
+
+Un solo nivel de caché asociativa pura resulta en un tiempo de 
