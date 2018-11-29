@@ -5,14 +5,15 @@
 #include <stdio.h>
 
 #define V   5   //Buffer
-#define P   1   //Number of producers
-#define C   3   //Number of consumers
+#define P   3   //Number of producers
+#define C   4   //Number of consumers
+#define n_products  1000 //Number of products per producer
 
 int buffer[V];
-int suma_productores = 0;
-int suma_consumidores = 0;
-int indice_productores = -1;
-int indice_consumidores = -1;
+int sum_consumers = 0;
+int sum_producers = 0;
+int index_producers = -1;
+int index_consumers = -1;
 sem_t empty, full, mutex;
 
 
@@ -30,8 +31,8 @@ int main(int argc, char const *argv[]){
     //Returns values
     int *r_producer_value;
     int *r_consumer_value;
-    extern int suma_consumidores;
-    extern int suma_productores;
+    extern int sum_producers;
+    extern int sum_consumers;
 
     srand(time(NULL));
 
@@ -62,8 +63,8 @@ int main(int argc, char const *argv[]){
         printf("Value returned by consumer %lu: %d \n", consumers[i], *r_consumer_value);
     }
 
-    printf("Suma productores: %d\n", suma_productores);
-    printf("Suma consumidores: %d\n", suma_consumidores);
+    printf("Suma consumidores: %d\n", sum_consumers);
+    printf("Suma productores: %d\n", sum_producers);
 
     //Destoy Semaphores
     sem_destroy(&mutex);
@@ -76,45 +77,45 @@ int main(int argc, char const *argv[]){
 void *producer(void *p){
 
     //Variable declaration
-    int i, dato, puntero;
+    int i, data;
     int *to_return;
     extern int buffer[V];
-    extern int suma_productores;
-    extern int indice_productores;
+    extern int sum_producers;
+    extern int index_producers;
     extern sem_t empty, full, mutex;
 
 
-    for(i=0; i<1000; i++){
-        dato = rand() % 1001; //generate data
+    for(i=0; i<n_products; i++){
+        data = rand() % 1001; //generate data
         sem_wait(&empty);
         sem_wait(&mutex);
-        indice_productores = (indice_productores+1)%V;
-        buffer[indice_productores] = dato;
-        suma_productores += dato;
+        index_producers = (index_producers+1)%V;
+        buffer[index_producers] = data;
+        sum_producers += data;
         sem_post(&mutex);
         sem_post(&full);
     }
     to_return = malloc(sizeof(int));
-    *to_return = suma_productores;
+    *to_return = sum_producers;
 
     pthread_exit((void *) to_return);
 }
 
 void *consumer(void *p){
 
-    int i, dato, puntero;
-    extern int suma_consumidores;
-    extern int indice_consumidores;
+    int i, data;
+    extern int sum_consumers;
+    extern int index_consumers;
     int *to_return;
     extern int buffer[V];
     extern sem_t empty, full, mutex;
 
-    for(i=0; i<1000; i++){
+    for(i=0; i<((P*n_products)/C); i++){
         sem_wait(&full);
         sem_wait(&mutex);
-        indice_consumidores = (indice_consumidores+1)%V;
-        dato =  buffer[indice_consumidores];
-        suma_consumidores += dato;
+        index_consumers = (index_consumers+1)%V;
+        data =  buffer[index_consumers];
+        sum_consumers += data;
         sem_post(&mutex);
         sem_post(&empty);
     }
@@ -122,7 +123,7 @@ void *consumer(void *p){
     //Para hacer el return de los hilos hay que reservar memoria
     to_return = malloc(sizeof(int));
 
-    *to_return = suma_consumidores;
+    *to_return = sum_consumers;
 
     pthread_exit((void *) to_return);
 }
