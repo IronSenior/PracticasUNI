@@ -63,6 +63,7 @@ int main(int argc, char const *argv[]){
         printf("Value returned by consumer %lu: %d \n", consumers[i], *r_consumer_value);
     }
 
+    //Results
     printf("Suma consumidores: %d\n", sum_consumers);
     printf("Suma productores: %d\n", sum_producers);
 
@@ -86,7 +87,7 @@ void *producer(void *p){
 
 
     for(i=0; i<n_products; i++){
-        data = rand() % 1001; //generate data
+        data = rand() % 1001;
         sem_wait(&empty);
         sem_wait(&mutex);
         index_producers = (index_producers+1)%V;
@@ -95,6 +96,8 @@ void *producer(void *p){
         sem_post(&mutex);
         sem_post(&full);
     }
+
+    //return
     to_return = malloc(sizeof(int));
     *to_return = sum_producers;
 
@@ -120,7 +123,7 @@ void *consumer(void *p){
         sem_post(&empty);
     }
 
-    //Para hacer el return de los hilos hay que reservar memoria
+    //Return
     to_return = malloc(sizeof(int));
 
     *to_return = sum_consumers;
