@@ -7,6 +7,6 @@ declare
                             ORDER BY COUNT(c.votante) DESC;
 begin
     FOR votante IN votantes LOOP
-        dbms_output.put_line(votante.dni||' ha participado '||votante.veces);
+        dbms_output.put_line(votante.dni||' ha participado '||votante.veces|| ' veces');
     END LOOP;
 end;
