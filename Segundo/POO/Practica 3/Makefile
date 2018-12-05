@@ -25,11 +25,11 @@ GTEST_DIR = /home/pepe/Escritorio/Pepe/UNI/Practicas/Segundo/POO/googletest-mast
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra -pthread -std=gnu++11
+CXXFLAGS += -g -Wall -Wextra -pthread -Wpedantic -std=gnu++11
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = persona_unittest jugador_unittest crupier_unittest ruleta_unittest
+TESTS = persona_unittest.out jugador_unittest.out crupier_unittest.out ruleta_unittest.out
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -42,7 +42,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 all : $(TESTS)
 
 clean :
-	rm -f $(TESTS) gtest.a gtest_main.a *.o ??XX.txt
+	rm -f *.out *.a *.o *.txt
 
 # Builds gtest.a and gtest_main.a.
 
@@ -74,7 +74,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 
 persona.o : persona.h persona.cc
 
-crupier.o: crupier.h persona.h persona.cc
+crupier.o: crupier.h crupier.cc persona.h persona.cc
 
 jugador.o: jugador.h jugador.cc persona.h persona.cc
 
@@ -82,21 +82,21 @@ ruleta.o: ruleta.h ruleta.cc jugador.h jugador.cc persona.h persona.cc
 
 persona_unittest.o : persona_unittest.cc persona.h persona.cc
 
-crupier_unittest.o : crupier_unittest.cc crupier.h persona.h persona.cc
+crupier_unittest.o : crupier_unittest.cc crupier.h crupier.cc persona.h persona.cc
 
 jugador_unittest.o : jugador_unittest.cc jugador.h jugador.cc persona.h persona.cc
 
 ruleta_unittest.o : ruleta_unittest.cc jugador.h jugador.cc ruleta.h ruleta.cc
 
-persona_unittest : persona.o persona_unittest.o gtest_main.a
+persona_unittest.out : persona.o persona_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 	
-crupier_unittest : crupier.o persona.o crupier_unittest.o gtest_main.a
+crupier_unittest.out : crupier.o persona.o crupier_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
-jugador_unittest : jugador.o persona.o jugador_unittest.o gtest_main.a
+jugador_unittest.out : jugador.o persona.o jugador_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
-ruleta_unittest : ruleta.o persona.o jugador.o crupier.o ruleta_unittest.o gtest_main.a
+ruleta_unittest.out : ruleta.o persona.o jugador.o crupier.o ruleta_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 
