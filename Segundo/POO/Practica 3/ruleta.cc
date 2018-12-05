@@ -24,6 +24,7 @@ bool Ruleta::setBola(int new_bola){
         return false;
     }
     bola_ = new_bola;
+    return true;
 }
 
 //Agrega un nuevo jugador a la lista si no existe y cre su archivo de apuestas
@@ -61,6 +62,7 @@ bool Ruleta::player_exist_(Jugador player){
             return true;
         }
     }
+    return false;
 }
 //Devuelve el numero de jugadores
 int Ruleta::count_players_(){
@@ -147,7 +149,7 @@ void Ruleta::leeJugadores() {
         new_player.setProvincia(value);
         getline(ficheroplayers, value, ',');
         new_player.setPais(value);
-        getline(ficheroplayers, value);
+        getline(ficheroplayers, value, '\n');
         new_player.setDinero(stoi(value));
 
         new_players.push_back(new_player);
@@ -155,6 +157,7 @@ void Ruleta::leeJugadores() {
     ficheroplayers.close();
     jugadores_ = new_players;
 }
+
 
 void Ruleta::giraRuleta(){
     srand(time(NULL));
