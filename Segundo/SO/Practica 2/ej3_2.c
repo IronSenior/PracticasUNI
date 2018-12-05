@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 #define V   5   //Buffer
-#define P   3   //Number of producers
+#define P   5  //Number of producers
 #define C   4   //Number of consumers
 #define n_products  1000 //Number of products per producer
 
