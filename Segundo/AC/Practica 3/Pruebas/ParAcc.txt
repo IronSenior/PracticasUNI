@@ -1,0 +1,7 @@
+3 3
+@
+0
+@
+LDA 3
+PARACC 4
+HALT

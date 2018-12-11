@@ -1,0 +1,7 @@
+HALT false 0 q0
+LDA true 2 q1
+LDQ true 1 q2
+SUBQR true 7 q3
+IMPARQR true 6 q4
+PARACC true 5 q5
+MUL true 3 q6

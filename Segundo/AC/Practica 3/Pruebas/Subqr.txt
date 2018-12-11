@@ -1,0 +1,8 @@
+3 C
+4 8
+@
+0
+@
+LDQ 3
+SUBQR 4
+HALT
