@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 #define V   5   //Buffer
-#define P   345  //Number of producers
-#define C   23   //Number of consumers
+#define P   5  //Number of producers
+#define C   3   //Number of consumers
 #define n_products  1000 //Number of products per producer
 
 int buffer[V];
@@ -16,16 +16,23 @@ int index_producers = -1;
 int index_consumers = -1;
 sem_t empty, full, mutex;
 
-//Divide el número de productos entre los consumidores
-int numero_consumos(int pthread_number){
-    int sobrante = 0;
-    int consumos = 0;
-    sobrante = (P*n_products)%C;
-    consumos = (P*n_products)/C;
+//Divide the total number of products between the consumers
+int number_consumptions(int pthread_number){
+    int surplus = 0;
+    int consumptions = 0;
+
+    //Calculate number of consumptions per consumer
+    consumptions = (P*n_products)/C;
+
+    //Calculate the surplus
+    surplus = (P*n_products)%C;
+
+    //Assigns the surplas to the last consumer thread
     if (pthread_number == (C-1)){
-        consumos += sobrante;
+        consumptions += surplus;
     }
-    return consumos;
+
+    return consumptions;
 }
 
 
@@ -125,8 +132,9 @@ void *consumer(void *p){
     extern int buffer[V];
     extern sem_t empty, full, mutex;
 
+    //Calculate the number of consumptions per consumer
     pthread_number = (int *) p;
-    consumos = numero_consumos(*pthread_number);
+    consumos = number_consumptions(*pthread_number);
 
     for(i=0; i<consumos; i++){
         sem_wait(&full);
