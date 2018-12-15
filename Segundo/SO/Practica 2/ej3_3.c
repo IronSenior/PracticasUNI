@@ -46,8 +46,10 @@ int main(int argc, char const *argv[]){
         exit(status);
 
     //Producer Thread creation
+    int consumer_numbers[C];
     for(i=0; i<C; i++){
-        if ((status = pthread_create(&consumers[i], NULL, consumer, (void *) &i)))
+        consumer_numbers[i] = i;
+        if ((status = pthread_create(&consumers[i], NULL, consumer, (void *) &consumer_numbers[i])))
             exit(status);
     }
 
@@ -83,14 +85,14 @@ void *producer(void *p){
         sem_wait(&mutex);
         sem_init(&empty, 0, (2-C));
         index_producer = i;
-        printf("Avanzado en produccion %i\n", index_producer);
+        //printf("Avanzado en produccion %i\n", index_producer);
         for(j=0; j<V; j++){
             data = rand() % 1001;
             buffer[j] = data;
             sum += data;
         }
         sem_post(&mutex);
-        printf("Terminada en produccion %i\n", index_producer);
+        //printf("Terminada en produccion %i\n", index_producer);
         sem_wait(&empty);
     }
 
@@ -115,13 +117,14 @@ void *consumer(void *p){
 
     for(i=0; i<(n_products/V); i++){
         //printf("%i en hilo %i con padre %i\n", i, *pthread_number, index_producer);
-        //while(i != index_producer);//{printf("Parado en hilo %i con padre %i\n", *pthread_number, index_producer);}
+        sem_getvalue(&empty, &number);
+        //while((1-*pthread_number)==number);
         sem_wait(&mutex);
         for(j=0; j<V; j++){
             data =  buffer[j];
             sum += data;
         } 
-        printf("Consumo en hilo %i\n", *pthread_number);
+        //printf("Consumo en hilo %i\n", *pthread_number);
         sem_post(&empty);
         sem_post(&mutex);
     }
