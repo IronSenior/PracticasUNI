@@ -12,8 +12,8 @@
 int buffer[V];
 int sum_consumers = 0;
 int sum_producers = 0;
-int index_producers = -1;
-int index_consumers = -1;
+int index_producers = V-1;
+int index_consumers = V-1;
 sem_t empty, full, mutex;
 
 //Divide the total number of products between the consumers

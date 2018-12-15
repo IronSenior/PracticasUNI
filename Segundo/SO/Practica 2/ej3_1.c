@@ -68,7 +68,7 @@ void *producer(void *p){
         dato = rand() % 1001; //generate data
         sem_wait(&empty);
         sem_wait(&mutex);
-        puntero = i%V;  
+        puntero = (i+V)%V;  
         buffer[puntero] = dato;
         sem_post(&mutex);
         sem_post(&full);
@@ -91,7 +91,7 @@ void *consumer(void *p){
     for(i=0; i<1000; i++){
         sem_wait(&full);
         sem_wait(&mutex);
-        puntero = i%V;
+        puntero = (i+V)%V;
         dato =  buffer[puntero];
         sem_post(&mutex);
         sem_post(&empty);
