@@ -6,7 +6,7 @@
 
 #define V   5   //Buffer
 #define C   4   //Number of consumers
-#define n_products  1000 //Number of products
+#define n_products  20 //Number of products
 
 int buffer[V];
 int index_producer = 4;
@@ -32,7 +32,7 @@ int main(int argc, char const *argv[]){
 
     //Semaphores inicialization
     sem_init(&mutex, 0, 1);
-    sem_init(&empty, 0, (0-C));
+    //sem_init(&empty, 0, (0-C));
     sem_init(&full, 0, 0);
 
     extern int buffer[V];
@@ -90,6 +90,7 @@ void *producer(void *p){
             sum += data;
         }
         sem_post(&mutex);
+        printf("Terminada en produccion %i\n", index_producer);
         sem_wait(&empty);
     }
 
@@ -113,8 +114,8 @@ void *consumer(void *p){
     pthread_number = (int *) p;
 
     for(i=0; i<(n_products/V); i++){
-        printf("%i en hilo %i\n", i, *pthread_number);
-        while(i != index_producer);//{printf("Parado en hilo %i\n", *pthread_number);}
+        //printf("%i en hilo %i con padre %i\n", i, *pthread_number, index_producer);
+        //while(i != index_producer);//{printf("Parado en hilo %i con padre %i\n", *pthread_number, index_producer);}
         sem_wait(&mutex);
         for(j=0; j<V; j++){
             data =  buffer[j];
