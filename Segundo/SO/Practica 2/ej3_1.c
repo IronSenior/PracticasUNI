@@ -27,9 +27,10 @@ int main(int argc, char const *argv[]){
     srand(time(NULL));
 
     //Semaphores inicialization
-    sem_init(&mutex, 0, 1);
-    sem_init(&empty, 0, V);
-    sem_init(&full, 0, 0);
+    if((sem_init(&mutex, 0, 1)) == -1) perror("Error: Failed to initialise sem mutex ");
+    if((sem_init(&full, 0, 0)) == -1) perror("Error: Failed to initialise sem full ");
+    if((sem_init(&empty, 0, V)) == -1) perror("Error: Failed to initialise sem empty ");
+
 
     //Producer Thread creation
     if ((status = pthread_create(&producerthread, NULL, producer, (void *) &p)))

@@ -1,19 +1,18 @@
 #include <pthread.h>
 #include <semaphore.h>
-#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 #define V   5   //Buffer
 #define P   5  //Number of producers
-#define C   3   //Number of consumers
-#define n_products  1000 //Number of products per producer
+#define C   4   //Number of consumers
+#define n_products  10 //Number of products per producer
 
 int buffer[V];
 int sum_consumers = 0;
 int sum_producers = 0;
-int index_producers = V-1;
-int index_consumers = V-1;
+int index_producers = 0;
+int index_consumers = 0;
 sem_t empty, full, mutex;
 
 //Divide the total number of products between the consumers
@@ -26,13 +25,11 @@ int number_consumptions(int pthread_number){
 
     //Calculate the surplus
     surplus = (P*n_products)%C;
-
     //Assigns the surplas to the last consumer thread
     if (pthread_number == (C-1)){
-        consumptions += surplus;
+        return (consumptions + surplus);
     }
-
-    return consumptions;
+    else return consumptions;
 }
 
 
@@ -56,19 +53,23 @@ int main(int argc, char const *argv[]){
     srand(time(NULL));
 
     //Semaphores inicialization
-    sem_init(&mutex, 0, 1);
-    sem_init(&empty, 0, V);
-    sem_init(&full, 0, 0);
+    if((sem_init(&mutex, 0, 1)) == -1) perror("Error: Failed to initialise sem mutex ");
+    if((sem_init(&full, 0, 0)) == -1) perror("Error: Failed to initialise sem full ");
+    if((sem_init(&empty, 0, V)) == -1) perror("Error: Failed to initialise sem empty ");
 
     //Producer Thread creation
+    int producer_numbers[C];
     for(i=0; i<P; i++){
-        if ((status = pthread_create(&producers[i], NULL, producer, (void *) &i)))
+        producer_numbers[i] = i;
+        if ((status = pthread_create(&producers[i], NULL, producer, (void *) &producer_numbers[i])))
             exit(status);
     }
 
-    //Producer Thread creation
+    //Consumer Thread creation
+    int consumer_numbers[C];
     for(i=0; i<C; i++){
-        if ((status = pthread_create(&consumers[i], NULL, consumer, (void *) &i)))
+        consumer_numbers[i] = i;
+        if ((status = pthread_create(&consumers[i], NULL, consumer, (void *) &consumer_numbers[i])))
             exit(status);
     }
 
@@ -83,8 +84,9 @@ int main(int argc, char const *argv[]){
     }
 
     //Results
-    printf("Suma consumidores: %d\n", sum_consumers);
     printf("Suma productores: %d\n", sum_producers);
+    printf("Suma consumidores: %d\n", sum_consumers);
+    
 
     //Destoy Semaphores
     sem_destroy(&mutex);
@@ -109,8 +111,8 @@ void *producer(void *p){
         data = rand() % 1001;
         sem_wait(&empty);
         sem_wait(&mutex);
-        index_producers = (index_producers+1)%V;
-        buffer[index_producers] = data;
+        index_producers++;
+        buffer[index_producers%V] = data;
         sum_producers += data;
         sem_post(&mutex);
         sem_post(&full);
@@ -125,7 +127,7 @@ void *producer(void *p){
 
 void *consumer(void *p){
 
-    int i, data, *pthread_number, consumos;
+    int i, *pthread_number, consumos;
     extern int sum_consumers;
     extern int index_consumers;
     int *to_return;
@@ -139,9 +141,9 @@ void *consumer(void *p){
     for(i=0; i<consumos; i++){
         sem_wait(&full);
         sem_wait(&mutex);
-        index_consumers = (index_consumers+1)%V;
-        data =  buffer[index_consumers];
-        sum_consumers += data;
+        index_consumers++;
+        sum_consumers += buffer[index_consumers%V];
+        buffer[index_consumers%V] = 0;
         sem_post(&mutex);
         sem_post(&empty);
     }
