@@ -81,7 +81,9 @@ void *producer(void *p){
 
     for(i=0; i<(n_products/V); i++){
         sem_wait(&mutex);
+        sem_init(&empty, 0, (2-C));
         index_producer = i;
+        printf("Avanzado en produccion %i\n", index_producer);
         for(j=0; j<V; j++){
             data = rand() % 1001;
             buffer[j] = data;
@@ -111,12 +113,14 @@ void *consumer(void *p){
     pthread_number = (int *) p;
 
     for(i=0; i<(n_products/V); i++){
-        while(i != index_producer)
+        printf("%i en hilo %i\n", i, *pthread_number);
+        while(i != index_producer);//{printf("Parado en hilo %i\n", *pthread_number);}
         sem_wait(&mutex);
         for(j=0; j<V; j++){
             data =  buffer[j];
             sum += data;
         } 
+        printf("Consumo en hilo %i\n", *pthread_number);
         sem_post(&empty);
         sem_post(&mutex);
     }
