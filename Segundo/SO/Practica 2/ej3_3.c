@@ -9,6 +9,7 @@
 #define n_products  1000 //Number of products
 
 int buffer[V];
+int index_producer = 4;
 sem_t empty, full, mutex;
 
 
@@ -31,7 +32,7 @@ int main(int argc, char const *argv[]){
 
     //Semaphores inicialization
     sem_init(&mutex, 0, 1);
-    sem_init(&empty, 0, 9);
+    sem_init(&empty, 0, (0-C));
     sem_init(&full, 0, 0);
 
     extern int buffer[V];
@@ -71,6 +72,7 @@ void *producer(void *p){
 
     //Variable declaration
     int i, j, data;
+    extern int index_producer;
     int *to_return;
     extern int buffer[V];
     int sum = 0;
@@ -79,6 +81,7 @@ void *producer(void *p){
 
     for(i=0; i<(n_products/V); i++){
         sem_wait(&mutex);
+        index_producer = i;
         for(j=0; j<V; j++){
             data = rand() % 1001;
             buffer[j] = data;
@@ -102,17 +105,18 @@ void *consumer(void *p){
     int number = 14;
     int *to_return;
     extern int buffer[V];
+    extern int index_producer;
     extern sem_t empty, full, mutex;
 
     pthread_number = (int *) p;
 
     for(i=0; i<(n_products/V); i++){
+        while(i != index_producer)
         sem_wait(&mutex);
         for(j=0; j<V; j++){
             data =  buffer[j];
             sum += data;
-            data = 0;
-        }
+        } 
         sem_post(&empty);
         sem_post(&mutex);
     }
