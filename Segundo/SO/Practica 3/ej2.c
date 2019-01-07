@@ -1,3 +1,4 @@
+//José Márquez Doblas GG2 Ingeniría Informática
 #include <stdio.h>
 #include <string.h>
 

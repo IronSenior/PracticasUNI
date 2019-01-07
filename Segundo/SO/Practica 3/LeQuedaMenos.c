@@ -1,5 +1,6 @@
+//José Márquez Doblas GG2 Ingeniría Informática
 //Haciendo el ejercicio 2 me equivoqué de algoritmo resultando en este
-//El Procesador ejecutará el proceso al que menos le quede
+//El Procesador ejecutará el proceso al que menos le quede por procesar
 #include <stdio.h>
 #include <string.h>
 

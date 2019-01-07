@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define NPROC 5
-
+#define QUANTUM 3
 typedef struct params
 {
     char nombre[10];
@@ -51,7 +51,10 @@ void main(){
     int min = 100000;
     int elmin = 0;
     int listos[NPROC];
-    int pointer;
+    int pointer = 0;
+    int procesando;
+    int turno = 0;
+    int quanto = QUANTUM;
 
     //Ponemos a 8 la cola de listos (0 es un proceso)
     for (i=0; i< NPROC; i++){
@@ -66,37 +69,39 @@ void main(){
                 pointer++;
             }
         }
-        
-        //Calculamos a que proceso le toca (El primero en la cola)
-        min = 1000;
-        for(j=0; j<NPROC; j++){
-            if (listos[j] != 8){
-                printf("El proceso %i está en cola\n", listos[j]);
-                if (procesos[listos[j]].t_lleg <= min){
-                    min = procesos[listos[j]].t_lleg;
-                    elmin = listos[j];
-                }
+
+        //Cada vez que se completa un Quantum cambiamos de proceso
+        if (quanto == QUANTUM){
+            procesando = listos[turno%NPROC];
+            while(procesando == 8){ // Evitamos los procesos terminados
+                turno += 1;
+                procesando = listos[turno%NPROC];
             }
+            turno += 1;
+            quanto = 0;
         }
 
-         //Apuntamos si es el comienzo
-        if (procesos[elmin].t_procesed == 0) procesos[elmin].t_com = i;
+        //Apuntamos si es el comienzo
+        if (procesos[procesando].t_procesed == 0) procesos[procesando].t_com = i;
 
         //Procesamos
-        printf("El proceso %i va a ser ejecutado\n", elmin);
-        procesos[elmin].t_procesed += 1;
+        printf("El proceso %i va a ser ejecutado\n", procesando);
+        procesos[procesando].t_procesed += 1;
+        quanto += 1;
 
-        //Comprobamos si se ha terminado ese proceso y lo eliminamos de la cola
-        if (procesos[elmin].t_procesed == procesos[elmin].t_ejec){
-            procesos[elmin].t_fin = i+1;
-            if (elmin == 4) break; //Sabemos que el ultimo sera el 4(E)
+        //Comprobamos si se ha terminado ese proceso
+        if (procesos[procesando].t_procesed == procesos[procesando].t_ejec){
+            printf("Proceso %i terminado\n", procesando);
+            procesos[procesando].t_fin = i+1;
+            if (procesando == 2) break; //Sabemos que el ultimo será el 2(C)
             //Eliminamos el proceso terminado de la cola
             for (j=0; j<NPROC; j++){
-                if (elmin == listos[j]) listos[j] = 8;
+                if (procesando == listos[j]) listos[j] = 8;
             }
+            //Reseteamos QUANTUM
+            quanto = QUANTUM;
         } 
-
-
+    
     }
 
     //Mostramos el resultado
