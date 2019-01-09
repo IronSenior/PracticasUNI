@@ -5,7 +5,7 @@
 
 #define V   5   //Buffer
 #define P   5  //Number of producers
-#define C   4   //Number of consumers
+#define C   7   //Number of consumers
 #define n_products  10 //Number of products per producer
 
 int buffer[V];
@@ -58,7 +58,7 @@ int main(int argc, char const *argv[]){
     if((sem_init(&empty, 0, V)) == -1) perror("Error: Failed to initialise sem empty ");
 
     //Producer Thread creation
-    int producer_numbers[C];
+    int producer_numbers[P];
     for(i=0; i<P; i++){
         producer_numbers[i] = i;
         if ((status = pthread_create(&producers[i], NULL, producer, (void *) &producer_numbers[i])))
