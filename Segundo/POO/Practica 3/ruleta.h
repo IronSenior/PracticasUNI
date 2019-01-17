@@ -6,8 +6,9 @@
 #include "jugador.h"
 #include "crupier.h"
 #include <cstdlib>
+#include <list>
 
-using std::list;
+using std::list; 
 
 class Ruleta{
     private:
