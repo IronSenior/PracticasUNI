@@ -15,8 +15,14 @@
 
 ed::Monomio & ed::Monomio::operator=(ed::Monomio const &m)
 {
-	// COMPLETAR
+	this->setCoeficiente(m.getCoeficiente());
+	this->setGrado(m.getGrado());
 
+
+	#ifndef NDEBUG
+		assert(this->getGrado() == m.getGrado());
+		assert(std::abs(this->getCoeficiente() - m.getCoeficiente()) < COTA_ERROR);
+	#endif	
 
 	// Se devuelve el objeto actual
 	return *this;
@@ -25,7 +31,13 @@ ed::Monomio & ed::Monomio::operator=(ed::Monomio const &m)
 
 ed::Monomio & ed::Monomio::operator=(double const &x)
 {
-	// COMPLETAR
+	this->setCoeficiente(x);
+	this->setGrado(0);
+
+	#ifndef NDEBUG
+		assert(this->getGrado() == 0);
+		assert(std::abs(this->getCoeficiente() - x) < COTA_ERROR);
+	#endif	
 
 	// Se devuelve el objeto actual
 	return *this;
@@ -57,8 +69,6 @@ ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 ///////////////////////////////////////////////////////////////////////
 
 // Funciones lectura y escritura de la clase Monomio
-
-// COMPLETAR
 
 
 ///////////////////////////////////////////////////////////////////////

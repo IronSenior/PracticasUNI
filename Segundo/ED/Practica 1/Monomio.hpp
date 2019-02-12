@@ -22,29 +22,65 @@ class Monomio
 {
 	//! \name Atributos privados de la clase Monomio
 	private:
-
-	// COMPLETAR
-
+		double coeficiente_;
+		int grado_;
 
 	//! \name Funciones o métodos públicos de la clase Monomio
 	public:
-
 	//! \name Constructores de la clase Monomio
+		Monomio(double coeficiente=0.0, int grado=0){
+			//precondición
+			#ifndef NDEBUG
+				assert(grado >= 0);
+			#endif
 
-	// COMPLETAR
+			this->setCoeficiente(coeficiente);
+			this->setGrado(grado);
 
+			//Postcondición
+			#ifndef NDEBUG
+				assert(std::abs(this->getCoeficiente() - coeficiente) < COTA_ERROR);
+				assert(this->getGrado() == grado);
+			#endif
 
+		}
 
+		Monomio(Monomio &monomio){
+			this->setCoeficiente(monomio.getCoeficiente());
+			this->setGrado(monomio.getGrado());
+
+			#ifndef NDEBUG
+				assert(std::abs(monomio.getCoeficiente() - this->getCoeficiente()) < COTA_ERROR);
+				assert(monomio.getGrado() == this->getGrado());
+			#endif
+		}
 	//! \name Observadores: funciones de consulta de la clase Monomio
+		inline double getCoeficiente() const {return coeficiente_;};
 
-	// COMPLETAR
-
+		inline int getGrado() const {return grado_;};
 
 
 	//! \name Funciones de modificación de la clase Monomio
+		inline void setCoeficiente(double coeficiente){
+			coeficiente_ = coeficiente;
 
-	// COMPLETAR
+			#ifndef NDEBUG
+				assert(std::abs(this->getCoeficiente() - coeficiente) < COTA_ERROR);
+			#endif
+		};
 
+		inline void setGrado(int grado){
+			#ifndef NDEBUG
+				assert(grado >= 0);
+			#endif
+
+			grado_ = grado;
+
+			#ifndef NDEBUG
+				assert(this->getGrado() == grado);
+			#endif
+			
+		};
 
 
 	/////////////////////////////////////////////////
