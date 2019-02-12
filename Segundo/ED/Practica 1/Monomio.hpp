@@ -101,8 +101,15 @@ class Monomio
 		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 		Monomio & operator+=(Monomio const &m);
 
+		Monomio & operator-=(Monomio const &m);
 
-		// COMPLETAR EL RESTO DE OPERADORES
+		Monomio & operator*=(Monomio const &m);
+
+		Monomio & operator/=(Monomio const &m);
+
+		Monomio & operator*=(double const &x);
+
+		Monomio & operator/=(double const &x);
 
 
 	/////////////////////////////////////////////////////////////////////////////////////
