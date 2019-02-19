@@ -1,0 +1,44 @@
+Tras instalar Apache con el script proporcionado por el profesor, el objetivo de la practica es modificar la configuración
+del servidor para realizar los ajercicios propuestos en la practica.
+
+1 - 
+
+
+2 - Iniciar el servidor es bastante sencillo simplemente. Lo único que nos pide es cambiar el nombre del servidor, en nuestro
+    caso lo llamamos localhost, ya ue lo estamos iniciando en local.
+
+3 - Cambiar el puerto del servidor para no tener el 80 por defecto es tan simple como buscar en la configuración la opción
+    Listen.
+
+4 - Los archivos html que he usado han sido los de mi página personal que tengo en mi perfil de github publicada.
+
+5 - Cogerá siempre el archivo index.html (Buscar información)
+
+6 - NOT DONE
+
+7 - ServerName, lo hemos cambiado para poder iniciar el servidor en local
+
+8 - Lo he cambiado y no he visto diferencia (Seguir investigando)
+
+9 - Con "GET / HTTP/1.0" devuelve la página index.html y el error "Connection closed by foreign host."
+    Si ponemos HOLA devolverá una página html de error "400 Bad Request" 
+    "Your browser sent a request that this server could not understand."
+    con el mismo error al final "Connection closed by foreign host."
+
+10 - La directiva es "ErrorDocument 404 /missing.html" si cambiamos "missing.html" por otro documente html nos mostrará ese
+     como página de error. Para cambiar otro error sería añadir otro "ErrorDocument ErrorNumber html". (Probar)
+
+11 - Las directivas que configuran los archivos de logs son ErrorLog y LogLevel. (Realizar prueba del pdf)
+
+12 - 
+
+13 - 
+
+14 - 
+
+15 - 
+
+16 - 
+
+
+
