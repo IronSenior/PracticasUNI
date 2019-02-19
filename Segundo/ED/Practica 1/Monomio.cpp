@@ -111,7 +111,7 @@ ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &m)
 		double cofAux = this->getCoeficiente();
 		int gradAux = this->getGrado();
 		assert(this->getGrado() >= m.getGrado());
-		assert((std::abs(this->getCoeficiente() - 0)) > COTA_ERROR);
+		assert(this->getCoeficiente() > COTA_ERROR);  // Coeficiente != 0
 	#endif	
 
 	this->setCoeficiente(this->getCoeficiente() / m.getCoeficiente());
@@ -170,14 +170,16 @@ ed::Monomio & ed::Monomio::operator/=(double const &x)
 void ed::Monomio::leerMonomio(){
 
 	int auxInteger;
-	double auxDouble;
+	double auxDouble = 0;
 
 	std::cout<<"Introduzca el coeficiente del monomio"<<std::endl;
 	std::cin>>auxInteger;
 	this->setCoeficiente(auxInteger);
 
-	std::cout<<"Introduzca el grado del monomio"<<std::endl;
-	std::cin>>auxDouble;
+	while(auxDouble < COTA_ERROR){
+		std::cout<<"Introduzca el grado del monomio"<<std::endl;
+		std::cin>>auxDouble;
+	}
 	this->setGrado(auxDouble);
 
 	#ifndef NDEBUG
@@ -197,9 +199,9 @@ void ed::Monomio::escribirMonomio(){
 		std::cout<<"-";
 	}
 
-	if (not (std::abs(grado - 0) < COTA_ERROR)){
+	if (grado > COTA_ERROR){  // grado != 0
 		std::cout<<"X";
-		if(not (std::abs(grado - 1) < COTA_ERROR)){
+		if(std::abs(grado - 1) > COTA_ERROR){  // grado != 1 
 			std::cout<<"^"<<grado;
 		}
 	}
