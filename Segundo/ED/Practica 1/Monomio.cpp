@@ -191,7 +191,7 @@ void ed::Monomio::escribirMonomio(){
 	double grado = this->getGrado();
 
 	if (coeficiente != 1){
-		std::cout<<this->getCoeficiente();
+		std::cout<<coeficiente;
 	}
 	else if(coeficiente == -1){
 		std::cout<<"-";
