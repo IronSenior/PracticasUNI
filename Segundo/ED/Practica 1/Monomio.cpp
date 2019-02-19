@@ -98,7 +98,7 @@ ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &m)
 
 	#ifndef NDEBUG
 		assert(this->getGrado() - gradAux == m.getGrado());
-		assert((this->getCoeficiente() / m.getCoeficiente) == cofAux);
+		assert((this->getCoeficiente() / m.getCoeficiente()) == cofAux);
 	#endif
 
 	// Se devuelve el objeto actual
@@ -111,15 +111,15 @@ ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &m)
 		double cofAux = this->getCoeficiente();
 		int gradAux = this->getGrado();
 		assert(this->getGrado() >= m.getGrado());
-		assert((std::abs(this->getCoeficiente - 0.0)) > COTA_ERROR);
+		assert((std::abs(this->getCoeficiente() - 0)) > COTA_ERROR);
 	#endif	
 
-	this->setCoeficiente(this->getCoeficiente() * m.getCoeficiente());
-	this->setGrado(this->getGrado() + m.getGrado());
+	this->setCoeficiente(this->getCoeficiente() / m.getCoeficiente());
+	this->setGrado(this->getGrado() - m.getGrado());
 
 	#ifndef NDEBUG
 		assert((gradAux - this->getGrado()) == m.getGrado());
-		assert((this->getCoeficiente() * m.getCoeficiente) == cofAux);
+		assert((this->getCoeficiente() * m.getCoeficiente()) == cofAux);
 	#endif
 
 	// Se devuelve el objeto actual
@@ -151,7 +151,7 @@ ed::Monomio & ed::Monomio::operator/=(double const &x)
 		int gradAux = this->getGrado();
 	#endif	
 
-	this->setCoeficiente(this->getCoeficiente() * x);
+	this->setCoeficiente(this->getCoeficiente() / x);
 	
 	#ifndef NDEBUG
 		assert(this->getGrado() == gradAux);
@@ -167,12 +167,57 @@ ed::Monomio & ed::Monomio::operator/=(double const &x)
 
 ///////////////////////////////////////////////////////////////////////
 
-// Funciones lectura y escritura de la clase Monomio
+void ed::Monomio::leerMonomio(){
+
+	int auxInteger;
+	double auxDouble;
+
+	std::cout<<"Introduzca el coeficiente del monomio"<<std::endl;
+	std::cin>>auxInteger;
+	this->setCoeficiente(auxInteger);
+
+	std::cout<<"Introduzca el grado del monomio"<<std::endl;
+	std::cin>>auxDouble;
+	this->setGrado(auxDouble);
+
+	#ifndef NDEBUG
+		assert(this->getGrado() >= 0);
+	#endif
+}
+
+
+void ed::Monomio::escribirMonomio(){
+	int coeficiente = this->getCoeficiente();
+	double grado = this->getGrado();
+
+	if (coeficiente > 1){
+		std::cout<<this->getCoeficiente();
+	}
+	else if(coeficiente == -1){
+		std::cout<<"-";
+	}
+
+	if (not (std::abs(grado - 0) < COTA_ERROR)){
+		std::cout<<"X";
+		if(not (std::abs(grado - 1) < COTA_ERROR)){
+			std::cout<<"^"<<grado;
+		}
+	}
+	std::cout<<std::endl;
+}
 
 
 ///////////////////////////////////////////////////////////////////////
 
 // Funciones auxiliares de la clase Monomio
 
-// COMPLETAR
+double ed::Monomio::calcularValor(double x){
+	int coeficiente = this->getCoeficiente();
+	double grado = this->getGrado();
+	double resultado;
+
+	resultado = pow((x*coeficiente), grado);
+
+	return resultado;
+}
 

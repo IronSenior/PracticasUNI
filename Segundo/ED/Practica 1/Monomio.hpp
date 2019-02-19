@@ -111,19 +111,20 @@ class Monomio
 
 		Monomio & operator/=(double const &x);
 
-
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	//! \name Funciones lectura y escritura de la clase Monomio
 
-	// COMPLETAR
+		void leerMonomio();
+
+		void escribirMonomio();
 
 
 	///////////////////////////////////////////////////////////////////////
 
 	//! \name Funciones auxiliares de la clase Monomio
 
-	// COMPLETAR
+	double calcularValor(double x);
 
 
 

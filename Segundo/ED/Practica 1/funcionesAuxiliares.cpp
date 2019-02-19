@@ -66,7 +66,7 @@ void ed::testMonomio()
 	std::cout << RESET;
 	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio " << std::endl << std::endl;
 
-/*
+
 
 	double x;
 
@@ -312,7 +312,7 @@ void ed::testMonomio()
 	std::cout << std::endl;
 	std::cout<< "m3(" << x << ") = " << m3.calcularValor(x) << std::endl << std::endl;
 
-*/
+
 
 	// Fin
 	return;
@@ -441,7 +441,7 @@ void ed::operadoresExternosMonomios()
 
 
 	// 
-	std::cout<< "Desigualdad: m1 == " << x << std::endl;
+	std::cout<< "Desigualdad: m1 != " << x << std::endl;
     std::cout << "m1 = " << m1 ;	
 
 	if (m1 != x)
@@ -452,7 +452,7 @@ void ed::operadoresExternosMonomios()
     std::cout << x << std::endl << std::endl;
 
 	//
-	std::cout<< "Desigualdad: " << x << " == m1" << std::endl;
+	std::cout<< "Desigualdad: " << x << " != m1" << std::endl;
     std::cout << x;    
 
 	if (x != m1)
