@@ -182,6 +182,9 @@ void ed::Monomio::leerMonomio(){
 	}
 	this->setGrado(auxDouble);
 
+	// Pausa
+	std::cin.ignore();
+
 	#ifndef NDEBUG
 		assert(this->getGrado() >= 0);
 	#endif
