@@ -218,7 +218,7 @@ double ed::Monomio::calcularValor(double x){
 	double grado = this->getGrado();
 	double resultado;
 
-	resultado = pow((x*coeficiente), grado);
+	resultado = coeficiente*pow(x, grado);
 
 	return resultado;
 }
