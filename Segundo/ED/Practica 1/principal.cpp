@@ -1,8 +1,8 @@
 /*!
  \mainpage Implementación de un monomio
  \brief		\f$ coeficiente X^{grado}\f$
- \author   
- \date     
+ \author   José Márquez Doblas 
+ \date     22/02/2019
  \version  1.0
 */
 
