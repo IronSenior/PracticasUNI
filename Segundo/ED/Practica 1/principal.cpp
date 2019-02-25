@@ -59,6 +59,14 @@ int main()
 
 				ed::operadoresExternosMonomios();
 				break;
+			
+			case 3: 
+			   	std::cout << BIBLUE;
+				std::cout << "[3] Operadores externos de la clase Monomio " << std::endl;
+				std::cout << RESET;
+
+				ed::derivadaMonomios();
+				break;
 
 			default:
 				std::cout << BIRED;

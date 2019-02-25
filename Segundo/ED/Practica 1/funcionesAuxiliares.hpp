@@ -16,13 +16,20 @@ namespace ed
 		\return  Devuelve el número de opción elegido
 	*/
 	int menu();
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/*! 
+		\brief   Programa que testea la clase monomio 
+	*/
 	void testMonomio();
 
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/*! 
+		\brief  Programa que testea los operadores externos 
+	*/
 	void operadoresExternosMonomios();
+
+	/*! 
+		\brief  Programa para hacer la derivada de un monomio 
+	*/
+	void derivadaMonomios();
 
 } // Fin del espacio de nombre de la asignatura: ed
 
