@@ -22,8 +22,6 @@ namespace ed
 	// Operadores externos que no pertenecen a la clase Monomio
 
 	//! \name Operadores de igualdad  
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 	bool operator==(ed::Monomio const & m1, ed::Monomio const & m2);
 
 	bool operator==(ed::Monomio const & m, double x);
@@ -32,8 +30,6 @@ namespace ed
 
 
 	//! \name Operadores de desigualdad 
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 	bool operator!=(ed::Monomio const & m1, ed::Monomio const & m2);
 
 	bool operator!=(ed::Monomio const & m, double x);
@@ -43,9 +39,6 @@ namespace ed
 	///////////////////////////////////////////////////
 
 	//! \name Operadores unarios prefijos
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-
 	ed::Monomio & operator+(ed::Monomio const & m);
 
 	ed::Monomio & operator-(ed::Monomio const & m);
@@ -54,20 +47,16 @@ namespace ed
 	//////////////////////////////////////////////////////////
 
 	//! \name Operador binario de la suma 
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 	ed::Monomio & operator+ (ed::Monomio const &m1, ed::Monomio const &m2);
 
 
 	//////////////////////////////////////////////////////////
 	//! \name Operador binario de la resta 
-
 	ed::Monomio & operator- (ed::Monomio const &m1, ed::Monomio const &m2);
 
 
 	///////////////////////////////////////////////////////////////////////////
 	//! \name Operadores binarios de la multiplicación 
-
 	ed::Monomio & operator* (ed::Monomio const &m1, ed::Monomio const &m2);
 
 	ed::Monomio & operator* (ed::Monomio const &m, double x);
@@ -75,9 +64,7 @@ namespace ed
 	ed::Monomio & operator* (double x, ed::Monomio const &m);
 
 	///////////////////////////////////////////////////////////////////////////
-
 	//! \name Operadores binarios de la división 
-
 	ed::Monomio & operator/ (ed::Monomio const &m1, ed::Monomio const &m2);
 
 	ed::Monomio & operator/ (ed::Monomio const &m, double x);
@@ -85,14 +72,10 @@ namespace ed
 	ed::Monomio & operator/ (double x, ed::Monomio const &m);
 
 	/////////////////////////////////////////////////////////////////////////////
-
 	//! \name Sobrecarga de los operadores de entrada y salida 
+	istream &operator>>(istream &stream, ed::Monomio &m);
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	 istream &operator>>(istream &stream, ed::Monomio &m);
-
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	 ostream &operator<<(ostream &stream, ed::Monomio const &m);
+	ostream &operator<<(ostream &stream, ed::Monomio const &m);
 
 }  // Fin de namespace ed.
 

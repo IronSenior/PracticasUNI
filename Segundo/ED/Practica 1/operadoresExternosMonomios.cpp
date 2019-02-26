@@ -244,9 +244,15 @@ namespace ed
 
 	//  Sobrecarga del operador de entrada
 	istream &operator>>(istream &stream, ed::Monomio &m) 
-	{
-		// COMPLETAR
+	{	
+		int aux_Integer;
+		double aux_Double;
 
+		stream>>aux_Integer>>aux_Double;
+		stream.ignore();
+
+		m.setCoeficiente(aux_Integer);
+		m.setGrado(aux_Double);
    		// Se devuelve el flujo de entrada
 		return stream;
 	}
@@ -255,8 +261,7 @@ namespace ed
 	//  Sobrecarga del operador de salida
 	ostream &operator<<(ostream &stream, ed::Monomio const &m) 
 	{
-		// COMPLETAR
-
+		stream<<m.getCoeficiente()<<" "<<m.getGrado();
 		// Se devuelve el flujo de salida
 		return stream;
 	}

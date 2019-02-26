@@ -21,15 +21,17 @@ namespace ed
 class Monomio
 {
 	//! \name Atributos privados de la clase Monomio
+	//! \privatesection
 	private:
 		double coeficiente_;
 		int grado_;
 
 	//! \name Funciones o métodos públicos de la clase Monomio
+	//! \publicsection
 	public:
 	//! \name Constructores de la clase Monomio
+		//Constructor
 		Monomio(double coeficiente=0.0, int grado=0){
-			//precondición
 			#ifndef NDEBUG
 				assert(grado >= 0);
 			#endif
@@ -37,7 +39,6 @@ class Monomio
 			this->setCoeficiente(coeficiente);
 			this->setGrado(grado);
 
-			//Postcondición
 			#ifndef NDEBUG
 				assert(std::abs(this->getCoeficiente() - coeficiente) < COTA_ERROR);
 				assert(this->getGrado() == grado);
@@ -45,6 +46,7 @@ class Monomio
 
 		}
 
+		//Constructor de copia
 		Monomio(Monomio &monomio){
 			this->setCoeficiente(monomio.getCoeficiente());
 			this->setGrado(monomio.getGrado());
@@ -54,6 +56,8 @@ class Monomio
 				assert(monomio.getGrado() == this->getGrado());
 			#endif
 		}
+
+
 	//! \name Observadores: funciones de consulta de la clase Monomio
 		inline double getCoeficiente() const {return coeficiente_;};
 
@@ -61,6 +65,8 @@ class Monomio
 
 
 	//! \name Funciones de modificación de la clase Monomio
+
+		//Aunque en principio no parezcan funciones inline, al compilar sin asserts lo seran
 		inline void setCoeficiente(double coeficiente){
 			coeficiente_ = coeficiente;
 
@@ -89,16 +95,16 @@ class Monomio
 
 	// Operadores de asignación
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		//! \name Asignación de monomio a monomio
 		Monomio & operator=(Monomio const &m);
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		//! \name Asignación de real a monomio
 		Monomio & operator=(double const &x);
 
 
 	// Operadores aritméticos y asignación
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		//! \name Operadores aritméticos y asignación
 		Monomio & operator+=(Monomio const &m);
 
 		Monomio & operator-=(Monomio const &m);
@@ -113,18 +119,15 @@ class Monomio
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	//! \name Funciones lectura y escritura de la clase Monomio
-
+		//! \name Funciones lectura y escritura de la clase Monomio
 		void leerMonomio();
 
 		void escribirMonomio();
 
-
 	///////////////////////////////////////////////////////////////////////
 
-	//! \name Funciones auxiliares de la clase Monomio
-
-	double calcularValor(double x);
+		//! \name Funciones auxiliares de la clase Monomio
+		double calcularValor(double x);
 
 
 

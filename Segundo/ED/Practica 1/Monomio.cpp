@@ -182,6 +182,9 @@ void ed::Monomio::leerMonomio(){
 	}
 	this->setGrado(auxDouble);
 
+	// Pausa
+	std::cin.ignore();
+
 	#ifndef NDEBUG
 		assert(this->getGrado() >= 0);
 	#endif
@@ -218,7 +221,7 @@ double ed::Monomio::calcularValor(double x){
 	double grado = this->getGrado();
 	double resultado;
 
-	resultado = pow((x*coeficiente), grado);
+	resultado = coeficiente*pow(x, grado);
 
 	return resultado;
 }

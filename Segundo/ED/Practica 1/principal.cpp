@@ -1,8 +1,8 @@
 /*!
  \mainpage Implementación de un monomio
  \brief		\f$ coeficiente X^{grado}\f$
- \author   
- \date     
+ \author   José Márquez Doblas 
+ \date     22/02/2019
  \version  1.0
 */
 
@@ -58,6 +58,14 @@ int main()
 				std::cout << RESET;
 
 				ed::operadoresExternosMonomios();
+				break;
+			
+			case 3: 
+			   	std::cout << BIBLUE;
+				std::cout << "[3] Operadores externos de la clase Monomio " << std::endl;
+				std::cout << RESET;
+
+				ed::derivadaMonomios();
 				break;
 
 			default:

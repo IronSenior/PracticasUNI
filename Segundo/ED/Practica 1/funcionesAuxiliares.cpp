@@ -37,6 +37,9 @@ int ed::menu()
 	PLACE(posicion++,10);
 	std::cout << "[2] Operadores externos de la clase Monomio " << std::endl;
 
+	PLACE(posicion++,10);
+	std::cout << "[3] Derivar Monomio " << std::endl;
+
 	posicion++;
 	PLACE(posicion++,10);
 	std::cout << BIRED;
@@ -320,7 +323,33 @@ void ed::testMonomio()
 
 
 ///////////////////////////////////////////////////////////////////////////
+void ed::derivadaMonomios()
+{
+	// Lectura y escritura usando los operadores de flujo
+	std::cout << BIGREEN;
+	std::cout<< "Lectura del monomio" << std::endl;
+	std::cout << RESET;
+	std::cout<< "Coeficiente y grado del monomio (separados por espacios) " << std::endl;
 
+	// Constructor por defecto
+	ed::Monomio m, mprima;
+
+	std::cout<< "m --> ";
+	std::cin >> m;
+
+	std::cout<< "m = ";
+	m.escribirMonomio();
+
+	mprima.setCoeficiente(m.getCoeficiente() * m.getGrado());
+	mprima.setGrado(m.getGrado() - 1);
+
+	std::cout<< "m' = ";
+	mprima.escribirMonomio();
+
+ 	// Se elimina el salto de línea
+	std::cin.ignore();
+
+}
 ///////////////////////////////////////////////////////////////////////////
 
 void ed::operadoresExternosMonomios()
@@ -332,7 +361,7 @@ void ed::operadoresExternosMonomios()
 	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio y los operadores externos de dicha clase" << std::endl << std::endl;
 
 
-/*
+
 	double x;
 
 	// Constructor por defecto
@@ -563,7 +592,7 @@ void ed::operadoresExternosMonomios()
 
 
 	std::cout << std::endl;
-*/
+
 
 	return;
 }
