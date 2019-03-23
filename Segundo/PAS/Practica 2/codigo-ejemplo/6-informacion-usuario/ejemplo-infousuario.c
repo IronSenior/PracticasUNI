@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <grp.h>
+#include <getopt.h>
 #include <unistd.h>
 
 /*
