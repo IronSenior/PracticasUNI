@@ -30,7 +30,7 @@ class Polinomio: public ed::PolinomioInterfaz
   //! \name Atributos privados de la clase Polinomio
    private:
 
-		std::list<Monomio> monomios_;
+		std::vector<Monomio> monomios_;
 
 
    //! \name Funciones o métodos públicos de la clase Polinomio
@@ -44,23 +44,79 @@ class Polinomio: public ed::PolinomioInterfaz
 		};
 
 		Polinomio(Polinomio const &copia){
-			this->setMonomios(copia.getMonimios());
+			this->setMonomios(copia.getMonomios());
 		};
 
+
 		//! \name Observadores: funciones de consulta de la clase Polinomio
-		inline std::list<Monomio> getMonimios() const {return monomios_;};
+		/**
+		 * @brief Devuelve el vector de monomios del polinomio
+		 * 
+		 * @return std::vector<Monomio>: Vector de monomios
+		 */
+		inline std::vector<Monomio> getMonomios() const {return monomios_;};
 
-		//bool esNulo();
 
-		int getGrado();
+		/**
+		 * @brief Devuelve el grado del Polinomio
+		 * 
+		 * @return int: Grado del polinomio
+		 */
+		inline int getGrado() const {return this->getMonomios()[0].getGrado();};
 
-		inline int const getNumeroMonomios(){return this->getMonimios().size();};
+
+		/**
+		 * @brief Comprueba si el Polinomio es nulo
+		 * 
+		 * @return true 
+		 * @return false 
+		 */
+		bool esNulo() const;
+
+
+		/**
+		 * @brief Devuelve el numero de monomios que hay en el polinomio
+		 * 
+		 * @return int: Numero de monomios
+		 */
+		inline int getNumeroMonomios() const {return this->getMonomios().size();};
+
+
+		/**
+		 * @brief Comprueba si el monomio de grado mGrado existe
+		 * 
+		 * @param mGrado: Grado del monomio que buscamos
+		 * @return true si existe
+		 * @return false si no existe
+		 */
+		bool existeMonomio(int mGrado) const;
+
+
+		/**
+		 * @brief Devuelve el monomio de grado mGrado
+		 * 
+		 * @param mGrado: Grado del monomio que buscamos
+		 * @return ed::Monomio si lo encuentra
+		 * @return ed::Monomio Nulo si no lo encuentra
+		 */
+		ed::Monomio getMonomio(int mGrado) const;
 
 
 		//! \name Funciones de modificación de la clase Polinomio
-		inline void InsertaMonomio(Monomio &nuevo_monomio){this->monomios_.push_back(nuevo_monomio);};
+		/**
+		 * @brief Inserta un monomio en el polinomio
+		 * 
+		 * @param nuevo_monomio: Monomio a insertar
+		 */
+		inline void InsertaMonomio(Monomio const &nuevo_monomio);
 
-		inline void setMonomios(std::list<Monomio> const &nueva_lista){this->monomios_ = nueva_lista;};
+
+		/**
+		 * @brief Cambia todos los monomios del polinomio por el vector nueva_lista
+		 * 
+		 * @param nuevo_vector: Nuevo vector de monomios
+		 */
+		inline void setMonomios(std::vector<Monomio> const &nuevo_vector){this->monomios_ = nuevo_vector;};
 
 		////////////////////////////////////////////////////////////////
 
@@ -80,10 +136,21 @@ class Polinomio: public ed::PolinomioInterfaz
 		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
 		Polinomio & operator+=(Polinomio const &p);
 
+		Polinomio & operator+=(ed::Monomio const &m);
 
-		// COMPLETAR EL RESTO DE OPERADORES
+		Polinomio & operator+=(double const &m);
 
+		Polinomio & operator-=(Polinomio const &p);
 
+		Polinomio & operator-=(ed::Monomio const &m);
+
+		Polinomio & operator-=(double const &m);
+
+		Polinomio & operator*=(Polinomio const &p);
+
+		Polinomio & operator*=(ed::Monomio const &m);
+
+		Polinomio & operator*=(double const &m);
 		/////////////////////////////////////////////////////////////////////////////////////
 
 		//! \name Funciones lectura y escritura de la clase Polinomio
