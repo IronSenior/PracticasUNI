@@ -29,8 +29,7 @@ class Polinomio: public ed::PolinomioInterfaz
 
   //! \name Atributos privados de la clase Polinomio
    private:
-
-		std::list<Monomio> monomios_;
+		std::vector<Monomio> monomios_;
 
 
    //! \name Funciones o métodos públicos de la clase Polinomio
@@ -44,23 +43,23 @@ class Polinomio: public ed::PolinomioInterfaz
 		};
 
 		Polinomio(Polinomio const &copia){
-			this->setMonomios(copia.getMonimios());
+			this->setMonomios(copia.getMonomios());
 		};
 
 		//! \name Observadores: funciones de consulta de la clase Polinomio
-		inline std::list<Monomio> getMonimios() const {return monomios_;};
+		inline std::vector<Monomio> getMonomios() const {return monomios_;};
 
-		//bool esNulo();
+		bool esNulo();
 
 		int getGrado();
 
-		inline int const getNumeroMonomios(){return this->getMonimios().size();};
+		inline int const getNumeroMonomios(){return this->getMonomios().size();};
 
 
 		//! \name Funciones de modificación de la clase Polinomio
 		inline void InsertaMonomio(Monomio &nuevo_monomio){this->monomios_.push_back(nuevo_monomio);};
 
-		inline void setMonomios(std::list<Monomio> const &nueva_lista){this->monomios_ = nueva_lista;};
+		inline void setMonomios(std::vector<Monomio> const &nueva_lista){this->monomios_ = nueva_lista; this->ordenarPolinomio();};
 
 		////////////////////////////////////////////////////////////////
 
@@ -95,7 +94,7 @@ class Polinomio: public ed::PolinomioInterfaz
 
 		//! \name Funciones auxiliares de la clase Polinomio
 
-		// COMPLETAR
+		void ordenarPolinomio();
 
 
 }; // Fin de la definición de la clase Polinomio
