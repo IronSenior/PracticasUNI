@@ -197,7 +197,7 @@ void ed::testPolinomio()
 	std::cout<< "Asignación de un monomio a un polinomio --> p1 = m"<< std::endl;
 	p1 = m;
 	std::cout<< "p1 = ";
-	p2.escribirPolinomio();
+	p1.escribirPolinomio();
 	std::cout << std::endl;
 	std::cout<< "m = ";
 	m.escribirMonomio();
@@ -208,7 +208,7 @@ void ed::testPolinomio()
 	std::cout<< "Asignación de un número a un polinomio --> p1 = x"<< std::endl;
 	p1 = x;
 	std::cout<< "p1 = ";
-	p2.escribirPolinomio();
+	p1.escribirPolinomio();
 	std::cout << std::endl;
 	std::cout<< "x = " << x;
 	std::cout << std::endl << std::endl;
@@ -267,7 +267,7 @@ void ed::testPolinomio()
 	std::cout<< "Resultado p1 += p2"<< std::endl;
 	p1 += p2;
 	std::cout<< "p1 = ";
-	p2.escribirPolinomio();
+	p1.escribirPolinomio();
 	std::cout << std::endl << std::endl;
 
 	// Operador de resta y asignación
@@ -281,7 +281,7 @@ void ed::testPolinomio()
 	std::cout<< "Resultado p1 -= p2"<< std::endl;
 	p1 -= p2;
 	std::cout<< "p1 = ";
-	p2.escribirPolinomio();
+	p1.escribirPolinomio();
 	std::cout << std::endl << std::endl;
 
 	// Operador de multiplicación y asignación
@@ -295,7 +295,7 @@ void ed::testPolinomio()
 	std::cout<< "Resultado p1 *= p2"<< std::endl;
 	p1 *= p2;
 	std::cout<< "p1 = ";
-	p2.escribirPolinomio();
+	p1.escribirPolinomio();
 	std::cout << std::endl << std::endl;
 
 	// Operador de división y asignación
@@ -311,7 +311,7 @@ void ed::testPolinomio()
 		std::cout<< "Resultado p1 *= p2"<< std::endl;
 		//p1 /= p2;
 		std::cout<< "p1 = ";
-		p2.escribirPolinomio();
+		p1.escribirPolinomio();
 		std::cout << std::endl << std::endl;
 	}
 	else
@@ -464,9 +464,9 @@ void ed::testPolinomio()
 	std::cout<< "p1(" << x << ") = " << p1.calcularValor(x) << std::endl << std::endl;
 
 	std::cout<< "p2 = ";
-	p1.escribirPolinomio();
+	p2.escribirPolinomio();
 	std::cout << std::endl;
-	std::cout<< "p1(" << x << ") = " << p1.calcularValor(x) << std::endl << std::endl;
+	std::cout<< "p2(" << x << ") = " << p2.calcularValor(x) << std::endl << std::endl;
 
 	std::cout<< "p3 = ";
 	p3.escribirPolinomio();
