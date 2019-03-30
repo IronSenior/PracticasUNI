@@ -68,7 +68,7 @@ void ed::testPolinomio()
   std::cout << RESET;
   std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Polinomio " << std::endl << std::endl;
 
-  /*
+  
 	double x;
 
 	ed::Monomio m;
@@ -96,6 +96,7 @@ void ed::testPolinomio()
 	std::cout<< "m = ";
 	m.escribirMonomio();
 	std::cout << std::endl << std::endl;
+
 
 	// Lectura usando la función de la clase Polinomio
 	std::cout << BIGREEN;
@@ -191,6 +192,7 @@ void ed::testPolinomio()
 	p2.escribirPolinomio();
 	std::cout << std::endl << std::endl;
 
+
 	// Asignación de un número a un polinomio
 	std::cout<< "Asignación de un monomio a un polinomio --> p1 = m"<< std::endl;
 	p1 = m;
@@ -200,6 +202,7 @@ void ed::testPolinomio()
 	std::cout<< "m = ";
 	m.escribirMonomio();
 	std::cout << std::endl << std::endl;
+
 
 	// Asignación de un número a un polinomio
 	std::cout<< "Asignación de un número a un polinomio --> p1 = x"<< std::endl;
@@ -306,7 +309,7 @@ void ed::testPolinomio()
 		p2.escribirPolinomio();
 		std::cout << std::endl;
 		std::cout<< "Resultado p1 *= p2"<< std::endl;
-		p1 /= p2;
+		//p1 /= p2;
 		std::cout<< "p1 = ";
 		p2.escribirPolinomio();
 		std::cout << std::endl << std::endl;
@@ -333,6 +336,7 @@ void ed::testPolinomio()
 	std::cout<< "Operadores artiméticos y asignación: polinomio y monomio "<< std::endl;
 	std::cout << RESET;
 
+
 	//
 	// Operador de suma y asignación
 	std::cout<< "Operador p3 += m"<< std::endl;
@@ -343,6 +347,7 @@ void ed::testPolinomio()
 	std::cout<< "m = ";
 	m.escribirMonomio();
 	std::cout << std::endl << std::endl;
+
 
 	// Operador de resta y asignación
 	std::cout<< "Operador p3 -= m "<< std::endl;
@@ -368,7 +373,7 @@ void ed::testPolinomio()
 	std::cout<< "Operador p3 /= m "<< std::endl;
 	if (p3.getGrado() >= m.getGrado())
 	{
-		p3 /= m;
+		//p3 /= m;
 	}
 	else
 	{
@@ -425,7 +430,7 @@ void ed::testPolinomio()
 	std::cout<< "Operador p3 /= x "<< std::endl;
 	if (std::abs(x) > COTA_ERROR)
 	{
-		p3 /= x;
+		//p3 /= x;
 	}
 	else
 	{
@@ -467,7 +472,7 @@ void ed::testPolinomio()
 	p3.escribirPolinomio();
 	std::cout << std::endl;
 	std::cout<< "p3(" << x << ") = " << p3.calcularValor(x) << std::endl << std::endl;
-*/
+
 
 	// Fin
 	return;

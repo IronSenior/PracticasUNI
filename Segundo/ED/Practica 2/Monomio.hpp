@@ -6,6 +6,7 @@
 #ifndef _MONOMIO_HPP_
 #define _MONOMIO_HPP_
 
+
 // Para usar la funciones pow y std::abs
 #include <cmath>
 
@@ -47,7 +48,7 @@ class Monomio
 		}
 
 		//Constructor de copia
-		Monomio(Monomio &monomio){
+		Monomio(Monomio const &monomio){
 			this->setCoeficiente(monomio.getCoeficiente());
 			this->setGrado(monomio.getGrado());
 

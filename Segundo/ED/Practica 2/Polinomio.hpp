@@ -18,6 +18,7 @@
 
 #include "PolinomioInterfaz.hpp"
 #include "Monomio.hpp"
+#include "operadoresExternosMonomios.hpp"
 
 
 // Se incluye la clase Polinomio dentro del espacio de nombre de la asigantura: ed
@@ -29,7 +30,7 @@ class Polinomio: public ed::PolinomioInterfaz
 
   //! \name Atributos privados de la clase Polinomio
    private:
-		std::vector<Monomio> monomios_;
+		std::vector<ed::Monomio> monomios_;
 
 
    //! \name Funciones o métodos públicos de la clase Polinomio
@@ -53,7 +54,7 @@ class Polinomio: public ed::PolinomioInterfaz
 		 * 
 		 * @return std::vector<Monomio>: Vector de monomios
 		 */
-		inline std::vector<Monomio> getMonomios() const {return monomios_;};
+		inline std::vector<ed::Monomio> getMonomios() const {return monomios_;};
 
 
 		/**
@@ -107,7 +108,7 @@ class Polinomio: public ed::PolinomioInterfaz
 		 * 
 		 * @param nuevo_monomio: Monomio a insertar
 		 */
-		inline void InsertaMonomio(Monomio const &nuevo_monomio);
+		void InsertaMonomio(Monomio const &nuevo_monomio);
 
 
 		/**
@@ -153,8 +154,9 @@ class Polinomio: public ed::PolinomioInterfaz
 		/////////////////////////////////////////////////////////////////////////////////////
 
 		//! \name Funciones lectura y escritura de la clase Polinomio
+		void leerPolinomio();
 
-		// COMPLETAR
+		void escribirPolinomio();
 
 
 		///////////////////////////////////////////////////////////////////////
@@ -162,6 +164,8 @@ class Polinomio: public ed::PolinomioInterfaz
 		//! \name Funciones auxiliares de la clase Polinomio
 
 		void ordenarPolinomio();
+
+		double calcularValor(double x);
 
 
 }; // Fin de la definición de la clase Polinomio

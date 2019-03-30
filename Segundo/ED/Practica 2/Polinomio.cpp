@@ -29,6 +29,7 @@ bool ed::Polinomio::existeMonomio(int mGrado) const{
 			return true;
 		}
 	}
+	return false;
 }
 
 ed::Monomio ed::Polinomio::getMonomio(int mGrado) const{
@@ -42,11 +43,13 @@ ed::Monomio ed::Polinomio::getMonomio(int mGrado) const{
 			return *it;
 		}
 	}
+	Monomio aux2(0.0, 0);
+	return aux2;
 }
 
 //Modificadores
 void ed::Polinomio::InsertaMonomio(ed::Monomio const &nuevo_monomio){
-	if (this->existeMonomio(nuevo_monomio.getGrado)){
+	if (this->existeMonomio(nuevo_monomio.getGrado())){
 		std::vector<Monomio>::iterator it;
 		for (it = monomios_.begin(); it != monomios_.end(); it++){
 			if(it->getGrado() == nuevo_monomio.getGrado()){
@@ -56,7 +59,7 @@ void ed::Polinomio::InsertaMonomio(ed::Monomio const &nuevo_monomio){
 	}
 	else{
 		monomios_.push_back(nuevo_monomio);
-		//this->ordenaPolinomio();
+		this->ordenarPolinomio();
 	}
 }
 
@@ -139,7 +142,7 @@ ed::Polinomio & ed::Polinomio::operator-=(ed::Polinomio const &p)
 	ed::Monomio aux;
 	std::vector<Monomio>::iterator it;
 	for (it = p.getMonomios().begin(); it != p.getMonomios().end(); it++){
-		aux.setCoeficiente(- it->getCoeficiente()); //OJO
+		aux.setCoeficiente(- it->getCoeficiente()); 
 		aux.setGrado(it->getGrado());
 		this->InsertaMonomio(aux);
 	}
@@ -148,14 +151,14 @@ ed::Polinomio & ed::Polinomio::operator-=(ed::Polinomio const &p)
 
 ed::Polinomio & ed::Polinomio::operator-=(ed::Monomio const &m)
 {
-	ed::Monomio aux(-m.getCoeficiente(), m.getGrado()); //OJO
+	ed::Monomio aux(-(m.getCoeficiente()), m.getGrado()); 
 	this->InsertaMonomio(aux);
 	return *this;
 }
 
 ed::Polinomio & ed::Polinomio::operator-=(double const &x)
 {
-	ed::Monomio aux(-x, 0); //OJO
+	ed::Monomio aux(-x, 0);
 	this->InsertaMonomio(aux);
 	return *this;
 }
@@ -196,19 +199,40 @@ ed::Polinomio & ed::Polinomio::operator*=(double const &x)
 
 // Funciones lectura y escritura de la clase Polinomio
 
-// COMPLETAR
+void ed::Polinomio::leerPolinomio(){
+	ed::Monomio aux_monom(1.0, 1);
+	ed::Monomio nulo(0.0, 0);
+	ed::Polinomio aux_polin;
+	while((aux_monom.getGrado() != 0) and (std::abs(aux_monom.getCoeficiente()) > COTA_ERROR)){
+		aux_monom.leerMonomio();
+		if((aux_monom.getGrado() != 0) and (std::abs(aux_monom.getCoeficiente()) > COTA_ERROR)){
+			aux_polin.InsertaMonomio(aux_monom);
+		}
+	}
 
+	this->setMonomios(aux_polin.getMonomios());
+	//this->ordenarPolinomio();
+};
+
+
+void ed::Polinomio::escribirPolinomio(){
+	std::vector<Monomio>::iterator it;
+
+	for(it = this->getMonomios().begin(); it != this->getMonomios().end(); it++){
+		it->escribirMonomio();
+	}
+	std::cout<<std::endl;
+}
 
 ///////////////////////////////////////////////////////////////////////
 
 // Funciones auxiliares de la clase Polinomio
- void ed::Polinomio::ordenarPolinomio(){
-	Monomio aux_monom;
-	aux_monom.setGrado(9999);
+void ed::Polinomio::ordenarPolinomio(){
+	ed::Monomio aux_monom(1, 999999);
 
-	std::vector<Monomio> aux_polinom;
+	std::vector<ed::Monomio> aux_polinom;
+	std::vector<ed::Monomio>::iterator it;
 
-	std::vector<Monomio>::iterator it;
 	for (int i=0; i < this->getNumeroMonomios(); i++){
 		for(it = this->getMonomios().begin(); it != this->getMonomios().end(); it++){
 			if (it->getGrado() < aux_monom.getGrado()){
@@ -217,4 +241,17 @@ ed::Polinomio & ed::Polinomio::operator*=(double const &x)
 		}
 		aux_polinom.push_back(aux_monom);
 	}
- }
+	this->setMonomios(aux_polinom);
+}
+
+
+double ed::Polinomio::calcularValor(double x){
+	std::vector<Monomio>::iterator it;
+	double suma=0;
+
+	for(it = this->getMonomios().begin(); it != this->getMonomios().end(); it++){
+		suma += it->calcularValor(x);
+	}
+
+	return suma;
+}

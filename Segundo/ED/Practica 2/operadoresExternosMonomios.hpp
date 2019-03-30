@@ -22,7 +22,7 @@ namespace ed
 	// Operadores externos que no pertenecen a la clase Monomio
 
 	//! \name Operadores de igualdad  
-	bool operator==(ed::Monomio const & m1, ed::Monomio const & m2);
+	bool operator==(ed::Monomio const &m1, ed::Monomio const &m2);
 
 	bool operator==(ed::Monomio const & m, double x);
 

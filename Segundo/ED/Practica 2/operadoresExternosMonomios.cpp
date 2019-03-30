@@ -14,21 +14,21 @@
 namespace ed 
 {
 	// Operadores de igualdad
-	bool operator==(ed::Monomio const & m1, ed::Monomio const & m2){
+	bool operator==(ed::Monomio const &m1, ed::Monomio const &m2){
 		if ((m1.getCoeficiente() == m2.getCoeficiente()) and (std::abs(m1.getGrado() - m2.getGrado()) < COTA_ERROR)){
 			return true;
 		}
 		return false;
 	}
 
-	bool operator==(ed::Monomio const & m, double x){
+	bool operator==(ed::Monomio const &m, double x){
 		if ((m.getGrado() < COTA_ERROR) and (std::abs(x - m.getCoeficiente()) < COTA_ERROR)){
 			return true;
 		}
 		return false;
 	}
 
-	bool operator==(double x, ed::Monomio const & m){
+	bool operator==(double x, ed::Monomio const &m){
 		if ((m.getGrado() < COTA_ERROR) and (std::abs(x - m.getCoeficiente()) < COTA_ERROR)){
 			return true;
 		}
