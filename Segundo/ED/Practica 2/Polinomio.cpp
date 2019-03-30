@@ -85,7 +85,7 @@ ed::Polinomio & ed::Polinomio::operator=(ed::Polinomio const &p)
 
 ed::Polinomio & ed::Polinomio::operator=(ed::Monomio const &m)
 {
-	std::vector<Monomio> aux_vector;
+	std::vector<ed::Monomio> aux_vector;
 	aux_vector.push_back(m);
 
 	this->setMonomios(aux_vector);
@@ -100,7 +100,7 @@ ed::Polinomio & ed::Polinomio::operator=(ed::Monomio const &m)
 ed::Polinomio & ed::Polinomio::operator=(double const &x)
 {
 	std::vector<Monomio> aux_vector;
-	ed::Monomio aux_monom(x, 0);
+	ed::Monomio aux_monom(x, 1);
 	aux_vector.push_back(aux_monom);
 
 	this->setMonomios(aux_vector);
@@ -193,6 +193,30 @@ ed::Polinomio & ed::Polinomio::operator*=(double const &x)
 	*this *= aux;
 	return *this;
 }
+
+ed::Polinomio & ed::Polinomio::operator/=(ed::Polinomio const &p)
+{
+	std::vector<Monomio>::iterator it;
+	for (it = p.getMonomios().begin(); it != p.getMonomios().end(); it++){
+		*this /= *it;
+	}
+
+	return *this;
+}
+
+ed::Polinomio & ed::Polinomio::operator/=(ed::Monomio const &m)
+{
+	std::vector<Monomio> aux_vector = this->getMonomios();
+
+	std::vector<Monomio>::iterator it;
+	for (it = aux_vector.begin(); it != aux_vector.end(); it++){
+		*it /= m;
+	}
+
+	this->setMonomios(aux_vector);
+	return *this;
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////
