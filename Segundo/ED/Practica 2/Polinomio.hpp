@@ -122,49 +122,134 @@ class Polinomio: public ed::PolinomioInterfaz
 
 		//! \name Operadores de la clase Polinomio
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		/**
+		 * @brief Operador de asignacion Polinomio Polinomio
+		 * 
+		 * @param p :Polinomio que se va a asignar
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator=(Polinomio const &p);
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		/**
+		 * @brief Operador de asignacion Polinomio Monomio
+		 * 
+		 * @param m 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator=(Monomio const &m);
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		/**
+		 * @brief Operador de asignacion Polinomio Real
+		 * 
+		 * @param x 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator=(double const &x);
 
 		// Operadores aritméticos y asignación
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		/**
+		 * @brief Operador de suma y asiganción Polinomio Polinomio
+		 * 
+		 * @param p 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator+=(Polinomio const &p);
 
+
+		/**
+		 * @brief Operador de suma y asiganción Polinomio Monomio
+		 * 
+		 * @param m 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator+=(ed::Monomio const &m);
 
-		Polinomio & operator+=(double const &m);
+		/**
+		 * @brief Operador de suma y asiganción Polinomio Real
+		 * 
+		 * @param m 
+		 * @return Polinomio& 
+		 */
+		Polinomio & operator+=(double const &x);
 
+		/**
+		 * @brief Operador de resta y asiganción Polinomio Polinomio
+		 * 
+		 * @param p 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator-=(Polinomio const &p);
 
+		/**
+		 * @brief Operador de resta y asiganción Polinomio Monomio
+		 * 
+		 * @param m 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator-=(ed::Monomio const &m);
 
-		Polinomio & operator-=(double const &m);
 
+		/**
+		 * @brief Operador de resta y asiganción Polinomio Real
+		 * 
+		 * @param x 
+		 * @return Polinomio& 
+		 */
+		Polinomio & operator-=(double const &x);
+
+		/**
+		 * @brief Operador de producto y asiganción Polinomio Polinomio
+		 * 
+		 * @param p 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator*=(Polinomio const &p);
 
+		/**
+		 * @brief Operador de producto y asiganción Polinomio Monomio
+		 * 
+		 * @param m 
+		 * @return Polinomio& 
+		 */
 		Polinomio & operator*=(ed::Monomio const &m);
 
-		Polinomio & operator*=(double const &m);
+		/**
+		 * @brief Operador de producto y asiganción Polinomio Real
+		 * 
+		 * @param x 
+		 * @return Polinomio& 
+		 */
+		Polinomio & operator*=(double const &x);
 		/////////////////////////////////////////////////////////////////////////////////////
 
 		//! \name Funciones lectura y escritura de la clase Polinomio
+		/**
+		 * @brief Lectura de un polinomio por teclado
+		 * 
+		 */
 		void leerPolinomio();
 
+		/**
+		 * @brief Imprime un polinomio por terminal
+		 * 
+		 */
 		void escribirPolinomio();
 
 
 		///////////////////////////////////////////////////////////////////////
 
 		//! \name Funciones auxiliares de la clase Polinomio
-
+		/**
+		 * @brief Ordena el polinomio de mayor a menor grado
+		 * 
+		 */
 		void ordenarPolinomio();
 
+		/**
+		 * @brief Calcula el valor de un polinomio para x
+		 * 
+		 */
 		double calcularValor(double x);
 
 
