@@ -151,10 +151,6 @@ class Polinomio: public ed::PolinomioInterfaz
 		Polinomio & operator*=(ed::Monomio const &m);
 
 		Polinomio & operator*=(double const &m);
-
-		Polinomio & operator/=(ed::Polinomio const &p);
-
-		Polinomio & operator/=(ed::Monomio const &m);
 		/////////////////////////////////////////////////////////////////////////////////////
 
 		//! \name Funciones lectura y escritura de la clase Polinomio
