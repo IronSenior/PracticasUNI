@@ -99,7 +99,7 @@ class Polinomio: public ed::PolinomioInterfaz
 		 * @return ed::Monomio si lo encuentra
 		 * @return ed::Monomio Nulo si no lo encuentra
 		 */
-		ed::Monomio getMonomio(int mGrado) const;
+		ed::Monomio & getMonomio(int mGrado);
 
 
 		//! \name Funciones de modificación de la clase Polinomio

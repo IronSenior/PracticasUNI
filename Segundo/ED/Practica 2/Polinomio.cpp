@@ -32,9 +32,9 @@ bool ed::Polinomio::existeMonomio(int mGrado) const{
 	return false;
 }
 
-ed::Monomio ed::Polinomio::getMonomio(int mGrado) const{
+ed::Monomio & ed::Polinomio::getMonomio(int mGrado){
 	if (! existeMonomio(mGrado)){
-		Monomio aux(0.0, 0);
+		Monomio aux(0.0, mGrado);
 		return aux;
 	}
 	std::vector<Monomio>::iterator it;
@@ -43,7 +43,7 @@ ed::Monomio ed::Polinomio::getMonomio(int mGrado) const{
 			return *it;
 		}
 	}
-	Monomio aux2(0.0, 0);
+	ed::Monomio aux2(0.0, mGrado);
 	return aux2;
 }
 
