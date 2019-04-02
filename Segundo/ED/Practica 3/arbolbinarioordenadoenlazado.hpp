@@ -35,70 +35,103 @@ namespace ed
 		public:
 			NodoArbolBinario (const G &info)
 			{
-				// TODO
+				this->setInfo(info);
+
+				#ifndef NDEBUG
+					assert(this->esHoja());
+				#endif
 			}
 
 			NodoArbolBinario (const NodoArbolBinario &n)
 			{
-				// TODO
+				*this = n;
+
+				#ifndef NDEBUG
+					assert(this->getInfo() == n.getInfo());
+					assert(this->getDerecho() == n.getDerecho());
+					assert(this->getIzquierdo() == n.getIzquierdo());
+				#endif
 			}
 
 			/*!\brief Observadores.*/
 			const G & getInfo() const
 			{
-				// TODO
+				return _info;
 			}
 
 			NodoArbolBinario *getIzquierdo() const
 			{
-				// TODO
+				return _izquierdo;
 			}
 
 			NodoArbolBinario *getDerecho() const
 			{
-				// TODO
+				return _derecho;
 			}
 
 			bool esHoja() const
 			{
-				// TODO
-				return false;
+				if((this->getDerecho() != NULL)&&(this->getIzquierdo() != NULL)){
+					return false;
+				}
+				return true;
 			}
 
 			void recorridoPreOrden (OperadorNodo<G> &operador) const
 			{
-				// TODO
+				operador.aplicar(*this);
+				if(this->getDerecho() != NULL){
+					this->getDerecho().recorridoPreOrden(operador);
+				}
+				if(this->getIzquierdo() != NULL){
+					this->getIzquierdo().recorridoPreOrden(operador);
+				}		
+
 			}
 
 			void recorridoPostOrden (OperadorNodo<G> &operador) const
 			{
-				// TODO
+				if(this->getDerecho() != NULL){
+					this->getDerecho().recorridoPreOrden(operador);
+				}
+				if(this->getIzquierdo() != NULL){
+					this->getIzquierdo().recorridoPreOrden(operador);
+				}	
+				operador.aplicar(*this);	
 			}
 
 			void recorridoInOrden (OperadorNodo<G> &operador) const
 			{
-				// TODO
+				if(this->getDerecho() != NULL){
+					this->getDerecho().recorridoPreOrden(operador);
+				}
+				operador.aplicar(*this);
+				if(this->getIzquierdo() != NULL){
+					this->getIzquierdo().recorridoPreOrden(operador);
+				}	
 			}
 
 			/*!\brief Modificadores. */
 			void setInfo(const G &info)
 			{
-				// TODO
+				_info = info;
 			}
 
 			void setIzquierdo(NodoArbolBinario *n)
 			{
-				// TODO
+				_izquierdo = *n;
 			}
 
 			void setDerecho(NodoArbolBinario *n)
 			{
-				// TODO
+				_derecho = *n;
 			}
 
 			NodoArbolBinario & operator=(const NodoArbolBinario &n)
 			{
-				// TODO
+				this->setInfo(n.getInfo());
+				this->setDerecho(n.getDerecho());
+				this->setIzquierdo(n.getIzquierdo());
 			}
 
 		}; //Fin clase NodoArbolBinario
@@ -112,35 +145,76 @@ namespace ed
 
 		ArbolBinarioOrdenadoEnlazado ()
 		{
-			// TODO
+			#ifndef NDEBUG
+				assert(this->estaVacio());
+			#endif
 		}
 
 		ArbolBinarioOrdenadoEnlazado (const ArbolBinarioOrdenadoEnlazado<G>& a)
 		{
-			// TODO
+			*this = a;
 		}
 
 		~ArbolBinarioOrdenadoEnlazado ()
 		{
-			if (not estaVacio())
+			if (not this->estaVacio())
 			borrarArbol();
 			cout << "Destructor Usado \n";
 		}
 
 		ArbolBinarioOrdenadoEnlazado &operator=(const ArbolBinarioOrdenadoEnlazado& a)
 		{
-			// TODO
+			this->_raiz = a._raiz;
+			this->_actual = a._actual;
+			this->_padre = a._padre;
 		}
 
 		bool insertar(const G &x)
 		{
-			// TODO
-			return false;
+			bool inserted = false;
+			if (this->estaVacio()){
+				_raiz = NodoArbolBinario(x);
+				inserted = true;
+			}
+			else{
+				_actual = raiz_;
+			}
+			while (! inserted){
+				if (x > this->actual()){
+					if (_actual->getDerecho() != NULL){
+						_actual = _actual->getDerecho();
+					}
+					else{
+						_actual->setDerecho(NodoArbolBinario(x));
+						inserted = true;
+					}
+				}
+				else{
+					if (_actual->getIzquierdo() != NULL){
+						_actual = _actual->getIzquierdo();
+					}
+					else{
+						_actual->setIzquierdo(NodoArbolBinario(x));
+						inserted = true;
+					}
+				}
+
+			}
+			
+			return inserted;
 		}
 
 		void borrarArbol()
 		{
-			// TODO
+			#ifndef NDEBUG
+				assert(this->estaVacio());
+			#endif
+			
+			_raiz = NULL;
+
+			#ifndef NDEBUG
+				assert(! this->estaVacio());
+			#endif
 		}
 
 		bool borrar()
@@ -172,24 +246,39 @@ namespace ed
 
 		bool estaVacio() const
 		{
-			// TODO
+			if (_raiz == NULL){
+				return true;
+			}
 			return false;
 		}
 
 		G raiz() const
 		{
-			// TODO
+			#ifndef NDEBUG
+				assert(this->estaVacio());
+			#endif
+
+			return _raiz->getInfo();
 		}
 
 		bool existeActual() const
 		{
-			// TODO
-			return false;
+			#ifndef NDEBUG
+				assert(this->estaVacio());
+			#endif
+
+			if (_actual == NULL){
+				return false;
+			}
+			return true;
 		}
 
 		G actual() const
 		{
-			// TODO
+			#ifndef NDEBUG
+				assert(this->existeActual());
+			#endif
+			return _actual->getInfo();
 		}
 
 		/*!@}*/
