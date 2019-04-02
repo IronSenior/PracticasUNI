@@ -57,7 +57,7 @@ int main()
 				std::cout << "[2] Operadores externos de la clase Polinomio " << std::endl;
 				std::cout << RESET;
 
-				ed::operadoresExternosPolinomios();
+				//ed::operadoresExternosPolinomios();
 				break;
 
 			default:
