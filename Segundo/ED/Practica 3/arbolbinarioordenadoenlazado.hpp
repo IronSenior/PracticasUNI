@@ -173,12 +173,12 @@ namespace ed
 		{
 			bool inserted = false;
 			if (this->estaVacio()){
-				_raiz = NodoArbolBinario(x);
+				_raiz->
 				inserted = true;
 			}
 			else{
 				_padre = NULL;
-				_actual = raiz_;
+				_actual = _raiz;
 			}
 			while (! inserted){
 				if (x > this->actual()){
@@ -230,15 +230,15 @@ namespace ed
 			NodoArbolBinario *aux_pt_padre;
 			aux_pt_actual = _actual;
 			aux_pt_padre = _padre;
-			bool borrado = flase;
+			bool borrado = false;
 
 			if(_actual->getDerecho() != NULL){
-				_padre = _actual
+				_padre = _actual;
 				_actual = _actual->getDerecho();
 
 				while(!_actual.esHoja()){
 					_padre = _actual;
-					_actual = _actual->getIzquierda()
+					_actual = _actual->getIzquierda();
 				}
 
 				aux_pt_actual->setInfo(_actual->getInfo());
@@ -254,7 +254,7 @@ namespace ed
 					_actual = _actual->getderecho();
 				}
 
-				aux_pt->setInfo(_actual->getInfo());
+				aux_pt_actual->setInfo(_actual->getInfo());
 				_padre.setDerecho(NULL);
 				borrado = true;
 			}
@@ -291,7 +291,7 @@ namespace ed
 			_actual = _raiz;
 
 			while((_actual != NULL)&&(! encontrado)){
-				if (_actual->getInfo() > it){
+				if (_actual->getInfo() > x){
 					if (_actual->getIzquierdo() != NULL){
 						_padre = _actual;
 						_actual = _actual->getIzquierdo();
@@ -300,7 +300,7 @@ namespace ed
 						_actual = NULL;
 					}
 				}
-				else if(_actual->getInfo() < it){
+				else if(_actual->getInfo() < x){
 					if (_actual->getDerecho() != NULL){
 						_padre = _actual;
 						_actual = _actual->getDerecho();
