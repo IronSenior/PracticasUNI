@@ -226,44 +226,99 @@ namespace ed
 				assert(this->estaVacio());
 			#endif
 
-			if(_raiz->getDerecho() != NULL){
-				_padre = _raiz;
-				_actual = _raiz->getDerecho();
+			NodoArbolBinario *aux_pt_actual;
+			NodoArbolBinario *aux_pt_padre;
+			aux_pt_actual = _actual;
+			aux_pt_padre = _padre;
+			bool borrado = flase;
+
+			if(_actual->getDerecho() != NULL){
+				_padre = _actual
+				_actual = _actual->getDerecho();
 
 				while(!_actual.esHoja()){
 					_padre = _actual;
 					_actual = _actual->getIzquierda()
 				}
 
-				_raiz->setInfo(_actual->getInfo());
+				aux_pt_actual->setInfo(_actual->getInfo());
 				_padre.setIzquierdo(NULL);
+				borrado = true;
+			}
+			else if (_actual->getIzquierdo() != NULL){
+				_padre = _actual;
+				_actual = _actual->getIzquiedo();
+
+				while(!_actual.esHoja()){
+					_padre = _actual;
+					_actual = _actual->getderecho();
+				}
+
+				aux_pt->setInfo(_actual->getInfo());
+				_padre.setDerecho(NULL);
+				borrado = true;
+			}
+			else{
+				this->borrarArbol();
+				borrado = true;
 			}
 
+			_actual = aux_pt_actual;
+			_padre = aux_pt_padre;
 
-
-
-			return false;
+			return borrado;
 		}
 
 		void recorridoPreOrden (OperadorNodo<G> &operador) const
 		{
-			// TODO
+			_raiz->recorridoPreOrden(operador);
 		}
 
 		void recorridoPostOrden (OperadorNodo<G> &operador) const
 		{
-			// TODO
+			_raiz->recorridoPostOrden(operador);
 		}
 
 		void recorridoInOrden (OperadorNodo<G> &operador) const
 		{
-			// TODO
+			_raiz->recorridoInOrden(operador);
 		}
 
 		bool buscar(const G& x) const
 		{
-			// TODO
-			return false;
+			bool encontrado = false;
+			_padre = NULL;
+			_actual = _raiz;
+
+			while((_actual != NULL)&&(! encontrado)){
+				if (_actual->getInfo() > it){
+					if (_actual->getIzquierdo() != NULL){
+						_padre = _actual;
+						_actual = _actual->getIzquierdo();
+					}
+					else{
+						_actual = NULL;
+					}
+				}
+				else if(_actual->getInfo() < it){
+					if (_actual->getDerecho() != NULL){
+						_padre = _actual;
+						_actual = _actual->getDerecho();
+					}
+					else{
+						_actual = NULL;
+					}
+				}
+				else{
+					encontrado = true;
+				}
+			}
+			if (_actual == NULL){
+				_padre = NULL;
+				_actual = _raiz;
+			}
+
+			return encontrado;
 		}
 
 		bool estaVacio() const
