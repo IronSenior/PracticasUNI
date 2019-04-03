@@ -139,7 +139,7 @@ namespace ed
 		//Implementación de la raíz
 		NodoArbolBinario * _raiz; /*!<La raiz del árbol*/
 		NodoArbolBinario * _actual; /*!<Cursor al nodo actual*/
-		NodoArbolBinario * _padre; /*!<Cursor al nodo actual*/
+		NodoArbolBinario * _padre; /*!<Cursor al nodo padre actual*/
 
 	public:
 
@@ -177,11 +177,13 @@ namespace ed
 				inserted = true;
 			}
 			else{
+				_padre = NULL;
 				_actual = raiz_;
 			}
 			while (! inserted){
 				if (x > this->actual()){
 					if (_actual->getDerecho() != NULL){
+						_padre = _actual;
 						_actual = _actual->getDerecho();
 					}
 					else{
@@ -191,6 +193,7 @@ namespace ed
 				}
 				else{
 					if (_actual->getIzquierdo() != NULL){
+						_padre = _actual;
 						_actual = _actual->getIzquierdo();
 					}
 					else{
@@ -209,7 +212,7 @@ namespace ed
 			#ifndef NDEBUG
 				assert(this->estaVacio());
 			#endif
-			
+
 			_raiz = NULL;
 
 			#ifndef NDEBUG
@@ -219,7 +222,26 @@ namespace ed
 
 		bool borrar()
 		{
-			// TODO
+			#ifndef NDEBUG
+				assert(this->estaVacio());
+			#endif
+
+			if(_raiz->getDerecho() != NULL){
+				_padre = _raiz;
+				_actual = _raiz->getDerecho();
+
+				while(!_actual.esHoja()){
+					_padre = _actual;
+					_actual = _actual->getIzquierda()
+				}
+
+				_raiz->setInfo(_actual->getInfo());
+				_padre.setIzquierdo(NULL);
+			}
+
+
+
+
 			return false;
 		}
 
