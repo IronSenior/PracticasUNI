@@ -16,7 +16,7 @@ int main()
   Persona aux_p;
   EscribirNodo<Persona> op;
 
-  int nPersonas = 0;
+  int nPersonas = 1;
 
   std::cout<<"Introduzca el número de personas que quiere generar"<<std::endl;
   std::cin>>nPersonas;

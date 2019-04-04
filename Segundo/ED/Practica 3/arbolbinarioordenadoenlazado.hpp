@@ -79,12 +79,12 @@ namespace ed
 
 			void recorridoPreOrden (OperadorNodo<G> &operador) const
 			{
-				operador.aplicar(*this);
+				operador.aplicar(this->getInfo());
 				if(this->getDerecho() != NULL){
-					this->getDerecho().recorridoPreOrden(operador);
+					this->getDerecho()->recorridoPreOrden(operador);
 				}
 				if(this->getIzquierdo() != NULL){
-					this->getIzquierdo().recorridoPreOrden(operador);
+					this->getIzquierdo()->recorridoPreOrden(operador);
 				}		
 
 			}
@@ -92,22 +92,22 @@ namespace ed
 			void recorridoPostOrden (OperadorNodo<G> &operador) const
 			{
 				if(this->getDerecho() != NULL){
-					this->getDerecho().recorridoPreOrden(operador);
+					this->getDerecho()->recorridoPreOrden(operador);
 				}
 				if(this->getIzquierdo() != NULL){
-					this->getIzquierdo().recorridoPreOrden(operador);
+					this->getIzquierdo()->recorridoPreOrden(operador);
 				}	
-				operador.aplicar(*this);	
+				operador.aplicar(this->getInfo());	
 			}
 
 			void recorridoInOrden (OperadorNodo<G> &operador) const
 			{
 				if(this->getDerecho() != NULL){
-					this->getDerecho().recorridoPreOrden(operador);
+					this->getDerecho()->recorridoPreOrden(operador);
 				}
-				operador.aplicar(*this);
+				operador.aplicar(this->getInfo());
 				if(this->getIzquierdo() != NULL){
-					this->getIzquierdo().recorridoPreOrden(operador);
+					this->getIzquierdo()->recorridoPreOrden(operador);
 				}	
 			}
 
@@ -119,12 +119,12 @@ namespace ed
 
 			void setIzquierdo(NodoArbolBinario *n)
 			{
-				_izquierdo = *n;
+				_izquierdo = n;
 			}
 
 			void setDerecho(NodoArbolBinario *n)
 			{
-				_derecho = *n;
+				_derecho = n;
 			}
 
 			NodoArbolBinario & operator=(const NodoArbolBinario &n)
@@ -173,7 +173,9 @@ namespace ed
 		{
 			bool inserted = false;
 			if (this->estaVacio()){
-				_raiz->
+				NodoArbolBinario *nuevo;
+				nuevo->setInfo(x);
+				_raiz = nuevo;
 				inserted = true;
 			}
 			else{
@@ -187,7 +189,7 @@ namespace ed
 						_actual = _actual->getDerecho();
 					}
 					else{
-						_actual->setDerecho(NodoArbolBinario(x));
+						_actual->setDerecho(new NodoArbolBinario(x));
 						inserted = true;
 					}
 				}
@@ -197,7 +199,7 @@ namespace ed
 						_actual = _actual->getIzquierdo();
 					}
 					else{
-						_actual->setIzquierdo(NodoArbolBinario(x));
+						_actual->setIzquierdo(new NodoArbolBinario(x));
 						inserted = true;
 					}
 				}
@@ -236,26 +238,26 @@ namespace ed
 				_padre = _actual;
 				_actual = _actual->getDerecho();
 
-				while(!_actual.esHoja()){
+				while(!_actual->esHoja()){
 					_padre = _actual;
-					_actual = _actual->getIzquierda();
+					_actual = _actual->getIzquierdo();
 				}
 
 				aux_pt_actual->setInfo(_actual->getInfo());
-				_padre.setIzquierdo(NULL);
+				_padre->setIzquierdo(NULL);
 				borrado = true;
 			}
 			else if (_actual->getIzquierdo() != NULL){
 				_padre = _actual;
-				_actual = _actual->getIzquiedo();
+				_actual = _actual->getIzquierdo();
 
-				while(!_actual.esHoja()){
+				while(!_actual->esHoja()){
 					_padre = _actual;
-					_actual = _actual->getderecho();
+					_actual = _actual->getDerecho();
 				}
 
 				aux_pt_actual->setInfo(_actual->getInfo());
-				_padre.setDerecho(NULL);
+				_padre->setDerecho(NULL);
 				borrado = true;
 			}
 			else{
@@ -284,7 +286,7 @@ namespace ed
 			_raiz->recorridoInOrden(operador);
 		}
 
-		bool buscar(const G& x) const
+		bool buscar(const G& x) //No puede ser const porque hay que modificar el puntero
 		{
 			bool encontrado = false;
 			_padre = NULL;
