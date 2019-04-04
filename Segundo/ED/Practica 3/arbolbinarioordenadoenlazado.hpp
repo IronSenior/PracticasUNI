@@ -146,7 +146,7 @@ namespace ed
 		ArbolBinarioOrdenadoEnlazado ()
 		{
 			#ifndef NDEBUG
-				assert(this->estaVacio());
+				assert(! this->estaVacio());
 			#endif
 		}
 

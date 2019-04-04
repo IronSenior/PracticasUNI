@@ -12,21 +12,17 @@ using namespace ed;
 int main()
 {
   srand(time(0));
+
   ArbolBinarioOrdenadoEnlazado<Persona> a;
   Persona aux_p;
   EscribirNodo<Persona> op;
 
-  int nPersonas = 1;
+  int nPersonas = 3;
 
-  std::cout<<"Introduzca el número de personas que quiere generar"<<std::endl;
+  std::cout<<"Introduzca el número de personas que quiere generar\n";
   std::cin>>nPersonas;
 
-  while (! isdigit(nPersonas)){
-    std::cout<<"Lo que ha introducido no es un numero, por favor vuelva a introducirlo"<<std::endl;
-    std::cin>>nPersonas;
-  }
-
-  for(int i=0; i<nPersonas; i++){
+  for(int i=0; i < nPersonas; i++){
     a.insertar(generarDatosPersonales());
   }
 
