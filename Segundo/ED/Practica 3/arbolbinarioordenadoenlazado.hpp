@@ -36,6 +36,8 @@ namespace ed
 			NodoArbolBinario (const G &info)
 			{
 				this->setInfo(info);
+				_izquierdo = NULL;
+				_derecho = NULL;
 
 				#ifndef NDEBUG
 					assert(this->esHoja());
@@ -71,7 +73,7 @@ namespace ed
 
 			bool esHoja() const
 			{
-				if((this->getDerecho() != NULL)&&(this->getIzquierdo() != NULL)){
+				if((this->getDerecho() != NULL)||(this->getIzquierdo() != NULL)){
 					return false;
 				}
 				return true;
@@ -174,9 +176,8 @@ namespace ed
 		{
 			bool inserted = false;
 			if (this->estaVacio()){
-				NodoArbolBinario *nuevo;
-				nuevo->setInfo(x);
-				_raiz = nuevo;
+				NodoArbolBinario nuevo(x);
+				_raiz = &nuevo;
 				inserted = true;
 			}
 			else{
