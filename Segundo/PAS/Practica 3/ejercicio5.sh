@@ -2,15 +2,26 @@
 
 date=$(date +%s) # Segundos que han pasado desde el 1/1/1970
 
-#comprobar si la carpeta existe y demás
+# Comprueba si la carpeta ya existe
+if [ ! -d "~/copia" ];
+then 
+    mkdir ~/copia
+fi
 
-for x in $(find copia.seg -type f)
+for x in $(find ~/copia -type f)
 do 
     modif=$(stat $x -c %X)
-    time=$date-$modif
-    if [$time -gt 200]
+    let time=$date-$modif
+    if [ $time -gt 200 ]
     then 
         rm -f $X
     fi 
 done
-tar -czf copia.seg/copia-$(whoiam)-$date.tar.gz $*
+
+
+if [ $# -gt 0 ];
+then 
+    tar -czf ~/copia/copia-$(whoami)-$date.tar.gz $*
+else
+    echo "No ha especificado ningún archivo o directorio"
+fi

@@ -16,11 +16,11 @@ listarArchivos ()
     echo "<ul>"
 }
 
-echo "<html>"
-echo "<head>"
-echo "<title><h3>Listado de directorios de $1</h3></title>" 
-echo "</head>"
-echo "<body>"
-listarArchivos $1
-echo "</body>"
-echo "</html>"
+echo "<html>" >> $1.html
+echo "<head>" >> $1.html
+echo "<title><h3>Listado de directorios de $1</h3></title>" >> $1.html
+echo "</head>" >> $1.html
+echo "<body>" >> $1.html
+listarArchivos $1 >> $1.html
+echo "</body>" >> $1.html
+echo "</html>" >> $1.html

@@ -10,7 +10,10 @@ then
 
     for fichero in $(find $1 -type f -name "*.c" -o -type f -name "*.h")
     do
-        echo "El fichero $fichero tiene $(cat $fichero | wc -l) lineas y $(cat $fichero | wc -m) caracteres"
+        if [ -f $fichero ];
+            then
+                echo "El fichero $fichero tiene $(cat $fichero | wc -l) lineas y $(cat $fichero | wc -m) caracteres"
+        fi
     done | sort -rn -k 8
 else
     echo "No has introducido un directorio"
