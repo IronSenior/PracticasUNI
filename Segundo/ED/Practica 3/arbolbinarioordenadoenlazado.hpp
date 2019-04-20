@@ -36,6 +36,8 @@ namespace ed
 			NodoArbolBinario (const G &info)
 			{
 				this->setInfo(info);
+				_izquierdo = NULL;
+				_derecho = NULL;
 
 				#ifndef NDEBUG
 					assert(this->esHoja());
@@ -71,7 +73,7 @@ namespace ed
 
 			bool esHoja() const
 			{
-				if((this->getDerecho() != NULL)&&(this->getIzquierdo() != NULL)){
+				if((this->getDerecho() != NULL)||(this->getIzquierdo() != NULL)){
 					return false;
 				}
 				return true;
@@ -145,8 +147,9 @@ namespace ed
 
 		ArbolBinarioOrdenadoEnlazado ()
 		{
+			_raiz = NULL;
 			#ifndef NDEBUG
-				assert(! this->estaVacio());
+				assert(this->estaVacio());
 			#endif
 		}
 
@@ -173,9 +176,8 @@ namespace ed
 		{
 			bool inserted = false;
 			if (this->estaVacio()){
-				NodoArbolBinario *nuevo;
-				nuevo->setInfo(x);
-				_raiz = nuevo;
+				NodoArbolBinario nuevo(x);
+				_raiz = &nuevo;
 				inserted = true;
 			}
 			else{
@@ -212,20 +214,20 @@ namespace ed
 		void borrarArbol()
 		{
 			#ifndef NDEBUG
-				assert(this->estaVacio());
+				assert(! this->estaVacio());
 			#endif
 
 			_raiz = NULL;
 
 			#ifndef NDEBUG
-				assert(! this->estaVacio());
+				assert(this->estaVacio());
 			#endif
 		}
 
 		bool borrar()
 		{
 			#ifndef NDEBUG
-				assert(this->estaVacio());
+				assert(! this->estaVacio());
 			#endif
 
 			NodoArbolBinario *aux_pt_actual;
@@ -334,7 +336,7 @@ namespace ed
 		G raiz() const
 		{
 			#ifndef NDEBUG
-				assert(this->estaVacio());
+				assert(! this->estaVacio());
 			#endif
 
 			return _raiz->getInfo();
@@ -343,7 +345,7 @@ namespace ed
 		bool existeActual() const
 		{
 			#ifndef NDEBUG
-				assert(this->estaVacio());
+				assert(! this->estaVacio());
 			#endif
 
 			if (_actual == NULL){
