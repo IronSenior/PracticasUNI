@@ -8,6 +8,7 @@ then
     mkdir ~/copia
 fi
 
+# Recorre los fichero y si es reciente lo borra
 for x in $(find ~/copia -type f)
 do 
     modif=$(stat $x -c %X)
@@ -18,7 +19,7 @@ do
     fi 
 done
 
-
+# Comprueba si hemos introducido fichero y hace la copia
 if [ $# -gt 0 ];
 then 
     tar -czf ~/copia/copia-$(whoami)-$date.tar.gz $*

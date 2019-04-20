@@ -4,6 +4,19 @@
 #ARG3: umbral2
 
 
+#Funcion para comprobar que la carpeta existe
+comprobar_carpeta ()
+{
+    if [ -e $1 ];
+    then
+        echo "$carpeta ya existe, borrando y creando de nuevo"
+        rm -r $1
+        mkdir $1
+    else
+        mkdir $1
+    fi    
+}
+
 #Comprobación de argumentos
 if [ $# -eq 3 ]; 
 then
@@ -26,34 +39,10 @@ then
 	umbral1=$aux
 fi
 
-
 # Creación de las carpetas 
-if [ -e "./pequenos" ];
-then
-    echo "Carpeta de pequeños ya existe, borrando y creando de nuevo"
-    rm -r ./pequenos
-    mkdir pequenos
-else
-    mkdir pequenos
-fi
-
-if [ -e "./medianos" ];
-then
-    echo "Carpeta de medianos ya existe, borrando y creando de nuevo"
-    rm -r ./medianos
-    mkdir medianos
-else
-    mkdir medianos
-fi
-
-if [ -e "./grandes" ];
-then
-    echo "Carpeta de grandes ya existe, borrando y creando de nuevo"
-    rm -r ./grandes
-    mkdir grandes
-else
-    mkdir grandes
-fi
+comprobar_carpeta pequenos
+comprobar_carpeta medianos
+comprobar_carpeta grandes
 
 
 # Copia de los pequeños
@@ -76,3 +65,5 @@ for fichero in $(find $1 -type f -size +"$umbral2"c)
 do  
     cp $fichero grandes
 done
+
+

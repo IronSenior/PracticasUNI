@@ -1,6 +1,7 @@
 #!/bin/bash
 #Arg1: Carpeta
 
+# Función para listar archivos
 listarArchivos ()
 {
     echo "<ul>"
@@ -16,6 +17,7 @@ listarArchivos ()
     echo "<ul>"
 }
 
+# Imprime html al dinal de $1.html
 echo "<html>" >> $1.html
 echo "<head>" >> $1.html
 echo "<title><h3>Listado de directorios de $1</h3></title>" >> $1.html
