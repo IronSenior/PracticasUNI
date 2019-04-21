@@ -2,8 +2,13 @@
 #ARG1: DIRECTORIO
 #ARG2: TAMAÑO EN BYTES
 
-# Imprime la cabecera
-echo "Nombre LongitudUsuario FechaModificacion FechaAcceso Tamaño Bloques Permisos Ejecutable"
+#Comprueba que se ha introducido un directorio valido
+if [ $# -eq 0 ] || [ ! -d "$1" ];
+then
+	echo "Introduzca un directorio valido"
+	exit 1
+fi
+
 
 # Comprueba si se ha introducido el argumento opcional
 if [ $# -eq 2 ]; 
@@ -13,6 +18,9 @@ else
     # Si no se ha introducido se asigna un 0
 	tmno=0
 fi
+
+# Imprime la cabecera
+echo "Nombre LongitudUsuario FechaModificacion FechaAcceso Tamaño Bloques Permisos Ejecutable"
 
 # Recorre los archivos que cumplen con los requisitos
 for fichero in $(find $1 -type f -size +"$tmno"c -o -type f -size "$tmno"c)

@@ -9,13 +9,20 @@ comprobar_carpeta ()
 {
     if [ -e $1 ];
     then
-        echo "$carpeta ya existe, borrando y creando de nuevo"
+        echo "$1 ya existe, borrando y creando de nuevo"
         rm -r $1
         mkdir $1
     else
         mkdir $1
     fi    
 }
+
+#Comprueba que se ha introducido un directorio valido
+if [ $# -eq 0 ] || [ ! -d "$1" ];
+then
+	echo "Introduzca un directorio valido"
+	exit 1
+fi
 
 #Comprobación de argumentos
 if [ $# -eq 3 ]; 
@@ -66,4 +73,4 @@ do
     cp $fichero grandes
 done
 
-
+echo "Copia ordenada finalizada"

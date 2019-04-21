@@ -1,6 +1,13 @@
 #!/bin/bash
 #Arg1: Carpeta
 
+#Comprueba que se ha introducido un directorio valido
+if [ $# -eq 0 ] || [ ! -d "$1" ];
+then
+	echo "Introduzca un directorio valido"
+	exit 1
+fi
+
 # Función para listar archivos
 listarArchivos ()
 {
@@ -26,3 +33,5 @@ echo "<body>" >> $1.html
 listarArchivos $1 >> $1.html
 echo "</body>" >> $1.html
 echo "</html>" >> $1.html
+
+echo "Fichero html creado con éxito"

@@ -2,7 +2,7 @@
 #ARG1: DIRECTORIO
 
 # Comprueba que ARG1 es un directorio
-if [ -d $1 ];
+if [ $# -eq 1 ] && [ -d "$1" ];
 then 
     # Cuenta los archivos terminados en .c y en .h
     cant1=$(find $1 -name "*.c" | wc -l)
@@ -21,6 +21,6 @@ then
     # Ordena por el numero de caracteres (En este caso la columna 8)
     done | sort -rn -k 8
 else
-    echo "No has introducido un directorio"
+    echo "Introduzca un directorio valido"
 fi
 

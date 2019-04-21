@@ -3,7 +3,7 @@
 date=$(date +%s) # Segundos que han pasado desde el 1/1/1970
 
 # Comprueba si la carpeta ya existe
-if [ ! -d "~/copia" ];
+if [ ! -d ~/copia ];
 then 
     mkdir ~/copia
 fi
@@ -23,6 +23,7 @@ done
 if [ $# -gt 0 ];
 then 
     tar -czf ~/copia/copia-$(whoami)-$date.tar.gz $*
+    echo "Copia realizada en ~/copia"
 else
     echo "No ha especificado ningún archivo o directorio"
 fi
