@@ -82,35 +82,34 @@ namespace ed
 			void recorridoPreOrden (OperadorNodo<G> &operador) const
 			{
 				operador.aplicar(this->getInfo());
+				if(this->getIzquierdo() != NULL){
+					this->getIzquierdo()->recorridoPreOrden(operador);
+				}	
 				if(this->getDerecho() != NULL){
 					this->getDerecho()->recorridoPreOrden(operador);
 				}
-				if(this->getIzquierdo() != NULL){
-					this->getIzquierdo()->recorridoPreOrden(operador);
-				}		
-
 			}
 
 			void recorridoPostOrden (OperadorNodo<G> &operador) const
 			{
-				if(this->getDerecho() != NULL){
-					this->getDerecho()->recorridoPreOrden(operador);
-				}
 				if(this->getIzquierdo() != NULL){
 					this->getIzquierdo()->recorridoPreOrden(operador);
 				}	
+				if(this->getDerecho() != NULL){
+					this->getDerecho()->recorridoPreOrden(operador);
+				}
 				operador.aplicar(this->getInfo());	
 			}
 
 			void recorridoInOrden (OperadorNodo<G> &operador) const
 			{
+				if(this->getIzquierdo() != NULL){
+					this->getIzquierdo()->recorridoPreOrden(operador);
+				}
+				operador.aplicar(this->getInfo());
 				if(this->getDerecho() != NULL){
 					this->getDerecho()->recorridoPreOrden(operador);
 				}
-				operador.aplicar(this->getInfo());
-				if(this->getIzquierdo() != NULL){
-					this->getIzquierdo()->recorridoPreOrden(operador);
-				}	
 			}
 
 			/*!\brief Modificadores. */
@@ -176,8 +175,7 @@ namespace ed
 		{
 			bool inserted = false;
 			if (this->estaVacio()){
-				NodoArbolBinario nuevo(x);
-				_raiz = &nuevo;
+				_raiz = new NodoArbolBinario(x);
 				inserted = true;
 			}
 			else{
@@ -240,26 +238,37 @@ namespace ed
 				_padre = _actual;
 				_actual = _actual->getDerecho();
 
-				while(!_actual->esHoja()){
+				while(_actual->getIzquierdo() != NULL){
 					_padre = _actual;
 					_actual = _actual->getIzquierdo();
 				}
 
+				
+				if(_actual->getInfo() < _padre->getInfo()){
+					_padre->setIzquierdo(_actual->getDerecho());
+				}
+				else{
+					aux_pt_actual->setDerecho(_actual->getDerecho());
+				}
 				aux_pt_actual->setInfo(_actual->getInfo());
-				_padre->setIzquierdo(NULL);
 				borrado = true;
 			}
 			else if (_actual->getIzquierdo() != NULL){
 				_padre = _actual;
 				_actual = _actual->getIzquierdo();
 
-				while(!_actual->esHoja()){
+				while(_actual->getDerecho() != NULL){
 					_padre = _actual;
 					_actual = _actual->getDerecho();
 				}
 
+				if(_actual->getInfo() > _padre->getInfo()){
+					_padre->setDerecho(_actual->getIzquierdo());
+				}
+				else{
+					aux_pt_actual->setIzquierdo(_actual->getIzquierdo());
+				}
 				aux_pt_actual->setInfo(_actual->getInfo());
-				_padre->setDerecho(NULL);
 				borrado = true;
 			}
 			else{
@@ -275,16 +284,25 @@ namespace ed
 
 		void recorridoPreOrden (OperadorNodo<G> &operador) const
 		{
+			#ifndef NDEBUG
+				assert(! this->estaVacio());
+			#endif
 			_raiz->recorridoPreOrden(operador);
 		}
 
 		void recorridoPostOrden (OperadorNodo<G> &operador) const
 		{
+			#ifndef NDEBUG
+				assert(! this->estaVacio());
+			#endif
 			_raiz->recorridoPostOrden(operador);
 		}
 
 		void recorridoInOrden (OperadorNodo<G> &operador) const
 		{
+			#ifndef NDEBUG
+				assert(! this->estaVacio());
+			#endif
 			_raiz->recorridoInOrden(operador);
 		}
 
