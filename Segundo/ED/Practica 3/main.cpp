@@ -25,7 +25,7 @@ int main()
   int nPersonas = 0;
 
   // Limpia la terminal completamente
-  std::cout << CLEAR_SCREEN;
+  system("clear");
 
   std::cout << BIBLUE;
   std::cout<<"Introduzca el número de personas que quiere generar: ";
@@ -47,34 +47,34 @@ int main()
       posicion=2;
 
       // Se borra la pantalla
-      std::cout << CLEAR_SCREEN;
+      system("clear");
 
-      PLACE(posicion++,10);
+      //PLACE(posicion++,10);
       std::cout << BIBLUE;
-      std::cout << "Programa principal | Opciones del menú   ";
+      std::cout << "Programa principal | Opciones del menú   \n\n";
       std::cout << RESET;
 
       posicion++;
-      PLACE(posicion++,10);
-      std::cout << "[1] Test de Imprimir arbol\n";
+      //PLACE(posicion++,10);
+      std::cout << "[1] Test de Imprimir arbol\n\n";
 
-      PLACE(posicion++,10);
-      std::cout << "[2] Test de busqueda\n";
+      //PLACE(posicion++,10);
+      std::cout << "[2] Test de busqueda\n\n";
 
-      PLACE(posicion++,10);
-      std::cout << "[3] Test de borrado de elemento\n";
+      //PLACE(posicion++,10);
+      std::cout << "[3] Test de borrado de elemento\n\n";
 
-      PLACE(posicion++,10);
-      std::cout << "[4] Test de borrado del arbol\n";
+      //PLACE(posicion++,10);
+      std::cout << "[4] Test de borrado del arbol\n\n";
 
       posicion++;
-      PLACE(posicion++,10);
+      //PLACE(posicion++,10);
       std::cout << BIRED;
-      std::cout << "[0] Fin del programa \n";
+      std::cout << "[0] Fin del programa \n\n";
       std::cout << RESET;
 
       posicion++;
-      PLACE(posicion++,10);
+      //PLACE(posicion++,10);
       std::cout << BIYELLOW;
       std::cout << "Opción: ";
       std::cout << RESET;
@@ -85,15 +85,19 @@ int main()
       {
         case 1:
           pruebaMostrar(a);
+          std::cin.ignore();
           break;
         case 2:
           pruebaBuscar(a);
+          std::cin.ignore();
           break;
         case 3:
           pruebaBorrar(a);
+          std::cin.ignore();
           break;
         case 4:
           pruebaBorrarArbol(a);
+          std::cin.ignore();
           break;
       }
 
@@ -107,7 +111,7 @@ int main()
 void pruebaMostrar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
 
   // Creacion del operador de escritura
-  std::cout << CLEAR_SCREEN;
+  system("clear");
   EscribirNodo<Persona> op;
 
   std::cout<< BIPURPLE;
@@ -131,12 +135,12 @@ void pruebaMostrar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
   a.recorridoPostOrden(op);
   std::cout<<"\n";
   std::cout<< RESET;
-  std::cin.get();
+  
   std::cin.ignore();
 }
 
 void pruebaBuscar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
-  std::cout << CLEAR_SCREEN;
+  system("clear");
   Persona aux_p;
 
   std::cout<< BIPURPLE;
@@ -160,12 +164,13 @@ void pruebaBuscar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
     std::cout<<"Persona no encontrada\n";
     std::cout << RESET;
   }
+  std::cin.ignore();
 }
 
 void pruebaBorrar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
 
   // Creacion del operador de escritura
-  std::cout << CLEAR_SCREEN;
+  system("clear");
   EscribirNodo<Persona> op;
   Persona aux_p;
 
@@ -204,12 +209,12 @@ void pruebaBorrar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
       std::cout<<"Elemento no encontrado\n";
       std::cout << RESET;
   }
-
+  std::cin.ignore();
 }
 
 void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<Persona> &a){
   // Creacion del operador de escritura
-  std::cout << CLEAR_SCREEN;
+  system("clear");
   EscribirNodo<Persona> op;
 
   std::cout<< BIPURPLE;
@@ -217,7 +222,9 @@ void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<Persona> &a){
   std::cout<< RESET;
 
   // Borrado del arbol
-  a.borrarArbol();
+  if (! a.estaVacio()){
+    a.borrarArbol();
+  }
 
   // Comprobacion del resultado de borrar
   if (a.estaVacio()){
@@ -234,5 +241,6 @@ void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<Persona> &a){
     a.recorridoInOrden(op);
     std::cout << RESET;
   }
+  std::cin.ignore();
 
 }
