@@ -252,6 +252,8 @@ namespace ed
 				}
 				aux_pt_actual->setInfo(_actual->getInfo());
 				borrado = true;
+				_actual = aux_pt_actual;
+				_padre = aux_pt_padre;
 			}
 			else if (_actual->getIzquierdo() != NULL){
 				_padre = _actual;
@@ -270,15 +272,22 @@ namespace ed
 				}
 				aux_pt_actual->setInfo(_actual->getInfo());
 				borrado = true;
+				_actual = aux_pt_actual;
+				_padre = aux_pt_padre;
+
 			}
 			else{
-				this->borrarArbol();
+				if (_raiz == _actual){
+					this->borrarArbol();
+				}
+				else if(_actual->getInfo() < _padre->getInfo()){
+					_padre->setIzquierdo(NULL);
+				}
+				else{
+					_padre->setDerecho(NULL);
+				}
 				borrado = true;
 			}
-
-			_actual = aux_pt_actual;
-			_padre = aux_pt_padre;
-
 			return borrado;
 		}
 
