@@ -49,37 +49,32 @@ int main()
       // Se borra la pantalla
       system("clear");
 
-      //PLACE(posicion++,10);
+      // Menu principal del programa
       std::cout << BIBLUE;
       std::cout << "Programa principal | Opciones del menú   \n\n";
       std::cout << RESET;
 
       posicion++;
-      //PLACE(posicion++,10);
       std::cout << "[1] Test de Imprimir arbol\n\n";
 
-      //PLACE(posicion++,10);
       std::cout << "[2] Test de busqueda\n\n";
 
-      //PLACE(posicion++,10);
       std::cout << "[3] Test de borrado de elemento\n\n";
 
-      //PLACE(posicion++,10);
       std::cout << "[4] Test de borrado del arbol\n\n";
 
       posicion++;
-      //PLACE(posicion++,10);
       std::cout << BIRED;
       std::cout << "[0] Fin del programa \n\n";
       std::cout << RESET;
 
       posicion++;
-      //PLACE(posicion++,10);
       std::cout << BIYELLOW;
       std::cout << "Opción: ";
       std::cout << RESET;
       std::cin >> opcion;
 
+      // Seleccion de opcion
       std::cout<<opcion;
       switch (opcion)
       {
