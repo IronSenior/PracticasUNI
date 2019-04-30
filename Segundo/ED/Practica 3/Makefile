@@ -1,4 +1,4 @@
-CPPFLAGS = -g -Wall -ansi
+CPPFLAGS = -g -Wall -ansi -std=gnu++11
 
 all: main
 
