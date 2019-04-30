@@ -10,33 +10,34 @@
 
 using namespace ed;
 
-void pruebaMostrar(ArbolBinarioOrdenadoEnlazado<Persona> &a);
-void pruebaBuscar(ArbolBinarioOrdenadoEnlazado<Persona> &a);
-void pruebaBorrar(ArbolBinarioOrdenadoEnlazado<Persona> &a);
-void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<Persona> &a);
+void pruebaMostrar(ArbolBinarioOrdenadoEnlazado<int> &a);
+void pruebaBuscar(ArbolBinarioOrdenadoEnlazado<int> &a);
+void pruebaBorrar(ArbolBinarioOrdenadoEnlazado<int> &a);
+void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<int> &a);
 
 
 int main()
 {
-  ArbolBinarioOrdenadoEnlazado<Persona> a;
-  Persona aux_p;
-  EscribirNodo<Persona> op;
+  ArbolBinarioOrdenadoEnlazado<int> a;
+  EscribirNodo<int> op;
 
-  int nPersonas = 0;
+  //int npersonas = 0;
 
   // Limpia la terminal completamente
   system("clear");
 
-  std::cout << BIBLUE;
-  std::cout<<"Introduzca el número de personas que quiere generar: ";
-  std::cout << RESET;
-  std::cout << BIGREEN;
-  std::cin>>nPersonas;
-  std::cout << RESET;
+//  std::cout << BIBLUE;
+//  std::cout<<"Introduzca el número de ints que quiere generar: ";
+//  std::cout << RESET;
+//  std::cout << BIGREEN;
+//  std::cin>>nints;
+//  std::cout << RESET;
 
-  // Genera el arbol con el numero de personas pedido
-  for(int i=0; i < nPersonas; i++){
-    a.insertar(generarDatosPersonales());
+  std::vector<int> pruebaProfesor{ 10, 5, 1, 9, 7, 6, 8, 20, 15, 25, 22, 27 };
+
+  // Genera el arbol con el numero de ints pedido
+  for(int i=0; i < 12; i++){
+      a.insertar(pruebaProfesor[i]);
   }
 
   int opcion = 0;
@@ -103,11 +104,11 @@ int main()
 }
 
 
-void pruebaMostrar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void pruebaMostrar(ed::ArbolBinarioOrdenadoEnlazado<int> &a){
 
   // Creacion del operador de escritura
   system("clear");
-  EscribirNodo<Persona> op;
+  EscribirNodo<int> op;
 
   std::cout<< BIPURPLE;
   std::cout<<"Prueba Mostrar\n\n";
@@ -134,16 +135,16 @@ void pruebaMostrar(ed::ArbolBinarioOrdenadoEnlazado<Persona> &a){
   std::cin.ignore();
 }
 
-void pruebaBuscar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void pruebaBuscar(ArbolBinarioOrdenadoEnlazado<int> &a){
   system("clear");
-  Persona aux_p;
+  int aux_p;
 
   std::cout<< BIPURPLE;
   std::cout<<"Prueba de la funcion buscar\n\n";
   std::cout<< RESET;
 
   std::cout << BIBLUE;
-  std::cout<<"Introduzca la persona que quiere buscar\n";
+  std::cout<<"Introduzca la int que quiere buscar\n";
   std::cout << RESET;
   std::cout << BIGREEN;
   std::cin>>aux_p;
@@ -151,30 +152,30 @@ void pruebaBuscar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
 
   if(a.buscar(aux_p)){
     std::cout << BIGREEN;
-    std::cout<<"Persona encontrada\n";
+    std::cout<<"int encontrada\n";
     std::cout << RESET;
   }
   else{
     std::cout << BIRED;
-    std::cout<<"Persona no encontrada\n";
+    std::cout<<"int no encontrada\n";
     std::cout << RESET;
   }
   std::cin.ignore();
 }
 
-void pruebaBorrar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void pruebaBorrar(ArbolBinarioOrdenadoEnlazado<int> &a){
 
   // Creacion del operador de escritura
   system("clear");
-  EscribirNodo<Persona> op;
-  Persona aux_p;
+  EscribirNodo<int> op;
+  int aux_p;
 
   std::cout<< BIPURPLE;
   std::cout<<"Prueba de la funcion borrar\n\n";
   std::cout<< RESET;
 
   std::cout << BIBLUE;
-  std::cout<<"Introduzca la persona que quiere borrar\n";
+  std::cout<<"Introduzca la int que quiere borrar\n";
   std::cout << RESET;
   std::cout << BIGREEN;
   std::cin>>aux_p;
@@ -207,10 +208,10 @@ void pruebaBorrar(ArbolBinarioOrdenadoEnlazado<Persona> &a){
   std::cin.ignore();
 }
 
-void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<Persona> &a){
+void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<int> &a){
   // Creacion del operador de escritura
   system("clear");
-  EscribirNodo<Persona> op;
+  EscribirNodo<int> op;
 
   std::cout<< BIPURPLE;
   std::cout<<"Prueba de la funcion borrarArbol\n\n";
@@ -226,6 +227,7 @@ void pruebaBorrarArbol(ArbolBinarioOrdenadoEnlazado<Persona> &a){
     std::cout << BIGREEN;
     std::cout<<"El arbol ha sido borrado"<<std::endl;
     std::cout << RESET;
+    exit(0);
   }
   else{
     std::cout << BIRED;
