@@ -102,10 +102,10 @@ namespace ed
 			void recorridoPostOrden (OperadorNodo<G> &operador) const
 			{
 				if(this->getIzquierdo() != NULL){
-					this->getIzquierdo()->recorridoPreOrden(operador);
+					this->getIzquierdo()->recorridoPostOrden(operador);
 				}	
 				if(this->getDerecho() != NULL){
-					this->getDerecho()->recorridoPreOrden(operador);
+					this->getDerecho()->recorridoPostOrden(operador);
 				}
 				// Se aplica en el nodo despues que en los hijos (si los tiene)
 				operador.aplicar(this->getInfo());	
@@ -115,12 +115,12 @@ namespace ed
 			void recorridoInOrden (OperadorNodo<G> &operador) const
 			{
 				if(this->getIzquierdo() != NULL){
-					this->getIzquierdo()->recorridoPreOrden(operador);
+					this->getIzquierdo()->recorridoInOrden(operador);
 				}
 				// Se aplica en el nodo entre medias de los hijos (si los tiene)
 				operador.aplicar(this->getInfo());
 				if(this->getDerecho() != NULL){
-					this->getDerecho()->recorridoPreOrden(operador);
+					this->getDerecho()->recorridoInOrden(operador);
 				}
 			}
 
