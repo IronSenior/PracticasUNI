@@ -38,7 +38,10 @@ bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
   cout << "Fichero de las etiquetas: ";
   cin >> ficheroEtiquetas;
 
-  // TODO
+  ifstream Matriz(ficheroMatriz);
+  ifsteam Etiquetas(ficheroEtiquetas);
+
+  while
 
 }
 

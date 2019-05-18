@@ -20,33 +20,33 @@ int main()
 		opcion = menu();
 		switch (opcion) {
 			case 1: // Cargar grafo desde fichero
-			if ( grafoIntroducido )
-			(*g).borrarGrafo(); // Si hay un grafo introducido se borra.
+				if (grafoIntroducido)
+					(*g).borrarGrafo(); // Si hay un grafo introducido se borra.
 
-			grafoIntroducido = cargarGrafo(g);
+				grafoIntroducido = cargarGrafo(g);
 
-			if (grafoIntroducido) {
-				cout << "Grafo cargado correctamente \n";
-				//Prueba de la asignación y del destructor
-				{
-					Grafo<string, int> g1 = *g;
+				if (grafoIntroducido) {
+					cout << "Grafo cargado correctamente \n";
+					//Prueba de la asignación y del destructor
+					{
+						Grafo<string, int> g1 = *g;
+					}
 				}
-			}
-			else
-			cout << "Grafo no cargado \n";
+				else
+					cout << "Grafo no cargado \n";
 
-			getchar();
-			getchar();
-			break;
+				getchar();
+				getchar();
+				break;
 
 			case 2: //Algoritmo de Floyd
-			if ( grafoIntroducido )
-				algoritmoFloyd(*g);
-			else
-				cout << "Primero tiene que introducir un grafo\n";
-			getchar();
-			getchar();
-			break;
+				if ( grafoIntroducido )
+					algoritmoFloyd(*g);
+				else
+					cout << "Primero tiene que introducir un grafo\n";
+				getchar();
+				getchar();
+				break;
 		}
 	} while (opcion!=0);
 

@@ -18,18 +18,85 @@ namespace ed
 
 		G_Nodo *_nodos;
 
+		int _numeroNodos;
+
 	public:
 
-		// constructores
-		// TODO
+		// Constructor, crea un grafo vacio
+		Grafo(){
+			_nodos = NULL;
+			_lados = NULL;
+			_numeroNodos = 0;
+		}
 
-		// destructor
-		// TODO
+		// Constructor, crea un grafo con numeroNodos nodos reservados
+		Grafo(int n){
+			// Guarda el numero de nodos para más tarde
+			_numeroNodos = n;
+
+			// Reserva memoria para el vector de nodos
+			_nodos = new G_Nodo[n];
+
+			// Reserva memoria para la matriz de lados
+			_lados = new G_Lado*[n];
+			for(int i=0; i<n; i++){
+				_lados[i] = new G_Lado[n];
+			}
+		}
+
+		// Constructor de copia
+		Grafo(Grafo &g){
+			*this = g;
+		}
+
+		// Destructor, libera memoria amtes
+		~Grafo(){
+			// Libera la memoria de vector de nodos
+			delete [] _nodos;
+
+			// Libera la memoria de la matriz de lados
+			for (int i = 0; i<_numeroNodos; i++){
+				delete [] _lados[i];
+			}
+			delete [] _lados;
+		}
 
 		// funciones
-		// TODO
 		void borrarGrafo() {	// cabecera indicada para que compile
+			// Libera la memoria de vector de nodos
+			delete [] _nodos;
 
+			// Libera la memoria de la matriz de lados
+			for (int i = 0; i<_numeroNodos; i++){
+				delete [] _lados[i];
+			}
+			delete [] _lados;
+
+			// Pone el numero de nodos a 0
+			_numeroNodos = 0;
+		}
+
+		Grafo & operator=(const Grafo &g){
+			if (this->_numeroNodos != 0){
+				this->borrarGrafo();
+			}
+
+			_numeroNodos = g._numeroNodos;
+
+			// Reserva memoria para el vector de nodos
+			_nodos = new G_Nodo[_numeroNodos];
+
+			// Reserva memoria para la matriz de lados
+			_lados = new G_Lado*[_numeroNodos];
+			for(int i=0; i<_numeroNodos; i++){
+				_lados[i] = new G_Lado[_numeroNodos];
+
+				// Copia la información
+				_nodos[i] = g._nodos[i]; // CUIDADO
+				for(int j=0; j>_numeroNodos; j++){
+					_lados[i][j] = g._lados[i][j];
+				}
+			}
 		}
 
 	};
