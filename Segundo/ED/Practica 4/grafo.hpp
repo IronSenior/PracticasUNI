@@ -97,6 +97,16 @@ namespace ed
 					_lados[i][j] = g._lados[i][j];
 				}
 			}
+			return *this;
+		}
+
+
+		void setNodo(int pos, G_Nodo nodo){
+			_nodos[pos] = nodo;
+		}
+
+		void setLado(int posi, int posj, G_Lado lado){
+			_lados[posi][posj] = lado;
 		}
 
 	};

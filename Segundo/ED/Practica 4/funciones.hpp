@@ -4,7 +4,9 @@
 #include <iostream>
 #include <cstring>
 #include <cstdlib> //Para usar system
-#include <fstream> //Para trabajar con ficheros
+#include <fstream>
+#include <sstream>
+#include <string> //Para trabajar con ficheros
 
 #include "grafo.hpp"
 #include "algoritmosgrafos.hpp"
@@ -31,6 +33,10 @@ template <class G_Nodo, class G_Lado>
 bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
 {
   string ficheroMatriz, ficheroEtiquetas;
+  int numeroNodos;
+  string line;
+  G_Nodo auxNodo;
+  G_Lado auxLado;
 
   cout << "Fichero de la matriz de conexion: ";
   cin >> ficheroMatriz;
@@ -38,11 +44,36 @@ bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
   cout << "Fichero de las etiquetas: ";
   cin >> ficheroEtiquetas;
 
-  ifstream Matriz(ficheroMatriz);
-  ifsteam Etiquetas(ficheroEtiquetas);
+  ifstream Matriz(ficheroMatriz.c_str());
+  ifstream Etiquetas(ficheroEtiquetas.c_str());
 
-  while
+  while (getline(Etiquetas, line)){
+    numeroNodos++;
+  }
+  Etiquetas.close();
 
+  ifstream Etiquetas2(ficheroEtiquetas.c_str());
+
+  for(int i=0; i<numeroNodos; i++){
+    getline(Etiquetas2, line);
+    std::stringstream convert(line);
+    convert >> auxNodo;
+    auxNodo = line;
+    g->setNodo(i, auxNodo);
+
+    for(int j=0; j<numeroNodos; j++){
+      getline(Matriz, line, ' ');
+      std::stringstream convert(line);
+      convert >> auxLado;
+      g->setLado(i, j, auxLado);
+    }
+
+  }
+
+  Etiquetas2.close();
+  Matriz.close();
+  
+  return true;
 }
 
 template <class G_Nodo, class G_Lado>
