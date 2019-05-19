@@ -46,6 +46,7 @@ namespace ed
 
 		// Constructor de copia
 		Grafo(Grafo &g){
+			this->_numeroNodos = 0;
 			*this = g;
 		}
 
@@ -62,15 +63,15 @@ namespace ed
 		}
 
 		// funciones
-		void borrarGrafo() {	// cabecera indicada para que compile
+		void borrarGrafo() {
 			// Libera la memoria de vector de nodos
-			delete [] _nodos;
+			delete[] _nodos;
 
 			// Libera la memoria de la matriz de lados
 			for (int i = 0; i<_numeroNodos; i++){
-				delete [] _lados[i];
+				delete[] _lados[i];
 			}
-			delete [] _lados;
+			delete[] _lados;
 
 			// Pone el numero de nodos a 0
 			_numeroNodos = 0;
@@ -109,6 +110,41 @@ namespace ed
 			_lados[posi][posj] = lado;
 		}
 
+		void setNumeroNodos(int numeroNodos){
+			this->borrarGrafo();
+
+			_numeroNodos = numeroNodos;
+			// Reserva memoria para el vector de nodos
+			_nodos = new G_Nodo[numeroNodos];
+
+			// Reserva memoria para la matriz de lados
+			_lados = new G_Lado*[numeroNodos];
+			for(int i=0; i<numeroNodos; i++){
+				_lados[i] = new G_Lado[numeroNodos];
+			}
+		}
+
+		int getNumeroNodos() const {
+			return _numeroNodos;
+		}
+
+		G_Nodo getNodo(int pos) const {
+			return _nodos[pos];
+		}
+
+		G_Lado getLado(int posi, int posj) const {
+			return _lados[posi][posj];
+		}
+
+		void imprimeMatriz(){
+			for (int i=0; i<_numeroNodos; i++){
+				cout<<"[";
+				for (int j=0; j<_numeroNodos; j++){
+					cout<<_lados[i][j]<<" ";
+				}
+				cout<<"]"<<endl;
+    		}
+		}
 	};
 }
 

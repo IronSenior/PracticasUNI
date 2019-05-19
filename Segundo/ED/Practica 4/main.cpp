@@ -12,7 +12,7 @@ using namespace ed;
 
 int main()
 {
-	Grafo<string, int> *g;
+	Grafo<string, int> *g = new Grafo<string, int>;
 	int opcion;
 	bool grafoIntroducido = false;
 
@@ -27,10 +27,8 @@ int main()
 
 				if (grafoIntroducido) {
 					cout << "Grafo cargado correctamente \n";
-					//Prueba de la asignación y del destructor
-					//{
+					g->imprimeMatriz();
 					Grafo<string, int> g1 = *g;
-					//}
 				}
 				else
 					cout << "Grafo no cargado \n";

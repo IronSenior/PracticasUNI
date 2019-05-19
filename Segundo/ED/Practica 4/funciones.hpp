@@ -33,7 +33,7 @@ template <class G_Nodo, class G_Lado>
 bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
 {
   string ficheroMatriz, ficheroEtiquetas;
-  int numeroNodos;
+  int numeroNodos = 0;
   string line;
   G_Nodo auxNodo;
   G_Lado auxLado;
@@ -44,29 +44,36 @@ bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
   cout << "Fichero de las etiquetas: ";
   cin >> ficheroEtiquetas;
 
-  ifstream Matriz(ficheroMatriz.c_str());
-  ifstream Etiquetas(ficheroEtiquetas.c_str());
+  ifstream Matriz;
+  ifstream Etiquetas;
+
+  Matriz.open(ficheroMatriz.c_str());
+  Etiquetas.open(ficheroEtiquetas.c_str());
 
   while (getline(Etiquetas, line)){
     numeroNodos++;
   }
   Etiquetas.close();
+  g->setNumeroNodos(numeroNodos);
 
   ifstream Etiquetas2(ficheroEtiquetas.c_str());
 
   for(int i=0; i<numeroNodos; i++){
     getline(Etiquetas2, line);
-    std::stringstream convert(line);
+    std::stringstream convert(line.c_str());
     convert >> auxNodo;
-    auxNodo = line;
     g->setNodo(i, auxNodo);
 
-    for(int j=0; j<numeroNodos; j++){
+    for(int j=0; j<numeroNodos-1; j++){
       getline(Matriz, line, ' ');
-      std::stringstream convert(line);
+      std::stringstream convert(line.c_str());
       convert >> auxLado;
       g->setLado(i, j, auxLado);
     }
+    getline(Matriz, line, '\n');
+    std::stringstream convert2(line.c_str());
+    convert2 >> auxLado;
+    g->setLado(i, numeroNodos-1, auxLado);
 
   }
 
@@ -79,7 +86,11 @@ bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
 template <class G_Nodo, class G_Lado>
 void algoritmoFloyd(const Grafo<G_Nodo, G_Lado> &g)
 {
-  // TODO
+  AlgoritmosGrafos<string, int> algoritmo(g.getNumeroNodos(), g);
+
+  algoritmo.Floyd(g);
+  algoritmo.imprimeMatrices();
+
 }
 
 #endif
