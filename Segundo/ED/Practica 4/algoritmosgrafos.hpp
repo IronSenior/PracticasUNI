@@ -58,6 +58,8 @@ public:
 
   void imprimeMatrices(){
     // Imprime la matriz de distancias
+    cout<<endl;
+    cout<<endl;
     cout<<"MATRIZ DE DISTANCIAS"<<endl;
     for (int i=0; i<_numeroNodos; i++){
       cout<<"[";
