@@ -135,7 +135,8 @@ namespace ed
 		G_Lado getLado(int posi, int posj) const {
 			return _lados[posi][posj];
 		}
-
+		
+		// Imprime la matriz de distancias
 		void imprimeMatriz(){
 			for (int i=0; i<_numeroNodos; i++){
 				cout<<"[";

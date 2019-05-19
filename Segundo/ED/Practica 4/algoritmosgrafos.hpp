@@ -36,18 +36,19 @@ public:
         _recorridos[i][j] = g.getNodo(j);
       }
     }
-
+    // Imprime las matrices iniciales
     this->imprimeMatrices();
   }
 
   void Floyd(){
     G_Nodo aux_nodo;
-
+    // Realiza el algoritmo de Floys
     for(int i=0; i < _numeroNodos; i++){
       for (int j=0; j < _numeroNodos; j++){
         for (int k=0; k < _numeroNodos; k++){
           if ((_distancias[j][i] + _distancias[i][k]) < _distancias[j][k]){
             _distancias[j][k] = _distancias[j][i] + _distancias[i][k];
+            // Comprueba la distancia mas corta para construir el camino completo
             _recorridos[j][k] = _recorridos[j][i];
           }
         }
@@ -56,6 +57,7 @@ public:
   }
 
   void imprimeMatrices(){
+    // Imprime la matriz de distancias
     cout<<"MATRIZ DE DISTANCIAS"<<endl;
     for (int i=0; i<_numeroNodos; i++){
       cout<<"[";
@@ -65,6 +67,7 @@ public:
       cout<<"]"<<endl;
     }
     cout<<endl;
+    // Imprime la matriz de recorridos
     cout<<"MATRIZ DE RECORRIDOS"<<endl;
     for (int i=0; i<_numeroNodos; i++){
       cout<<"[";
@@ -83,19 +86,21 @@ public:
     int distancia = 0;
     string camino = ciudadSalida;
     
+    // Calcula cual es la ciudad de salida y de llegada
     for(int i=0; i< _numeroNodos; i++){
       if(ciudadSalida == _grafo.getNodo(i)){
         indexSalidaPrimera = i;
       }
+      if(ciudadLlegada == _grafo.getNodo(i)){
+        indexLlegada = i;
+      }
     }
 
+    // Reliza el recorrido buscando en la matriz de recorridos
     while(! encontrado){
       for(int i=0; i< _numeroNodos; i++){
         if(ciudadSalida == _grafo.getNodo(i)){
           indexSalida = i;
-        }
-        if(ciudadLlegada == _grafo.getNodo(i)){
-          indexLlegada = i;
         }
       }
       if(_recorridos[indexSalida][indexLlegada] == ciudadLlegada){
@@ -105,6 +110,7 @@ public:
       ciudadSalida = _recorridos[indexSalida][indexLlegada];
 
     }
+    // Calcula la distancia e imprime el recorrido
     distancia = _distancias[indexSalidaPrimera][indexLlegada];
     cout<<"El camino es: "<<camino<<endl;
     cout<<"La distancia es: "<<distancia<<endl;

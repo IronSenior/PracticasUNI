@@ -50,26 +50,35 @@ bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
   Matriz.open(ficheroMatriz.c_str());
   Etiquetas.open(ficheroEtiquetas.c_str());
 
+  // Cuentas las lineas del fichero para saber cuantos nodos hay
   while (getline(Etiquetas, line)){
     numeroNodos++;
   }
   Etiquetas.close();
+
+  // Prepara el grafo para el numero de nodos deseado
   g->setNumeroNodos(numeroNodos);
+
 
   ifstream Etiquetas2(ficheroEtiquetas.c_str());
 
+  // Recorre los ficheros
   for(int i=0; i<numeroNodos; i++){
+    // Lee y covierte cada linea en el tipo adecuado
     getline(Etiquetas2, line);
     std::stringstream convert(line.c_str());
     convert >> auxNodo;
+    // Asigna el valor al nodo
     g->setNodo(i, auxNodo);
 
     for(int j=0; j<numeroNodos-1; j++){
+      // Lee y covierte cada linea en el tipo adecuado
       getline(Matriz, line, ' ');
       std::stringstream convert(line.c_str());
       convert >> auxLado;
       g->setLado(i, j, auxLado);
     }
+    // el último lado de cada fila no termina en " " así que debe ser tratado distinto
     getline(Matriz, line, '\n');
     std::stringstream convert2(line.c_str());
     convert2 >> auxLado;
@@ -86,11 +95,15 @@ bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
 template <class G_Nodo, class G_Lado>
 void algoritmoFloyd(const Grafo<G_Nodo, G_Lado> &g)
 {
+  // Instanciación del algoritmos
   AlgoritmosGrafos<string, int> algoritmo(g.getNumeroNodos(), g);
-
+  // Realiza Floyd
   algoritmo.Floyd();
+  // Imprime el resultado
   algoritmo.imprimeMatrices();
 
+
+  // Pide al usaurio un recorrido y lo imprime
   string ciudadSalida;
   string ciudadLlegada;
 
