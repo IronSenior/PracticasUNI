@@ -88,9 +88,21 @@ void algoritmoFloyd(const Grafo<G_Nodo, G_Lado> &g)
 {
   AlgoritmosGrafos<string, int> algoritmo(g.getNumeroNodos(), g);
 
-  algoritmo.Floyd(g);
+  algoritmo.Floyd();
   algoritmo.imprimeMatrices();
 
+  string ciudadSalida;
+  string ciudadLlegada;
+
+  cout<<endl;
+  cout<<endl;
+  cout<<"Introduzca la ciudad de salida: ";
+  cin>>ciudadSalida;
+
+  cout<<"Introduzca la ciudad de llegada: ";
+  cin>>ciudadLlegada;
+  
+  algoritmo.imprimeCamino(ciudadSalida, ciudadLlegada);
 }
 
 #endif
