@@ -6,11 +6,11 @@ grep -E '... ..min\>' $1
 
 echo '********* -- 2'
 echo "Mostrar la linea del pais de la película"
-grep -E '\<\-[a-z]*\>' $1
+grep -E '\-.*\-' $1
 
 echo '********* -- 3'
 echo "Mostrar solamente el pais de la película"
-grep -E '\<\-[a-z]\>' $1
+grep -E '\-(.*)\-' $1
 
 echo '********* -- 4'
 echo "Contar cuantas peiculas son del 2016 y cuantas del 2017"
@@ -34,9 +34,8 @@ grep -E '(.*a.*){6,}' $1
 
 echo '********* -- 9'
 echo "Lineas que terminan en ... y no empiezan por espacio"
-grep -E '^[^ ].*/\.\.\./$' $1
+grep -E '^[^ ].*\.\.\.$' $1
 
 echo "********* -- 10"
-
-
-
+echo "Utilizando sed , entrecomillar las vocales con tilde"
+cat $1 | sed 's/á/"á"/' | sed 's/é/"é"/' | sed 's/í/"í"/' | sed 's/ó/"ó"/' | sed 's/ú/"ú"/'
