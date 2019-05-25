@@ -10,7 +10,7 @@ grep -E '\-.*\-' $1
 
 echo '********* -- 3'
 echo "Mostrar solamente el pais de la película"
-grep -E '\-(.*)\-' $1
+grep -Eo '\-(.*)\-' $1 | grep -Eo '[A-Za-z]* *[A-Za-z]*' 
 
 echo '********* -- 4'
 echo "Contar cuantas peiculas son del 2016 y cuantas del 2017"
