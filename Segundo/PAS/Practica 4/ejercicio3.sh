@@ -1,5 +1,13 @@
 # ARG1 = Nombre del fichero
 
+# Comprueba que se haya introducido el fichero correctamente
+if [ $# -ne 1 ] || [ ! -f "$1"  ];
+then
+    echo "Los parámetros no son correctos"
+    echo "Debe introducir el fichero"
+    exit
+fi
+
 echo "Lista los directorios y ficheros del home del usuario ordenados por numero de caracteres"
 ls -a ~/ | grep -E "^\..*" | awk '{ print length, $0 }' | sort -g | grep -Eo "\..+"
 

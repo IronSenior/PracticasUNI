@@ -1,5 +1,12 @@
 # ARG1 Fichero
 
+if [ $# -ne 1 ] || [ ! -f "$1"  ];
+then
+    echo "Los parámetros no son correctos"
+    echo "Debe introducir el fichero de peliculas"
+    exit
+fi
+
 echo '********* -- 1'
 echo "Mostrar duración de las películas"
 grep -E '... ..min\>' $1
