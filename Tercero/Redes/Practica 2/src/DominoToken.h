@@ -39,4 +39,6 @@ class DominoToken{
         int IsDouble() const {
             return mIsDouble;
         };
-}
+};
+
+#endif
