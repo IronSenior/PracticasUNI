@@ -12,13 +12,7 @@ class Domino{
         std::vector<DominoToken::DominoToken> mFreeTokens;
 
     public:
-        Domino() {
-            for(int i=0; i<7; i++){
-                for (int j=i; j<7){
-                    this->mFreeTokens.push_back(DominoToken(i, j));
-                }
-            }
-        }
+        Domino();
 
         DominoToken::DominoToken GetRandomFreeDominoToken();
 

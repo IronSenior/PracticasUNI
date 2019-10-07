@@ -9,10 +9,13 @@
 class DominoPlayer{
     private:
         std::vector<DominoToken> mDominoHand;
-    
-    public:
-    
 
+    public:
+
+        DominoPlayer();
+
+        void RecieveToken(DominoToken token);
+        
 };
 
 
