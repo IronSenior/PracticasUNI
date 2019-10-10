@@ -14,10 +14,12 @@ Domino::Domino(){
     }
 }
 
-DominoToken::DominoToken Domino::GetRandomFreeDominoToken(){
+
+DominoToken Domino::GetRandomFreeDominoToken(){
     /* initialize random seed: */
     srand(time(NULL));
     
-    int random_token = rand() % 28 ; //TODO 
+    int RandomTokenIndex = rand() % this->GetNumberOfFreeTokens();
+    return this->mFreeTokens[RandomTokenIndex];
 
 }

@@ -15,7 +15,10 @@ class DominoPlayer{
         DominoPlayer();
 
         void RecieveToken(DominoToken token);
-        
+
+        inline int GetNumberOfTokens() const {
+            return this->mDominoHand.size();
+        }
 };
 
 

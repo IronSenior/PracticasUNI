@@ -9,12 +9,12 @@
 
 class Domino{
     private:
-        std::vector<DominoToken::DominoToken> mFreeTokens;
+        std::vector<DominoToken> mFreeTokens;
 
     public:
         Domino();
 
-        DominoToken::DominoToken GetRandomFreeDominoToken();
+        DominoToken GetRandomFreeDominoToken();
 
         inline int GetNumberOfFreeTokens() const {
             return mFreeTokens.size();
