@@ -10,10 +10,12 @@ class DominoToken{
         std::vector<int> mValues;
         bool mIsDouble;
 
+        void SetValue(int value);
+
     public:
         DominoToken(int firstValue, int secondValue){
-            this->mValues[0] = firstValue;
-            this->mValues[1] = secondValue;
+            this->SetValue(firstValue);
+            this->SetValue(secondValue);
 
             if (firstValue == secondValue){
                 this->mIsDouble = true;
@@ -21,7 +23,6 @@ class DominoToken{
             else{
                 this->mIsDouble = false;
             }
-            return this;
         };
 
         inline int GetFirstValue() const {
