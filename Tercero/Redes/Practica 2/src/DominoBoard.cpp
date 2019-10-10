@@ -50,3 +50,14 @@ bool DominoBoard::CanPutOnLeft(DominoToken& token) const{
     }
     return false;
 }
+
+void DominoBoard::PutFirstToken(DominoToken& token){
+    if((this->mNumberOnLeft == -1) && (this->mNumberOnRight == -1)){
+        this->mNumberOnLeft = token.GetFirstValue();
+        this->mNumberOnRight = token.GetSecondValue();
+    }
+    else{
+        throw "First token is already put";
+    }
+
+}

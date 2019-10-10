@@ -24,16 +24,17 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
 ####################################################
 # Add Unit Tests file names (without .cpp extension)
 ####################################################
-list(APPEND UNIT_TESTS
-    test_DominoToken
-)
 
 ####################################################
 # Create executable for each test
 ####################################################
-foreach(TEST ${UNIT_TESTS})
-    add_executable(${TEST} "${CMAKE_SOURCE_DIR}/test/${TEST}.cpp")
-    add_library(DominoToken src/DominoToken.cpp)
-    target_link_libraries(${TEST} DominoToken)
-    add_test(${TEST} ${TEST})
-endforeach()
+  add_executable(test_DominoToken "${CMAKE_SOURCE_DIR}/test/test_DominoToken.cpp")
+  add_library(DominoToken src/DominoToken.cpp)
+  target_link_libraries(test_DominoToken DominoToken)
+  add_test(test_DominoToken test_DominoToken)
+
+  add_executable(test_DominoBoard "${CMAKE_SOURCE_DIR}/test/test_DominoBoard.cpp")
+  add_library(DominoBoard src/DominoBoard.cpp)
+  target_link_libraries(test_DominoBoard DominoBoard)
+  target_link_libraries(test_DominoBoard DominoToken)
+  add_test(test_DominoBoard test_DominoBoard)
