@@ -31,3 +31,15 @@ TEST_CASE("Valid values in token")
     REQUIRE_NOTHROW(DominoToken ValidToken(6, 6););
     REQUIRE_NOTHROW(DominoToken ValidToken(5, 4););
 }
+
+
+TEST_CASE(" == Operator"){
+    DominoToken TestingToken(3, 3);
+    DominoToken EqTestingToken(3, 3);
+
+    DominoToken NeqTestingToken(4, 3);
+
+    CHECK(TestingToken == EqTestingToken);
+
+    CHECK_FALSE(TestingToken == NeqTestingToken);
+}

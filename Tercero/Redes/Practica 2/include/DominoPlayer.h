@@ -21,5 +21,10 @@ class DominoPlayer{
         inline int GetNumberOfTokens() const {
             return this->mDominoHand.size();
         };
+
+
+        void QuitToken(DominoToken &DominoToken);
+
+        DominoToken GetBiggestToken();
 };
 #endif

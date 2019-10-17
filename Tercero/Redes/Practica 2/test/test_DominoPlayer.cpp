@@ -25,3 +25,22 @@ TEST_CASE("Give Token Test")
     TestPlayer.RecieveToken(TestToken);
     CHECK(TestPlayer.GetNumberOfTokens() == 3);
 }
+
+
+TEST_CASE("The biggest token")
+{
+    DominoPlayer TestPlayer;
+    DominoToken TestToken(2,4);
+    
+    TestPlayer.RecieveToken(TestToken);
+    CHECK(TestPlayer.GetBiggestToken() == TestToken);
+
+    DominoToken BiggerTestToken(5,5);
+    TestPlayer.RecieveToken(BiggerTestToken);
+    CHECK(TestPlayer.GetBiggestToken() == BiggerTestToken);
+
+    DominoToken SmallerTestToken(1,3);
+    TestPlayer.RecieveToken(SmallerTestToken);
+    CHECK(TestPlayer.GetBiggestToken() == BiggerTestToken);
+
+}

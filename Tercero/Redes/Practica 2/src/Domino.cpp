@@ -20,6 +20,9 @@ DominoToken Domino::GetRandomFreeDominoToken(){
     srand(time(NULL));
     
     int RandomTokenIndex = rand() % this->GetNumberOfFreeTokens();
-    return this->mFreeTokens[RandomTokenIndex];
+    DominoToken ReturnedToken = this->mFreeTokens[RandomTokenIndex];
 
+    this->mFreeTokens.erase(this->mFreeTokens.begin() + RandomTokenIndex);
+
+    return ReturnedToken;
 }

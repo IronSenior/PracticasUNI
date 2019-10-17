@@ -40,6 +40,16 @@ class DominoToken{
         int IsDouble() const {
             return mIsDouble;
         };
+
+        // Operators
+        bool operator==(DominoToken const & dominoToken) const; 
+
+        bool operator>(DominoToken const & dominoToken) const;
+
+        bool operator<(DominoToken const & dominoToken) const;
 };
+
+
+
 
 #endif
