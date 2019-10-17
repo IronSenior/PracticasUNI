@@ -11,7 +11,6 @@ class DominoPlayer{
         std::vector<DominoToken> mDominoHand;
 
     public:
-
         DominoPlayer(){};
 
         inline void RecieveToken(DominoToken token) {
@@ -23,7 +22,7 @@ class DominoPlayer{
         };
 
 
-        void QuitToken(DominoToken &DominoToken);
+        void QuitToken(DominoToken &dominoToken);
 
         DominoToken GetBiggestToken();
 };

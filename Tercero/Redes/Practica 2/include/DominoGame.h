@@ -23,9 +23,7 @@ class DominoGame{
             this->mWinnerIndex = -1;
             this->mPlayers = players;
             int mTurnIndex = 0;
-        }
-
-        void PassTurn();      
+        } 
 };
 
 #endif

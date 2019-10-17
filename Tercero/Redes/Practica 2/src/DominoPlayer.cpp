@@ -14,3 +14,13 @@ DominoToken DominoPlayer::GetBiggestToken() {
 
     return BiggestToken;
 }
+
+
+void DominoPlayer::QuitToken(DominoToken &dominoToken){
+    for (int i=0; i < this->GetNumberOfTokens(); i++){
+        if (this->mDominoHand[i] == dominoToken){
+            this->mDominoHand.erase(this->mDominoHand.begin() + i);
+            return;
+        }
+    }
+}

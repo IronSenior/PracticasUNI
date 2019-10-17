@@ -24,6 +24,10 @@ TEST_CASE("Give Token Test")
 
     TestPlayer.RecieveToken(TestToken);
     CHECK(TestPlayer.GetNumberOfTokens() == 3);
+
+
+    TestPlayer.QuitToken(TestToken);
+    CHECK(TestPlayer.GetNumberOfTokens() == 2);
 }
 
 
