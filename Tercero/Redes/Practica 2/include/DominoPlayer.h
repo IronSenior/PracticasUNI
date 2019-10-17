@@ -12,14 +12,14 @@ class DominoPlayer{
 
     public:
 
-        DominoPlayer();
+        DominoPlayer(){};
 
-        void RecieveToken(DominoToken token);
+        inline void RecieveToken(DominoToken token) {
+            this->mDominoHand.push_back(token);
+        };
 
         inline int GetNumberOfTokens() const {
             return this->mDominoHand.size();
-        }
+        };
 };
-
-
 #endif
