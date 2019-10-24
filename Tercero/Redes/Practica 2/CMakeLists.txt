@@ -14,7 +14,7 @@ set(CXX_STANDARD_REQUIRED ON)
 # Set Compiler flags
 ####################################################################
 IF (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++${CXX_STANDARD}")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g -std=c++${CXX_STANDARD}")
 ELSEIF (MSVC)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 ENDIF()
@@ -50,3 +50,20 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
   target_link_libraries(test_DominoPlayer DominoPlayer)
   target_link_libraries(test_DominoPlayer DominoToken)
   add_test(test_DominoPlayer test_DominoPlayer)
+
+  add_executable(test_HubServer "${CMAKE_SOURCE_DIR}/test/test_HubServer.cpp")
+  add_library(HubServer src/HubServer.cpp)
+  target_link_libraries(test_HubServer HubServer)
+  add_test(test_HubServer test_HubServer)
+
+  add_executable(test_Client "${CMAKE_SOURCE_DIR}/test/test_Client.cpp")
+  add_library(Client src/Client.cpp)
+  target_link_libraries(test_Client Client)
+  target_link_libraries(test_Client HubServer)
+  add_test(test_Client test_Client)
+
+  add_executable(ClientMain "${CMAKE_SOURCE_DIR}/ClientMain.cpp")
+  target_link_libraries(ClientMain Client)
+  add_executable(ServerMain "${CMAKE_SOURCE_DIR}/ServerMain.cpp")
+  target_link_libraries(ServerMain HubServer)
+  
