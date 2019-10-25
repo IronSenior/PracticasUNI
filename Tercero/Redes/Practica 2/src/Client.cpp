@@ -49,19 +49,17 @@ void Client::StartTalking(){
 
 	do{
         this->RecreateFDSet();
-
         select(this->mSocketDescriptor+1, &this->mReadFds, NULL, NULL, NULL);
         
         //Tengo mensaje desde el servidor
         if(FD_ISSET(this->mSocketDescriptor, &this->mReadFds)){
             bzero(buffer, sizeof(buffer));
             recv(this->mSocketDescriptor, buffer, sizeof(buffer), 0);
-            
             printf("%s\n",buffer);
             
         }
         else
-        {   
+        {
             //He introducido información por teclado
             if(FD_ISSET(0, &this->mReadFds)){
                 bzero(buffer, sizeof(buffer));
@@ -74,10 +72,7 @@ void Client::StartTalking(){
             }
         }
         
-        
-				
     }while(fin == 0);
 
     close(this->mSocketDescriptor);
-
 }

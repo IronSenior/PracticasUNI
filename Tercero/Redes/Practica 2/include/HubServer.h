@@ -21,9 +21,7 @@ class HubServer {
     public:
         HubServer(int port, int serverCapacity);
 
-        inline void CloseServer(){
-            close(this->mSocketDescriptor);
-        }
+        void CloseServer();
 
         void AddNewClient();
 

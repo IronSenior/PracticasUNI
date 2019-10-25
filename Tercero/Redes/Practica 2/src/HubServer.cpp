@@ -32,6 +32,14 @@ HubServer::HubServer(int port, int serverCapacity){
 }
 
 
+void HubServer::CloseServer(){
+    for (auto clientSocketDescriptor = this->mClients.begin(); clientSocketDescriptor != this->mClients.end(); ++clientSocketDescriptor){
+        close(*clientSocketDescriptor);
+    }
+    close(this->mSocketDescriptor);
+}
+
+
 void HubServer::AddNewClient(){
     int NewClientSocketDescriptor;
     struct sockaddr_in NewClientSocketName;

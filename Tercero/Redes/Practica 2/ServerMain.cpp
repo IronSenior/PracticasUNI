@@ -14,6 +14,7 @@ int main(int argc, char const *argv[]){
 
 void handleSigint(int sig)
 {
+    std::cout<<"Closing Server"<<std::endl;
     Server.CloseServer();
     exit(1);
 }
