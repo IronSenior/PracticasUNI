@@ -6,7 +6,7 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <stdio.h>
-
+#include <string.h>
 #include <iostream>
 
 HubServer::HubServer(int port, int serverCapacity){
@@ -63,7 +63,6 @@ void HubServer::RecreateFDSet(){
     FD_ZERO(&this->mReadSet);
     FD_SET(this->mSocketDescriptor, &this->mReadSet);
 
-
     for (auto clientSocketDescriptor = this->mClients.begin(); clientSocketDescriptor != this->mClients.end(); ++clientSocketDescriptor) {
         FD_SET(*clientSocketDescriptor, &this->mReadSet);
 
@@ -97,6 +96,15 @@ void HubServer::StartMatchMacking(){
 void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
     char buffer[100];
     std::cout<<"From "<<clientSocketDescriptor<<" Recieved: "<<message<<std::endl;
+
+    if (strcmp(message, "")){
+
+    }
+    else if{
+        
+    }
+
+
     sprintf(buffer, "Recibido");
     send(clientSocketDescriptor, buffer, 100, 0);
 }
