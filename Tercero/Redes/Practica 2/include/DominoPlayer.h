@@ -5,6 +5,7 @@
 
 #include "DominoToken.h"
 #include <vector>
+#include <string>
 
 class DominoPlayer{
     private:
@@ -38,5 +39,6 @@ class DominoPlayer{
 
         DominoToken GetBiggestToken();
         
+        std::string GetPrintableHand();
 };
 #endif

@@ -50,3 +50,15 @@ TEST_CASE("The First token")
     CHECK(TestPlayer.GetFirstToken() == SmallerTestToken);
 
 }
+
+TEST_CASE("Printable Hand"){
+
+    DominoPlayer TestPlayer(1);
+    DominoToken TestToken(1,4);
+
+    TestPlayer.RecieveToken(TestToken);
+    CHECK(TestPlayer.GetPrintableHand() == "|1|4|");
+
+    TestPlayer.RecieveToken(TestToken);
+    CHECK(TestPlayer.GetPrintableHand() == "|1|4||1|4|");
+}

@@ -2,7 +2,7 @@
 #include "DominoToken.h"
 
 
-
+#include <string>
 
 DominoToken DominoPlayer::GetFirstToken() {
     this->SortHand();
@@ -38,4 +38,15 @@ void DominoPlayer::QuitToken(DominoToken &dominoToken){
             return;
         }
     }
+}
+
+
+std::string DominoPlayer::GetPrintableHand(){
+    std::string PrintableHand;
+
+    for (auto token = this->mDominoHand.begin(); token != this->mDominoHand.end(); token++){
+        PrintableHand += token->GetPrintableToken();
+    }
+
+    return PrintableHand;
 }
