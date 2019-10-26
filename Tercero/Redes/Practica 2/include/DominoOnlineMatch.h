@@ -47,6 +47,7 @@ class DominoOnlineMatch{
 
         void HandleMessage(char * message);
 
+        void SendHandToPlayers();
 
 };
 

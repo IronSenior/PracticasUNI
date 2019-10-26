@@ -23,6 +23,7 @@ int DominoOnlineMatch::StartMatch(){
 
     while (! this->mIsMatchFinished) {
         this->SendMessageToBothPlayers("TABLERO: " + this->mBoard.GetPrintableBoard());
+        this->SendHandToPlayers();
         this->PassTurn();
         this->RecreateFDSet();
     
@@ -118,3 +119,11 @@ void DominoOnlineMatch::SendMessageToBothPlayers(std::string message){
         send(Player->GetSocketDescriptor(), message.c_str(), 100, 0);
     }
 }
+
+
+void DominoOnlineMatch::SendHandToPlayers(){
+    for (auto Player = this->mPlayers.begin(); Player != this->mPlayers.end(); Player++){
+        send(Player->GetSocketDescriptor(), ("FICHAS: " + Player->GetPrintableHand()).c_str(), 100, 0);
+    }
+}
+
