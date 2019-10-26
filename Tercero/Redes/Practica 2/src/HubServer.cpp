@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include <future>
 
 
 HubServer::HubServer(int port, int serverCapacity){
@@ -116,8 +117,11 @@ void HubServer::StartMatchMacking(int clientSocketDescriptor){
     if (this->mPlayersQueue.size() > 0){
         MatchPlayers.push_back(mPlayersQueue[0]);
         this->mPlayersQueue.erase(this->mPlayersQueue.begin() + 0);
-        DominoOnlineMatch NewMatch(MatchPlayers);
-        NewMatch.StartMatch();
+
+        // I save the matches in a vector only to ensure them for the threads
+        this->mMatches.push_back(*new DominoOnlineMatch(MatchPlayers));
+
+        this->mThreads.push_back(std::async(std::launch::async, [this]{return this->mMatches.back().StartMatch();}));  
     }
     else{
         this->mPlayersQueue.push_back(clientSocketDescriptor);

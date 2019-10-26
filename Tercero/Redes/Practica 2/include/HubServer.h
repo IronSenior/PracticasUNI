@@ -2,11 +2,13 @@
 #ifndef HUBSERVER_H
 #define HUBSERVER_H
 
+#include "DominoOnlineMatch.h"
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <future>
 #include <vector>
 
 class HubServer {
@@ -16,6 +18,8 @@ class HubServer {
         struct sockaddr_in mSocketName;
         std::vector<int> mClients;
         std::vector<int> mPlayersQueue;
+        std::vector<std::future<int>> mThreads;
+        std::vector<DominoOnlineMatch> mMatches;
 
         fd_set mReadSet;
 
