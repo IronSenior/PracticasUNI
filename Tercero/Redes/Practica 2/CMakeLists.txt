@@ -53,6 +53,8 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
 
   add_executable(test_HubServer "${CMAKE_SOURCE_DIR}/test/test_HubServer.cpp")
   add_library(HubServer src/HubServer.cpp)
+  add_library(DominoOnlineMatch src/DominoOnlineMatch.cpp)
+  target_link_libraries(HubServer DominoOnlineMatch)
   target_link_libraries(test_HubServer HubServer)
   add_test(test_HubServer test_HubServer)
 
@@ -66,4 +68,6 @@ include_directories("${CMAKE_SOURCE_DIR}/include")
   target_link_libraries(ClientMain Client)
   add_executable(ServerMain "${CMAKE_SOURCE_DIR}/ServerMain.cpp")
   target_link_libraries(ServerMain HubServer)
+
+
   

@@ -1,5 +1,6 @@
 
 #include "HubServer.h"
+#include "DominoOnlineMatch.h"
 
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -9,13 +10,14 @@
 #include <string.h>
 #include <iostream>
 
+
 HubServer::HubServer(int port, int serverCapacity){
 
     this->mCapacity = serverCapacity;
     this->mSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
     
     if (this->mSocketDescriptor == -1) {
-        throw "Server Socket can not be created";
+        throw std::runtime_error("Server Socket can not be created");
     }
 
     mSocketName.sin_family = AF_INET;
@@ -23,11 +25,11 @@ HubServer::HubServer(int port, int serverCapacity){
     mSocketName.sin_addr.s_addr = INADDR_ANY;
 
     if (bind(this->mSocketDescriptor, (struct sockaddr*)&this->mSocketName, sizeof(this->mSocketName)) == -1) {
-        throw "Error with BIND operation in Server Socket";
+        throw std::runtime_error("Error with BIND operation in Server Socket");
     }
 
     if (listen(this->mSocketDescriptor, this->mCapacity) == -1) {
-        throw "Error with LISTEN operation in Server Socket";
+        throw std::runtime_error("Error with LISTEN operation in Server Socket");
     }
 }
 
@@ -47,7 +49,7 @@ void HubServer::AddNewClient(){
     char buffer[100];
 
     if ((NewClientSocketDescriptor = accept(this->mSocketDescriptor, (struct sockaddr*)&NewClientSocketName, &NewClientSocketNameLen)) == -1) {
-        throw "Error adding new client to server";
+        throw std::runtime_error("Error adding new client to server");
     }
 
     this->mClients.push_back(NewClientSocketDescriptor);
@@ -70,7 +72,7 @@ void HubServer::RecreateFDSet(){
 }
 
 
-void HubServer::StartMatchMacking(){
+void HubServer::StartServer(){
     char buffer[100];
 
     while (1) {
@@ -97,14 +99,28 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
     char buffer[100];
     std::cout<<"From "<<clientSocketDescriptor<<" Recieved: "<<message<<std::endl;
 
-    if (strcmp(message, "")){
-
+    if (strcmp(message, "INICIAR-PARTIDA") == 0){
+        this->StartMatchMacking(clientSocketDescriptor);
     }
-    else if (true) {
-        
-    }
-
 
     sprintf(buffer, "Recibido");
     send(clientSocketDescriptor, buffer, 100, 0);
+}
+
+
+void HubServer::StartMatchMacking(int clientSocketDescriptor){
+
+    std::vector<int> MatchPlayers;
+    MatchPlayers.push_back(clientSocketDescriptor);
+
+    if (this->mPlayersQueue.size() > 0){
+        MatchPlayers.push_back(mPlayersQueue[0]);
+        this->mPlayersQueue.erase(this->mPlayersQueue.begin() + 0);
+        DominoOnlineMatch NewMatch(MatchPlayers);
+        NewMatch.StartMatch();
+    }
+    else{
+        this->mPlayersQueue.push_back(clientSocketDescriptor);
+        send(clientSocketDescriptor, "+Ok. Petición Recibida. Quedamos a la espera de más jugadores", 100, 0);
+    }
 }

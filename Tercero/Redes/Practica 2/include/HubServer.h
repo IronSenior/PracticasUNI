@@ -15,21 +15,24 @@ class HubServer {
         int mCapacity;
         struct sockaddr_in mSocketName;
         std::vector<int> mClients;
+        std::vector<int> mPlayersQueue;
 
         fd_set mReadSet;
 
     public:
         HubServer(int port, int serverCapacity);
 
+        void StartServer();
+
         void CloseServer();
 
         void AddNewClient();
 
-        void CreateMatchThread(std::vector<int> clients);
-
         void RecreateFDSet();
 
-        void StartMatchMacking();
+        void StartMatchMacking(int clientSocketDescriptor);
+
+        void CreateMatch(std::vector<int> matchPlayers);
 
         void HandleMessage(int clientSocketDescriptor, const char* message);
 };
