@@ -8,10 +8,13 @@
 
 class DominoPlayer{
     private:
+        int mSocketDescriptor;
         std::vector<DominoToken> mDominoHand;
 
     public:
-        DominoPlayer(){};
+        DominoPlayer(int playerSocketDescriptor){
+            this->mSocketDescriptor = playerSocketDescriptor;
+        };
 
         inline void RecieveToken(DominoToken token) {
             this->mDominoHand.push_back(token);
@@ -21,9 +24,19 @@ class DominoPlayer{
             return this->mDominoHand.size();
         };
 
+        inline int GetSocketDescriptor() const {
+            return this->mSocketDescriptor;
+        }
+
+        void SortHand();
 
         void QuitToken(DominoToken &dominoToken);
 
+        DominoToken GetFirstToken();
+
+        DominoToken GetBiggestDoubleToken();
+
         DominoToken GetBiggestToken();
+        
 };
 #endif

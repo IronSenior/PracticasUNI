@@ -16,8 +16,10 @@ class HubServer {
         int mSocketDescriptor;
         int mCapacity;
         struct sockaddr_in mSocketName;
-        std::vector<int> mClients;
+
+        static std::vector<int> mHubClients;
         std::vector<int> mPlayersQueue;
+
         std::vector<std::future<int>> mThreads;
         std::vector<DominoOnlineMatch> mMatches;
 
@@ -30,9 +32,13 @@ class HubServer {
 
         void CloseServer();
 
-        void AddNewClient();
+        void AcceptNewConnection();
 
         void RecreateFDSet();
+
+        void EraseClients(std::vector<int> clientsToErase);
+
+        void AddClients(std::vector<int> clientsToAdd);
 
         void StartMatchMacking(int clientSocketDescriptor);
 

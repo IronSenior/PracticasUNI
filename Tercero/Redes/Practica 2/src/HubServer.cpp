@@ -11,6 +11,8 @@
 #include <iostream>
 #include <future>
 
+std::vector<int> HubServer::mHubClients;
+
 
 HubServer::HubServer(int port, int serverCapacity){
 
@@ -36,14 +38,14 @@ HubServer::HubServer(int port, int serverCapacity){
 
 
 void HubServer::CloseServer(){
-    for (auto clientSocketDescriptor = this->mClients.begin(); clientSocketDescriptor != this->mClients.end(); ++clientSocketDescriptor){
+    for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor){
         close(*clientSocketDescriptor);
     }
     close(this->mSocketDescriptor);
 }
 
 
-void HubServer::AddNewClient(){
+void HubServer::AcceptNewConnection(){
     int NewClientSocketDescriptor;
     struct sockaddr_in NewClientSocketName;
     socklen_t NewClientSocketNameLen;
@@ -53,7 +55,7 @@ void HubServer::AddNewClient(){
         throw std::runtime_error("Error adding new client to server");
     }
 
-    this->mClients.push_back(NewClientSocketDescriptor);
+    mHubClients.push_back(NewClientSocketDescriptor);
 
     sprintf(buffer, "Bienvenido al Domino");
     send(NewClientSocketDescriptor, buffer, 100, 0);
@@ -66,7 +68,7 @@ void HubServer::RecreateFDSet(){
     FD_ZERO(&this->mReadSet);
     FD_SET(this->mSocketDescriptor, &this->mReadSet);
 
-    for (auto clientSocketDescriptor = this->mClients.begin(); clientSocketDescriptor != this->mClients.end(); ++clientSocketDescriptor) {
+    for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor) {
         FD_SET(*clientSocketDescriptor, &this->mReadSet);
 
     }
@@ -81,7 +83,7 @@ void HubServer::StartServer(){
     
         pselect(FD_SETSIZE, &this->mReadSet, NULL, NULL, NULL, NULL);
         
-        for (auto clientSocketDescriptor = this->mClients.begin(); clientSocketDescriptor != this->mClients.end(); ++clientSocketDescriptor) {
+        for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor) {
             if (FD_ISSET(*clientSocketDescriptor, &this->mReadSet)) {
                 if ((recv(*clientSocketDescriptor, &buffer, 100, 0) > 0)){
                     this->HandleMessage(*clientSocketDescriptor, buffer);
@@ -90,7 +92,7 @@ void HubServer::StartServer(){
         }
 
         if (FD_ISSET(this->mSocketDescriptor, &this->mReadSet)) {
-            this->AddNewClient();
+            this->AcceptNewConnection();
         }
     }
 }
@@ -103,6 +105,12 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
     if (strcmp(message, "INICIAR-PARTIDA") == 0){
         this->StartMatchMacking(clientSocketDescriptor);
     }
+    else
+    {
+        send(clientSocketDescriptor, "Bad Message", 100, 0);
+        std::cout<<"-ERR: Message not kown"<<std::endl;
+    }
+    
 
     sprintf(buffer, "Recibido");
     send(clientSocketDescriptor, buffer, 100, 0);
@@ -112,19 +120,38 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
 void HubServer::StartMatchMacking(int clientSocketDescriptor){
 
     std::vector<int> MatchPlayers;
-    MatchPlayers.push_back(clientSocketDescriptor);
+    MatchPlayers.push_back(clientSocketDescriptor); 
 
     if (this->mPlayersQueue.size() > 0){
         MatchPlayers.push_back(mPlayersQueue[0]);
         this->mPlayersQueue.erase(this->mPlayersQueue.begin() + 0);
 
-        // I save the matches in a vector only to ensure them for the threads
-        this->mMatches.push_back(*new DominoOnlineMatch(MatchPlayers));
+        // For now on the clients would be managed by DominoOnlineMatchClass
+        this->EraseClients(MatchPlayers);
 
-        this->mThreads.push_back(std::async(std::launch::async, [this]{return this->mMatches.back().StartMatch();}));  
+        // I save the matches in a vector only to ensure them for the threads
+        this->mMatches.push_back(*new DominoOnlineMatch(this->mSocketDescriptor, MatchPlayers));
+        this->mThreads.push_back(std::async(std::launch::async, [this]{return this->mMatches.back().StartMatch();}));
     }
     else{
         this->mPlayersQueue.push_back(clientSocketDescriptor);
         send(clientSocketDescriptor, "+Ok. Petición Recibida. Quedamos a la espera de más jugadores", 100, 0);
+    }
+}
+
+
+void HubServer::EraseClients(std::vector<int> clientsToErase){
+    for (int i = 0; i < clientsToErase.size(); i++){
+        for (int j = 0; j < mHubClients.size(); j++){
+            if (clientsToErase[i] == mHubClients[j]){
+                mHubClients.erase(mHubClients.begin() + (j - 1));
+            }
+        }
+    }
+}
+
+void HubServer::AddClients(std::vector<int> clientsToAdd){
+    for (auto ClientToAdd = clientsToAdd.begin(); ClientToAdd != clientsToAdd.end(); ClientToAdd++){
+        mHubClients.push_back(*ClientToAdd);
     }
 }

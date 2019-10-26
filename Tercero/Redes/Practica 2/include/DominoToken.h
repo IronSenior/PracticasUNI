@@ -26,19 +26,19 @@ class DominoToken{
         };
 
         inline int GetFirstValue() const {
-            return mValues[0];
+            return this->mValues[0];
         };
 
         inline int GetSecondValue() const {
-            return mValues[1];
+            return this->mValues[1];
         };
 
         inline std::vector<int> GetValues() const {
-            return mValues;
+            return this->mValues;
         };
 
-        int IsDouble() const {
-            return mIsDouble;
+        bool IsDouble() const {
+            return this->mIsDouble;
         };
 
         // Operators

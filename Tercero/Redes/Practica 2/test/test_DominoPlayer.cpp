@@ -3,9 +3,11 @@
 #include "DominoPlayer.h"
 #include "DominoToken.h"
 
+//Im going to pass 1 as socketDescriptor becaues is not important for unittest
+
 TEST_CASE("Constructor test")
 {
-    DominoPlayer TestPlayer;
+    DominoPlayer TestPlayer(1);
 
     CHECK(TestPlayer.GetNumberOfTokens() == 0);
 }
@@ -13,7 +15,7 @@ TEST_CASE("Constructor test")
 
 TEST_CASE("Give Token Test")
 {
-    DominoPlayer TestPlayer;
+    DominoPlayer TestPlayer(1);
     DominoToken TestToken(3, 4);
 
     TestPlayer.RecieveToken(TestToken);
@@ -31,20 +33,20 @@ TEST_CASE("Give Token Test")
 }
 
 
-TEST_CASE("The biggest token")
+TEST_CASE("The First token")
 {
-    DominoPlayer TestPlayer;
-    DominoToken TestToken(2,4);
+    DominoPlayer TestPlayer(1);
+    DominoToken TestToken(1,4);
     
     TestPlayer.RecieveToken(TestToken);
-    CHECK(TestPlayer.GetBiggestToken() == TestToken);
+    CHECK(TestPlayer.GetFirstToken() == TestToken);
 
-    DominoToken BiggerTestToken(5,5);
+    DominoToken BiggerTestToken(6,5);
     TestPlayer.RecieveToken(BiggerTestToken);
-    CHECK(TestPlayer.GetBiggestToken() == BiggerTestToken);
+    CHECK(TestPlayer.GetFirstToken() == BiggerTestToken);
 
-    DominoToken SmallerTestToken(1,3);
+    DominoToken SmallerTestToken(2,2);
     TestPlayer.RecieveToken(SmallerTestToken);
-    CHECK(TestPlayer.GetBiggestToken() == BiggerTestToken);
+    CHECK(TestPlayer.GetFirstToken() == SmallerTestToken);
 
 }
