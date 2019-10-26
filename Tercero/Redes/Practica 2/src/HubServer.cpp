@@ -100,7 +100,7 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
     if (strcmp(message, "")){
 
     }
-    else if{
+    else if (true) {
         
     }
 
