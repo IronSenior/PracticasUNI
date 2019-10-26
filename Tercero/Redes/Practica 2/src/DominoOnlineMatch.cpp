@@ -22,6 +22,7 @@ int DominoOnlineMatch::StartMatch(){
     this->PutFirstToken();
 
     while (! this->mIsMatchFinished) {
+        this->SendMessageToBothPlayers("TABLERO: " + this->mBoard.GetPrintableBoard());
         this->PassTurn();
         this->RecreateFDSet();
     

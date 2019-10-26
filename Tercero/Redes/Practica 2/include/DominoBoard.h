@@ -5,10 +5,12 @@
 
 #include "DominoToken.h"
 #include <vector>
+#include <string>
 
 class DominoBoard{
     private:
         std::vector<DominoToken> mTokens;
+        std::string mPrintableBoard;
         int mNumberOnLeft;
         int mNumberOnRight;
 
@@ -31,5 +33,9 @@ class DominoBoard{
         bool PutTokenOnLeft(DominoToken& token);
 
         void PutFirstToken(DominoToken& token);
+
+        inline std::string GetPrintableBoard() const {
+            return this->mPrintableBoard;
+        };
 };
 #endif

@@ -62,3 +62,21 @@ TEST_CASE("Putting the second token con Right")
     CHECK(TestingBoard.CanPutOnRight(ThirdToken));
     CHECK_FALSE(TestingBoard.CanPutOnLeft(ThirdToken));
 }
+
+
+TEST_CASE("Printable Board")
+{
+    DominoBoard TestingBoard;
+    DominoToken StartToken(6, 6);
+
+    TestingBoard.PutFirstToken(StartToken);
+    CHECK(TestingBoard.GetPrintableBoard() == "|6|6|");
+
+    DominoToken SecondToken(6, 4);
+    TestingBoard.PutTokenOnLeft(SecondToken);
+    CHECK(TestingBoard.GetPrintableBoard() == "|4|6||6|6|");
+
+    TestingBoard.PutTokenOnRight(SecondToken);
+    CHECK(TestingBoard.GetPrintableBoard() == "|4|6||6|6||6|4|");
+
+}

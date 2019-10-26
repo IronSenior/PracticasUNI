@@ -43,3 +43,11 @@ TEST_CASE(" == Operator"){
 
     CHECK_FALSE(TestingToken == NeqTestingToken);
 }
+
+
+TEST_CASE("PRINTABLE TOKEN"){
+    DominoToken TestingToken(3, 4);
+
+    CHECK(TestingToken.GetPrintableToken() == "|3|4|");
+    CHECK(TestingToken.GetReversePrintableToken() == "|4|3|");
+}

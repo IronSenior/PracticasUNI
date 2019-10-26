@@ -4,6 +4,7 @@
 
 
 #include <vector>
+#include <string>
 
 class DominoToken{
     private:
@@ -40,6 +41,10 @@ class DominoToken{
         bool IsDouble() const {
             return this->mIsDouble;
         };
+
+        std::string GetPrintableToken();
+
+        std::string GetReversePrintableToken();
 
         // Operators
         bool operator==(DominoToken const & dominoToken) const; 

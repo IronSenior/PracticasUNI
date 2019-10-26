@@ -1,6 +1,7 @@
 
 #include "DominoToken.h"
 
+#include <string>
 
 void DominoToken::SetValue(int value) {
     if ((value > 6) || (value < 0)){
@@ -29,4 +30,17 @@ bool DominoToken::operator<(DominoToken const & dominoToken) const {
         return true;
     }
     return false;
+}
+
+
+std::string DominoToken::GetPrintableToken(){
+    std::string PrintableToken;
+    PrintableToken = "|" + std::to_string(this->GetFirstValue()) + "|" + std::to_string(this->GetSecondValue()) + "|";
+    return PrintableToken;
+}
+
+std::string DominoToken::GetReversePrintableToken(){
+    std::string PrintableToken;
+    PrintableToken = "|" + std::to_string(this->GetSecondValue()) + "|" + std::to_string(this->GetFirstValue()) + "|";
+    return PrintableToken;
 }
