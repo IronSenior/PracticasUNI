@@ -133,8 +133,6 @@ void DominoOnlineMatch::HandleMessage(char * message){
     else{
         send(this->mPlayerTurnSocketDescriptor, "Err, Bad Message", 100, 0);
     }
-
-
 }
 
 

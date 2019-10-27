@@ -19,6 +19,7 @@ class HubServer {
 
         static std::vector<int> mHubClients;
         std::vector<int> mPlayersQueue;
+        std::vector<int> mLoggedClients;
 
         std::vector<std::future<int>> mThreads;
         std::vector<DominoOnlineMatch> mMatches;
@@ -45,6 +46,14 @@ class HubServer {
         void CreateMatch(std::vector<int> matchPlayers);
 
         void HandleMessage(int clientSocketDescriptor, const char* message);
+
+        bool IsClientLogged(int clientSocketDescriptor);
+
+        int LogInClient(int clientSockectDescriptor, std::string userName);
+
+        bool CheckUser(std::string userName, std::string password);
+
+        void RegisterUser(std::string userName, std::string password);
 };
 
 #endif

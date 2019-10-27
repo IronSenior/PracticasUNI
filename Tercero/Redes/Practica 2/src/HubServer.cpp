@@ -11,6 +11,7 @@
 #include <iostream>
 #include <future>
 #include <regex>
+#include <fstream>
 
 std::vector<int> HubServer::mHubClients;
 
@@ -101,33 +102,40 @@ void HubServer::StartServer(){
 
 
 void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
-    char buffer[100];
     std::cmatch RegexMatches;
     std::cout<<"From "<<clientSocketDescriptor<<" Recieved: "<<message<<std::endl;
 
     if (strcmp(message, "INICIAR-PARTIDA") == 0){
-        if(this->ClientIsLogged(clientSocketDescriptor)){
+        if(this->IsClientLogged(clientSocketDescriptor)){
             this->StartMatchMacking(clientSocketDescriptor);
         }
         else{
-            send(clientSocketDescriptor, "Tienes que Loggear Primero", 100, 0);
+            send(clientSocketDescriptor, "Te tienes que Loggear Primero", 100, 0);
         }
     }
     else if(std::regex_search(message, RegexMatches, std::regex("USUARIO (.*)"))){
-        
+        if(! this->IsClientLogged(clientSocketDescriptor)){
+            this->mThreads.push_back(std::async(std::launch::async, [this, clientSocketDescriptor, RegexMatches]{
+                return this->LogInClient(clientSocketDescriptor, RegexMatches.str(1));
+            }));
+        }
+        else{
+            send(clientSocketDescriptor, "Ya estas Logueado", 100, 0);
+        }
     }
-    else if(std::regex_search(message, RegexMatches, std::regex("")){
-
-    }
+    else if(std::regex_search(message, RegexMatches, std::regex("REGISTRO -u (.*) -p (.*)"))){
+        if(! this->IsClientLogged(clientSocketDescriptor)){
+            this->RegisterUser(RegexMatches.str(1), RegexMatches.str(2));
+        }
+        else{
+            send(clientSocketDescriptor, "Ya estas Logueado", 100, 0);
+        }
+    }  
     else
     {
         send(clientSocketDescriptor, "Bad Message", 100, 0);
         std::cout<<"-ERR: Message not kown"<<std::endl;
     }
-    
-
-    sprintf(buffer, "Recibido");
-    send(clientSocketDescriptor, buffer, 100, 0);
 }
 
 
@@ -168,4 +176,80 @@ void HubServer::AddClients(std::vector<int> clientsToAdd){
     for (auto ClientToAdd = clientsToAdd.begin(); ClientToAdd != clientsToAdd.end(); ClientToAdd++){
         mHubClients.push_back(*ClientToAdd);
     }
+    this->RecreateFDSet();
+}
+
+
+bool HubServer::IsClientLogged(int clientSocketDescriptor){
+    for(auto LoggedClient: this->mLoggedClients){
+        if(LoggedClient == clientSocketDescriptor){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+// This should be an independent class with all user staff but i dont have time
+int HubServer::LogInClient(int clientSocketDescriptor, std::string userName){
+    fd_set AuxSet;
+    char buffer[100];
+    std::cmatch RegexMatches;
+
+    std::vector<int> ClientInVector = {clientSocketDescriptor};
+    this->EraseClients(ClientInVector);
+
+    FD_ZERO(&AuxSet);
+    FD_SET(this->mSocketDescriptor, &AuxSet);
+    FD_SET(clientSocketDescriptor, &AuxSet);
+
+    pselect(FD_SETSIZE, &AuxSet, NULL, NULL, NULL, NULL);
+    if (FD_ISSET(clientSocketDescriptor, &AuxSet)) {
+        if ((recv(clientSocketDescriptor, &buffer, 100, 0) > 0)){
+            if(std::regex_search(buffer, RegexMatches, std::regex("PASSWORD (.*)"))){
+                if(this->CheckUser(userName, RegexMatches[1])){
+                    this->mLoggedClients.push_back(clientSocketDescriptor);
+                    this->AddClients(ClientInVector);
+                }
+                else{
+                    send(clientSocketDescriptor, "Err, Usuario o Contraseña no validos", 100, 0);
+                }
+            }
+            else{
+                send(clientSocketDescriptor, "Err. Esperaba contraseña", 100, 0);
+                this->AddClients(ClientInVector);
+            }
+        }
+    }
+    return 0;
+}
+
+
+
+bool HubServer::CheckUser(std::string userName, std::string password){
+    std::ifstream UsersFile("usuarios.txt");
+
+    char User[100];
+    std::string AuxUserName;
+    std::string AuxPassword;
+
+    while(!UsersFile.eof()) {
+        UsersFile >> User;
+        AuxUserName = strtok(User, ";");
+        AuxPassword = strtok(NULL, ";");
+        if((strcmp(AuxPassword.c_str(), password.c_str()) == 0) && (strcmp(AuxUserName.c_str(), userName.c_str()) == 0)){
+            return true;
+        }
+    }
+    UsersFile.close();
+    return false;
+}
+
+
+void HubServer::RegisterUser(std::string userName, std::string password){
+    std::ofstream UsersFile("usuarios.txt"); 
+
+    UsersFile<<userName<<";"<<password<<std::endl;
+
+    UsersFile.close();
 }
