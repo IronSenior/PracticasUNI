@@ -145,7 +145,7 @@ void DominoOnlineMatch::HandleMessage(char * message){
             }
         }
     }
-    else if(strcmp(message, "FIN") == 0){
+    else if(strcmp(message, "SALIR") == 0){
         this->EndMatch();
     }
     else{
@@ -207,7 +207,6 @@ void DominoOnlineMatch::EndMatch(){
 
     std::vector<int> ClientsToAdd = {this->mPlayers[0].GetSocketDescriptor(), this->mPlayers[1].GetSocketDescriptor()};
     HubServer::AddClients(ClientsToAdd);
-
-    this->~DominoOnlineMatch();
+    this->mIsMatchFinished = true;
 }
 
