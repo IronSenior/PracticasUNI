@@ -82,8 +82,12 @@ void HubServer::StartServer(){
 
     while (1) {
         this->RecreateFDSet();
+
+        struct timespec time;
+        time.tv_sec=10;
+        
     
-        pselect(FD_SETSIZE, &this->mReadSet, NULL, NULL, NULL, NULL);
+        pselect(FD_SETSIZE, &this->mReadSet, NULL, NULL, &time, NULL);
         
         for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor) {
             if (FD_ISSET(*clientSocketDescriptor, &this->mReadSet)) {
@@ -213,6 +217,7 @@ int HubServer::LogInClient(int clientSocketDescriptor, std::string userName){
                 }
                 else{
                     send(clientSocketDescriptor, "Err, Usuario o Contraseña no validos", 100, 0);
+                    this->AddClients(ClientInVector);
                 }
             }
             else{
@@ -225,19 +230,14 @@ int HubServer::LogInClient(int clientSocketDescriptor, std::string userName){
 }
 
 
-
 bool HubServer::CheckUser(std::string userName, std::string password){
     std::ifstream UsersFile("usuarios.txt");
 
     char User[100];
-    std::string AuxUserName;
-    std::string AuxPassword;
 
     while(!UsersFile.eof()) {
         UsersFile >> User;
-        AuxUserName = strtok(User, ";");
-        AuxPassword = strtok(NULL, ";");
-        if((strcmp(AuxPassword.c_str(), password.c_str()) == 0) && (strcmp(AuxUserName.c_str(), userName.c_str()) == 0)){
+        if(strcmp(User,(userName + ";" + password).c_str())== 0){
             return true;
         }
     }
