@@ -49,6 +49,14 @@ class DominoOnlineMatch{
 
         void SendHandToPlayers();
 
+        void PutTokenInBoard(DominoToken token, const char * position);
+
+        void GetTokenFromDomino();
+
+        void PlayerWins();
+
+        void CloseServer();
+
 };
 
 #endif

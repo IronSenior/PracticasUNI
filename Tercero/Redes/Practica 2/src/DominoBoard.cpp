@@ -66,3 +66,13 @@ void DominoBoard::PutFirstToken(DominoToken& token){
     }
 
 }
+
+
+bool DominoBoard::CanPlayerPutToken(DominoPlayer player){
+    for (auto token: player.GetHand()){
+        if ((this->CanPutOnLeft(token)) || (this->CanPutOnRight(token))){
+            return true;
+        }
+    }
+    return false;
+}

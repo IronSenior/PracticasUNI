@@ -50,3 +50,13 @@ std::string DominoPlayer::GetPrintableHand(){
 
     return PrintableHand;
 }
+
+
+bool DominoPlayer::HasToken(DominoToken token){
+    for(auto PlayerToken: this->mDominoHand){
+        if (PlayerToken == token){
+            return true;
+        }
+    }
+    return false;
+}

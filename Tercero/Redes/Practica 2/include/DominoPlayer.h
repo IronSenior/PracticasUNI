@@ -29,6 +29,10 @@ class DominoPlayer{
             return this->mSocketDescriptor;
         }
 
+        inline std::vector<DominoToken> GetHand(){
+            return this->mDominoHand;
+        }
+
         void SortHand();
 
         void QuitToken(DominoToken &dominoToken);
@@ -40,5 +44,9 @@ class DominoPlayer{
         DominoToken GetBiggestToken();
         
         std::string GetPrintableHand();
+
+        bool HasToken(DominoToken token);
+
+        
 };
 #endif

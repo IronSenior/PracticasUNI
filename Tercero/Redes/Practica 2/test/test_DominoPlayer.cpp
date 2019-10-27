@@ -62,3 +62,16 @@ TEST_CASE("Printable Hand"){
     TestPlayer.RecieveToken(TestToken);
     CHECK(TestPlayer.GetPrintableHand() == "|1|4||1|4|");
 }
+
+
+
+
+TEST_CASE("Has Token"){
+
+    DominoPlayer TestPlayer(1);
+    DominoToken TestToken(1,4);
+
+    TestPlayer.RecieveToken(TestToken);
+    CHECK(TestPlayer.HasToken(TestToken));
+
+}

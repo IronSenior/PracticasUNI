@@ -4,6 +4,7 @@
 
 
 #include "DominoToken.h"
+#include "DominoPlayer.h"
 #include <vector>
 #include <string>
 
@@ -37,5 +38,7 @@ class DominoBoard{
         inline std::string GetPrintableBoard() const {
             return this->mPrintableBoard;
         };
+
+        bool CanPlayerPutToken(DominoPlayer player);
 };
 #endif

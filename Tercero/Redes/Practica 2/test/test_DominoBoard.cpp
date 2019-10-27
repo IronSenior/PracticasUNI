@@ -80,3 +80,19 @@ TEST_CASE("Printable Board")
     CHECK(TestingBoard.GetPrintableBoard() == "|4|6||6|6||6|4|");
 
 }
+
+
+TEST_CASE("Can Player Put Token"){
+    DominoBoard TestingBoard;
+    DominoToken StartToken(6, 6);
+
+    TestingBoard.PutFirstToken(StartToken);
+
+    DominoPlayer TestingPlayer1(1);
+    TestingPlayer1.RecieveToken(DominoToken(3,4));
+
+    CHECK_FALSE(TestingBoard.CanPlayerPutToken(TestingPlayer1));
+
+    TestingPlayer1.RecieveToken(DominoToken(3,6));
+    CHECK(TestingBoard.CanPlayerPutToken(TestingPlayer1));
+}
