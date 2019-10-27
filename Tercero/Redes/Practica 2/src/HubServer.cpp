@@ -122,6 +122,7 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
     }
     else if(std::regex_search(message, RegexMatches, std::regex("USUARIO (.*)"))){
         if(! this->IsClientLogged(clientSocketDescriptor)){
+            send(clientSocketDescriptor, "Ok, Esperando Contraseña", BUFFER_SIZE, 0);
             this->mThreads.push_back(std::async(std::launch::async, [this, clientSocketDescriptor, RegexMatches]{
                 return this->LogInClient(clientSocketDescriptor, RegexMatches.str(1));
             }));
@@ -205,17 +206,20 @@ int HubServer::LogInClient(int clientSocketDescriptor, std::string userName){
     std::vector<int> ClientInVector = {clientSocketDescriptor};
     this->EraseClients(ClientInVector);
 
+    // Im only going to wait for 1 answer
     FD_ZERO(&AuxSet);
     FD_SET(this->mSocketDescriptor, &AuxSet);
     FD_SET(clientSocketDescriptor, &AuxSet);
 
     pselect(FD_SETSIZE, &AuxSet, NULL, NULL, NULL, NULL);
+
     if (FD_ISSET(clientSocketDescriptor, &AuxSet)) {
         if ((recv(clientSocketDescriptor, &buffer, BUFFER_SIZE, 0) > 0)){
             if(std::regex_search(buffer, RegexMatches, std::regex("PASSWORD (.*)"))){
                 if(this->CheckUser(userName, RegexMatches[1])){
                     this->mLoggedClients.push_back(clientSocketDescriptor);
                     this->AddClients(ClientInVector);
+                    send(clientSocketDescriptor, "OK. Estas Logueado", BUFFER_SIZE, 0);
                 }
                 else{
                     send(clientSocketDescriptor, "Err, Usuario o Contraseña no validos", BUFFER_SIZE, 0);
