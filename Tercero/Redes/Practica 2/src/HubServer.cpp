@@ -42,44 +42,6 @@ HubServer::HubServer(int port, int serverCapacity){
 }
 
 
-void HubServer::CloseServer(){
-    for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor){
-        close(*clientSocketDescriptor);
-    }
-    close(this->mSocketDescriptor);
-}
-
-
-void HubServer::AcceptNewConnection(){
-    int NewClientSocketDescriptor;
-    struct sockaddr_in NewClientSocketName;
-    socklen_t NewClientSocketNameLen;
-    char buffer[BUFFER_SIZE];
-
-    if ((NewClientSocketDescriptor = accept(this->mSocketDescriptor, (struct sockaddr*)&NewClientSocketName, &NewClientSocketNameLen)) == -1) {
-        throw std::runtime_error("Error adding new client to server");
-    }
-
-    mHubClients.push_back(NewClientSocketDescriptor);
-
-    sprintf(buffer, "Bienvenido al Domino");
-    send(NewClientSocketDescriptor, buffer, BUFFER_SIZE, 0);
-
-    std::cout<< "New client with id "<<NewClientSocketDescriptor<< " has connected\n";
-}
-
-
-void HubServer::RecreateFDSet(){
-    FD_ZERO(&this->mReadSet);
-    FD_SET(this->mSocketDescriptor, &this->mReadSet);
-
-    for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor) {
-        FD_SET(*clientSocketDescriptor, &this->mReadSet);
-
-    }
-}
-
-
 void HubServer::StartServer(){
     char buffer[BUFFER_SIZE];
 
@@ -104,6 +66,17 @@ void HubServer::StartServer(){
         if (FD_ISSET(this->mSocketDescriptor, &this->mReadSet)) {
             this->AcceptNewConnection();
         }
+    }
+}
+
+
+void HubServer::RecreateFDSet(){
+    FD_ZERO(&this->mReadSet);
+    FD_SET(this->mSocketDescriptor, &this->mReadSet);
+
+    for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor) {
+        FD_SET(*clientSocketDescriptor, &this->mReadSet);
+
     }
 }
 
@@ -179,11 +152,11 @@ void HubServer::EraseClients(std::vector<int> clientsToErase){
     }
 }
 
+
 void HubServer::AddClients(std::vector<int> clientsToAdd){
     for (auto ClientToAdd = clientsToAdd.begin(); ClientToAdd != clientsToAdd.end(); ClientToAdd++){
         mHubClients.push_back(*ClientToAdd);
     }
-    this->RecreateFDSet();
 }
 
 
@@ -258,4 +231,31 @@ void HubServer::RegisterUser(std::string userName, std::string password){
     UsersFile<<userName<<";"<<password<<std::endl;
 
     UsersFile.close();
+}
+
+
+void HubServer::AcceptNewConnection(){
+    int NewClientSocketDescriptor;
+    struct sockaddr_in NewClientSocketName;
+    socklen_t NewClientSocketNameLen;
+    char buffer[BUFFER_SIZE];
+
+    if ((NewClientSocketDescriptor = accept(this->mSocketDescriptor, (struct sockaddr*)&NewClientSocketName, &NewClientSocketNameLen)) == -1) {
+        throw std::runtime_error("Error adding new client to server");
+    }
+
+    mHubClients.push_back(NewClientSocketDescriptor);
+
+    sprintf(buffer, "Bienvenido a Domino");
+    send(NewClientSocketDescriptor, buffer, BUFFER_SIZE, 0);
+
+    std::cout<< "New client with id "<<NewClientSocketDescriptor<< " has connected\n";
+}
+
+
+void HubServer::CloseServer(){
+    for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor){
+        close(*clientSocketDescriptor);
+    }
+    close(this->mSocketDescriptor);
 }

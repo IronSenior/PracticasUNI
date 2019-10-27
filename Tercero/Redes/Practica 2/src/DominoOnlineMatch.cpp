@@ -38,6 +38,13 @@ int DominoOnlineMatch::StartMatch(){
 }
 
 
+void DominoOnlineMatch::SendMessageToBothPlayers(std::string message){
+    for (auto Player = this->mPlayers.begin(); Player != this->mPlayers.end(); Player++){
+        send(Player->GetSocketDescriptor(), message.c_str(), BUFFER_SIZE, 0);
+    }
+}
+
+
 void DominoOnlineMatch::DealTokens(){
     for (int i = 0; i < 7; i++){
         this->mPlayers[0].RecieveToken(this->mDomino.GetRandomFreeDominoToken());
@@ -78,7 +85,7 @@ void DominoOnlineMatch::SetStartPlayer(int firstPlayerIndex, DominoToken firstTo
     this->mPlayerTurnIndex = firstPlayerIndex;
     this->mBoard.PutFirstToken(firstToken);
     this->mPlayerTurnSocketDescriptor = this->mPlayers[firstPlayerIndex].GetSocketDescriptor();
-    send(this->mPlayerTurnSocketDescriptor, "+Ok. Empiezas tu", BUFFER_SIZE, 0);
+    send(this->mPlayerTurnSocketDescriptor, "+Ok. Has Empezado", BUFFER_SIZE, 0);
     this->mPlayers[firstPlayerIndex].QuitToken(firstToken);
     this->PassTurn();
 }
@@ -97,6 +104,13 @@ void DominoOnlineMatch::PassTurn(){
 }
 
 
+void DominoOnlineMatch::SendHandToPlayers(){
+    for (auto Player = this->mPlayers.begin(); Player != this->mPlayers.end(); Player++){
+        send(Player->GetSocketDescriptor(), ("FICHAS: " + Player->GetPrintableHand()).c_str(), BUFFER_SIZE, 0);
+    }
+}
+
+
 void DominoOnlineMatch::RecreateFDSet(){
     FD_ZERO(&this->mReadSet);
     FD_SET(this->mSocketDescriptor, &this->mReadSet);
@@ -108,8 +122,11 @@ void DominoOnlineMatch::HandleMessage(char * message){
     std::cout<<"From "<<this->mPlayerTurnSocketDescriptor<<" Recieved: "<<message<<std::endl;
 
     if (std::regex_match(message, std::regex("COLOCAR-FICHA \\|[0-6]\\|[0-6]\\|,(derecha|izquierda)"))){
+
         std::cmatch RegexMatches;
         std::regex_search(message, RegexMatches, std::regex("\\|([0-6])\\|([0-6])\\|,(derecha|izquierda)"));
+
+        //RegexMatches.str(n) returns the n regex save group () starting at 1
         DominoToken token(atoi(RegexMatches.str(1).c_str()), atoi(RegexMatches.str(2).c_str()));
 
         this->PutTokenInBoard(token, RegexMatches.str(3).c_str());
@@ -135,21 +152,6 @@ void DominoOnlineMatch::HandleMessage(char * message){
         send(this->mPlayerTurnSocketDescriptor, "Err, Bad Message", BUFFER_SIZE, 0);
     }
 }
-
-
-void DominoOnlineMatch::SendMessageToBothPlayers(std::string message){
-    for (auto Player = this->mPlayers.begin(); Player != this->mPlayers.end(); Player++){
-        send(Player->GetSocketDescriptor(), message.c_str(), BUFFER_SIZE, 0);
-    }
-}
-
-
-void DominoOnlineMatch::SendHandToPlayers(){
-    for (auto Player = this->mPlayers.begin(); Player != this->mPlayers.end(); Player++){
-        send(Player->GetSocketDescriptor(), ("FICHAS: " + Player->GetPrintableHand()).c_str(), BUFFER_SIZE, 0);
-    }
-}
-
 
 
 void DominoOnlineMatch::PutTokenInBoard(DominoToken token, const char * position){
@@ -203,9 +205,8 @@ void DominoOnlineMatch::GetTokenFromDomino(){
 void DominoOnlineMatch::EndMatch(){
     this->SendMessageToBothPlayers("La Partida terminó");
 
-    HubServer HubServer(1, 1);
     std::vector<int> ClientsToAdd = {this->mPlayers[0].GetSocketDescriptor(), this->mPlayers[1].GetSocketDescriptor()};
-    HubServer.AddClients(ClientsToAdd);
+    HubServer::AddClients(ClientsToAdd);
 
     this->~DominoOnlineMatch();
 }
