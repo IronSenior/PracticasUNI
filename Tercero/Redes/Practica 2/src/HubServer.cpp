@@ -87,7 +87,8 @@ void HubServer::StartServer(){
             if (FD_ISSET(*clientSocketDescriptor, &this->mReadSet)) {
                 if ((recv(*clientSocketDescriptor, &buffer, 100, 0) > 0)){
                     this->HandleMessage(*clientSocketDescriptor, buffer);
-                } 
+                    break;
+                }
             }
         }
 
@@ -141,10 +142,10 @@ void HubServer::StartMatchMacking(int clientSocketDescriptor){
 
 
 void HubServer::EraseClients(std::vector<int> clientsToErase){
-    for (int i = 0; i < clientsToErase.size(); i++){
-        for (int j = 0; j < mHubClients.size(); j++){
+    for (unsigned int i = 0; i < clientsToErase.size(); i++){
+        for (unsigned int j = 0; j < mHubClients.size(); j++){
             if (clientsToErase[i] == mHubClients[j]){
-                mHubClients.erase(mHubClients.begin() + (j - 1));
+                mHubClients.erase(mHubClients.begin() + j);
             }
         }
     }

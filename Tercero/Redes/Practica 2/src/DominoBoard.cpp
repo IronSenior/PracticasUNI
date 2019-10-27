@@ -6,11 +6,11 @@ bool DominoBoard::PutTokenOnRight(DominoToken& token){
     if(this->CanPutOnRight(token)){
         this->mTokens.push_back(token);
         if (token.GetFirstValue() == this->mNumberOnRight){
-            this->mPrintableBoard += token.GetPrintableToken();
+            this->mPrintableBoard = this->mPrintableBoard + token.GetPrintableToken();
             this->mNumberOnRight = token.GetSecondValue();
         }
         else{
-            this->mPrintableBoard += token.GetReversePrintableToken();
+            this->mPrintableBoard = this->mPrintableBoard + token.GetReversePrintableToken();
             this->mNumberOnRight = token.GetFirstValue();
         }
         return true;

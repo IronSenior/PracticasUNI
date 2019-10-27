@@ -64,7 +64,7 @@ void Client::StartTalking(){
             if(FD_ISSET(0, &this->mReadFds)){
                 bzero(buffer, sizeof(buffer));
                 
-                std::cin>>buffer;
+                std::cin.getline(buffer, 100);
                 
                 if(strcmp(buffer,"SALIR\n") == 0){
                     fin = 1;

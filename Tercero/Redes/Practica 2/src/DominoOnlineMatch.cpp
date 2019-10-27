@@ -76,6 +76,8 @@ void DominoOnlineMatch::PutFirstToken(){
 void DominoOnlineMatch::SetStartPlayer(int firstPlayerIndex, DominoToken firstToken){
     this->mPlayerTurnIndex = firstPlayerIndex;
     this->mBoard.PutFirstToken(firstToken);
+    this->mPlayerTurnSocketDescriptor = this->mPlayers[firstPlayerIndex].GetSocketDescriptor();
+    send(this->mPlayerTurnSocketDescriptor, "+Ok. Empiezas tu", 100, 0);
     this->mPlayers[firstPlayerIndex].QuitToken(firstToken);
 }
 
@@ -106,9 +108,10 @@ void DominoOnlineMatch::HandleMessage(char * message){
     if (std::regex_match(message, std::regex("COLOCAR-FICHA \\|[0-6]\\|[0-6]\\|,derecha|izquierda"))){
         std::cmatch RegexMatches;
         std::regex_search(message, RegexMatches, std::regex("\\|([0-6])\\|([0-6])\\|,(derecha|izquierda)"));
-        DominoToken token(atoi(RegexMatches.str(0).c_str()), atoi(RegexMatches.str(1).c_str()));
+        DominoToken token(atoi(RegexMatches.str(1).c_str()), atoi(RegexMatches.str(2).c_str()));
+        std::cout<<"LA FICHA DE LOS COJONES"<<token.GetPrintableToken()<<std::endl;
 
-        this->PutTokenInBoard(token, RegexMatches.str(2).c_str());
+        this->PutTokenInBoard(token, RegexMatches.str(3).c_str());
     }
     else if (strcmp(message, "ROBAR-FICHA") == 0){
         this->GetTokenFromDomino();
@@ -120,6 +123,9 @@ void DominoOnlineMatch::HandleMessage(char * message){
         else{
             this->PassTurn();
         }
+    }
+    else{
+        send(this->mPlayerTurnSocketDescriptor, "Err, Bad Message", 100, 0);
     }
 
 

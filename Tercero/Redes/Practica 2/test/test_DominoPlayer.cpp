@@ -70,8 +70,13 @@ TEST_CASE("Has Token"){
 
     DominoPlayer TestPlayer(1);
     DominoToken TestToken(1,4);
+    DominoToken TestToken2(2,4);
+    DominoToken TestToken3(1,3);
 
     TestPlayer.RecieveToken(TestToken);
     CHECK(TestPlayer.HasToken(TestToken));
 
+    TestPlayer.RecieveToken(TestToken2);
+    CHECK(TestPlayer.HasToken(TestToken2));
+    CHECK_FALSE(TestPlayer.HasToken(TestToken3));
 }
