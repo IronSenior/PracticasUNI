@@ -13,6 +13,9 @@
 #include <regex>
 #include <fstream>
 
+
+#define BUFFER_SIZE 250
+
 std::vector<int> HubServer::mHubClients;
 
 
@@ -51,7 +54,7 @@ void HubServer::AcceptNewConnection(){
     int NewClientSocketDescriptor;
     struct sockaddr_in NewClientSocketName;
     socklen_t NewClientSocketNameLen;
-    char buffer[100];
+    char buffer[BUFFER_SIZE];
 
     if ((NewClientSocketDescriptor = accept(this->mSocketDescriptor, (struct sockaddr*)&NewClientSocketName, &NewClientSocketNameLen)) == -1) {
         throw std::runtime_error("Error adding new client to server");
@@ -60,7 +63,7 @@ void HubServer::AcceptNewConnection(){
     mHubClients.push_back(NewClientSocketDescriptor);
 
     sprintf(buffer, "Bienvenido al Domino");
-    send(NewClientSocketDescriptor, buffer, 100, 0);
+    send(NewClientSocketDescriptor, buffer, BUFFER_SIZE, 0);
 
     std::cout<< "New client with id "<<NewClientSocketDescriptor<< " has connected\n";
 }
@@ -78,7 +81,7 @@ void HubServer::RecreateFDSet(){
 
 
 void HubServer::StartServer(){
-    char buffer[100];
+    char buffer[BUFFER_SIZE];
 
     while (1) {
         this->RecreateFDSet();
@@ -91,7 +94,7 @@ void HubServer::StartServer(){
         
         for (auto clientSocketDescriptor = mHubClients.begin(); clientSocketDescriptor != mHubClients.end(); ++clientSocketDescriptor) {
             if (FD_ISSET(*clientSocketDescriptor, &this->mReadSet)) {
-                if ((recv(*clientSocketDescriptor, &buffer, 100, 0) > 0)){
+                if ((recv(*clientSocketDescriptor, &buffer, BUFFER_SIZE, 0) > 0)){
                     this->HandleMessage(*clientSocketDescriptor, buffer);
                     break;
                 }
@@ -114,7 +117,7 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
             this->StartMatchMacking(clientSocketDescriptor);
         }
         else{
-            send(clientSocketDescriptor, "Te tienes que Loggear Primero", 100, 0);
+            send(clientSocketDescriptor, "-ERR. Te tienes que Loggear Primero", BUFFER_SIZE, 0);
         }
     }
     else if(std::regex_search(message, RegexMatches, std::regex("USUARIO (.*)"))){
@@ -124,7 +127,7 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
             }));
         }
         else{
-            send(clientSocketDescriptor, "Ya estas Logueado", 100, 0);
+            send(clientSocketDescriptor, "-ERR. Ya estas Logueado", BUFFER_SIZE, 0);
         }
     }
     else if(std::regex_search(message, RegexMatches, std::regex("REGISTRO -u (.*) -p (.*)"))){
@@ -132,13 +135,12 @@ void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
             this->RegisterUser(RegexMatches.str(1), RegexMatches.str(2));
         }
         else{
-            send(clientSocketDescriptor, "Ya estas Logueado", 100, 0);
+            send(clientSocketDescriptor, "-ERR. Ya estas Logueado", BUFFER_SIZE, 0);
         }
     }  
     else
     {
-        send(clientSocketDescriptor, "Bad Message", 100, 0);
-        std::cout<<"-ERR: Message not kown"<<std::endl;
+        send(clientSocketDescriptor, "-ERR. Bad Message", BUFFER_SIZE, 0);
     }
 }
 
@@ -161,7 +163,7 @@ void HubServer::StartMatchMacking(int clientSocketDescriptor){
     }
     else{
         this->mPlayersQueue.push_back(clientSocketDescriptor);
-        send(clientSocketDescriptor, "+Ok. Petición Recibida. Quedamos a la espera de más jugadores", 100, 0);
+        send(clientSocketDescriptor, "+Ok. Petición Recibida. Quedamos a la espera de más jugadores", BUFFER_SIZE, 0);
     }
 }
 
@@ -197,7 +199,7 @@ bool HubServer::IsClientLogged(int clientSocketDescriptor){
 // This should be an independent class with all user staff but i dont have time
 int HubServer::LogInClient(int clientSocketDescriptor, std::string userName){
     fd_set AuxSet;
-    char buffer[100];
+    char buffer[BUFFER_SIZE];
     std::cmatch RegexMatches;
 
     std::vector<int> ClientInVector = {clientSocketDescriptor};
@@ -209,19 +211,19 @@ int HubServer::LogInClient(int clientSocketDescriptor, std::string userName){
 
     pselect(FD_SETSIZE, &AuxSet, NULL, NULL, NULL, NULL);
     if (FD_ISSET(clientSocketDescriptor, &AuxSet)) {
-        if ((recv(clientSocketDescriptor, &buffer, 100, 0) > 0)){
+        if ((recv(clientSocketDescriptor, &buffer, BUFFER_SIZE, 0) > 0)){
             if(std::regex_search(buffer, RegexMatches, std::regex("PASSWORD (.*)"))){
                 if(this->CheckUser(userName, RegexMatches[1])){
                     this->mLoggedClients.push_back(clientSocketDescriptor);
                     this->AddClients(ClientInVector);
                 }
                 else{
-                    send(clientSocketDescriptor, "Err, Usuario o Contraseña no validos", 100, 0);
+                    send(clientSocketDescriptor, "Err, Usuario o Contraseña no validos", BUFFER_SIZE, 0);
                     this->AddClients(ClientInVector);
                 }
             }
             else{
-                send(clientSocketDescriptor, "Err. Esperaba contraseña", 100, 0);
+                send(clientSocketDescriptor, "Err. Esperaba contraseña", BUFFER_SIZE, 0);
                 this->AddClients(ClientInVector);
             }
         }
@@ -233,7 +235,7 @@ int HubServer::LogInClient(int clientSocketDescriptor, std::string userName){
 bool HubServer::CheckUser(std::string userName, std::string password){
     std::ifstream UsersFile("usuarios.txt");
 
-    char User[100];
+    char User[BUFFER_SIZE];
 
     while(!UsersFile.eof()) {
         UsersFile >> User;

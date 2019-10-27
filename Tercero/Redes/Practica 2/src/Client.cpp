@@ -16,6 +16,9 @@
 
 #include <arpa/inet.h>
 
+
+#define BUFFER_SIZE 250
+
 Client::Client(const char* serverIpAddress, int serverPort){
     this->mSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
     
@@ -44,7 +47,7 @@ void Client::RecreateFDSet(){
 
 
 void Client::StartTalking(){
-    char buffer[100];
+    char buffer[BUFFER_SIZE];
     int fin = 0;
 
 	do{
@@ -64,12 +67,12 @@ void Client::StartTalking(){
             if(FD_ISSET(0, &this->mReadFds)){
                 bzero(buffer, sizeof(buffer));
                 
-                std::cin.getline(buffer, 100);
+                std::cin.getline(buffer, BUFFER_SIZE);
                 
                 if(strcmp(buffer,"SALIR\n") == 0){
                     fin = 1;
                 }
-                send(this->mSocketDescriptor, buffer, 100, 0);
+                send(this->mSocketDescriptor, buffer, BUFFER_SIZE, 0);
             }
         }
         

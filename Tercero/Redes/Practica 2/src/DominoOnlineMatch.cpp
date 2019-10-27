@@ -11,11 +11,12 @@
 #include <regex>
 #include <sys/types.h>
 
+#define BUFFER_SIZE 250
 
 int DominoOnlineMatch::StartMatch(){
     this->SendMessageToBothPlayers("+Ok. Empieza la partida");
 
-    char buffer[100];
+    char buffer[BUFFER_SIZE];
     this->DealTokens();
     this->PutFirstToken();
 
@@ -27,7 +28,7 @@ int DominoOnlineMatch::StartMatch(){
         pselect(FD_SETSIZE, &this->mReadSet, NULL, NULL, NULL, NULL);
         
         if (FD_ISSET(this->mPlayerTurnSocketDescriptor, &this->mReadSet)) {
-            if ((recv(this->mPlayerTurnSocketDescriptor, &buffer, 100, 0) > 0)){
+            if ((recv(this->mPlayerTurnSocketDescriptor, &buffer, BUFFER_SIZE, 0) > 0)){
                 this->HandleMessage(buffer);
             } 
         }
@@ -77,14 +78,14 @@ void DominoOnlineMatch::SetStartPlayer(int firstPlayerIndex, DominoToken firstTo
     this->mPlayerTurnIndex = firstPlayerIndex;
     this->mBoard.PutFirstToken(firstToken);
     this->mPlayerTurnSocketDescriptor = this->mPlayers[firstPlayerIndex].GetSocketDescriptor();
-    send(this->mPlayerTurnSocketDescriptor, "+Ok. Empiezas tu", 100, 0);
+    send(this->mPlayerTurnSocketDescriptor, "+Ok. Empiezas tu", BUFFER_SIZE, 0);
     this->mPlayers[firstPlayerIndex].QuitToken(firstToken);
     this->PassTurn();
 }
 
 
 void DominoOnlineMatch::PassTurn(){
-    send(this->mPlayerTurnSocketDescriptor, "+Ok. Turno del otro jugador", 100, 0);
+    send(this->mPlayerTurnSocketDescriptor, "+Ok. Turno del otro jugador", BUFFER_SIZE, 0);
     if(this->mPlayerTurnIndex == 0){
         this->mPlayerTurnIndex = 1;
     }
@@ -92,7 +93,7 @@ void DominoOnlineMatch::PassTurn(){
         this->mPlayerTurnIndex = 0;
     }
     this->mPlayerTurnSocketDescriptor = this->mPlayers[this->mPlayerTurnIndex].GetSocketDescriptor();
-    send(this->mPlayerTurnSocketDescriptor, "+Ok. Turno de partida", 100, 0);
+    send(this->mPlayerTurnSocketDescriptor, "+Ok. Turno de partida", BUFFER_SIZE, 0);
 }
 
 
@@ -118,7 +119,7 @@ void DominoOnlineMatch::HandleMessage(char * message){
     }
     else if (strcmp(message, "PASO-TURNO") == 0){
         if(this->mBoard.CanPlayerPutToken(this->mPlayers[this->mPlayerTurnIndex]) || (this->mDomino.GetNumberOfFreeTokens() > 0)){
-            send(this->mPlayerTurnSocketDescriptor, "Err. Tienes acciones disponibles", 100, 0);
+            send(this->mPlayerTurnSocketDescriptor, "Err. Tienes acciones disponibles", BUFFER_SIZE, 0);
         }
         else{
             this->PassTurn();
@@ -131,21 +132,21 @@ void DominoOnlineMatch::HandleMessage(char * message){
         this->EndMatch();
     }
     else{
-        send(this->mPlayerTurnSocketDescriptor, "Err, Bad Message", 100, 0);
+        send(this->mPlayerTurnSocketDescriptor, "Err, Bad Message", BUFFER_SIZE, 0);
     }
 }
 
 
 void DominoOnlineMatch::SendMessageToBothPlayers(std::string message){
     for (auto Player = this->mPlayers.begin(); Player != this->mPlayers.end(); Player++){
-        send(Player->GetSocketDescriptor(), message.c_str(), 100, 0);
+        send(Player->GetSocketDescriptor(), message.c_str(), BUFFER_SIZE, 0);
     }
 }
 
 
 void DominoOnlineMatch::SendHandToPlayers(){
     for (auto Player = this->mPlayers.begin(); Player != this->mPlayers.end(); Player++){
-        send(Player->GetSocketDescriptor(), ("FICHAS: " + Player->GetPrintableHand()).c_str(), 100, 0);
+        send(Player->GetSocketDescriptor(), ("FICHAS: " + Player->GetPrintableHand()).c_str(), BUFFER_SIZE, 0);
     }
 }
 
@@ -162,7 +163,7 @@ void DominoOnlineMatch::PutTokenInBoard(DominoToken token, const char * position
                 this->PassTurn();
             }
             else{
-                send(this->mPlayerTurnSocketDescriptor, "Err. No puedes poner ahí", 100, 0);
+                send(this->mPlayerTurnSocketDescriptor, "Err. No puedes poner ahí", BUFFER_SIZE, 0);
             }
         }
         else{
@@ -171,12 +172,12 @@ void DominoOnlineMatch::PutTokenInBoard(DominoToken token, const char * position
                 this->PassTurn();
             }
             else{
-                send(this->mPlayerTurnSocketDescriptor, "Err. No puedes poner ahí", 100, 0);
+                send(this->mPlayerTurnSocketDescriptor, "Err. No puedes poner ahí", BUFFER_SIZE, 0);
             }
         }
     }
     else{
-        send(this->mPlayerTurnSocketDescriptor, "Err. No tienes esa ficha", 100, 0);
+        send(this->mPlayerTurnSocketDescriptor, "Err. No tienes esa ficha", BUFFER_SIZE, 0);
     }
 }
 
@@ -185,16 +186,16 @@ void DominoOnlineMatch::GetTokenFromDomino(){
     if( ! this->mBoard.CanPlayerPutToken(this->mPlayers[this->mPlayerTurnIndex])){
         if (this->mDomino.GetNumberOfFreeTokens() > 0){
             DominoToken token = this->mDomino.GetRandomFreeDominoToken();
-            send(this->mPlayerTurnSocketDescriptor, ("FICHA: " + token.GetPrintableToken()).c_str(), 100, 0);
+            send(this->mPlayerTurnSocketDescriptor, ("FICHA: " + token.GetPrintableToken()).c_str(), BUFFER_SIZE, 0);
             this->mPlayers[this->mPlayerTurnIndex].RecieveToken(token);
         }
         else{
-            send(this->mPlayerTurnSocketDescriptor, "Err. No quedan fichas para robar", 100, 0);
+            send(this->mPlayerTurnSocketDescriptor, "Err. No quedan fichas para robar", BUFFER_SIZE, 0);
             this->PassTurn();
         }
     }
     else{
-        send(this->mPlayerTurnSocketDescriptor, "Err. No es necesario robar", 100, 0);
+        send(this->mPlayerTurnSocketDescriptor, "Err. No es necesario robar", BUFFER_SIZE, 0);
     }
 }
 
