@@ -10,6 +10,7 @@
 #include <string.h>
 #include <iostream>
 #include <future>
+#include <regex>
 
 std::vector<int> HubServer::mHubClients;
 
@@ -101,10 +102,22 @@ void HubServer::StartServer(){
 
 void HubServer::HandleMessage(int clientSocketDescriptor, const char* message){
     char buffer[100];
+    std::cmatch RegexMatches;
     std::cout<<"From "<<clientSocketDescriptor<<" Recieved: "<<message<<std::endl;
 
     if (strcmp(message, "INICIAR-PARTIDA") == 0){
-        this->StartMatchMacking(clientSocketDescriptor);
+        if(this->ClientIsLogged(clientSocketDescriptor)){
+            this->StartMatchMacking(clientSocketDescriptor);
+        }
+        else{
+            send(clientSocketDescriptor, "Tienes que Loggear Primero", 100, 0);
+        }
+    }
+    else if(std::regex_search(message, RegexMatches, std::regex("USUARIO (.*)"))){
+        
+    }
+    else if(std::regex_search(message, RegexMatches, std::regex("")){
+
     }
     else
     {

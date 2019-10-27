@@ -53,9 +53,7 @@ class DominoOnlineMatch{
 
         void GetTokenFromDomino();
 
-        void PlayerWins();
-
-        void CloseServer();
+        void EndMatch();
 
 };
 

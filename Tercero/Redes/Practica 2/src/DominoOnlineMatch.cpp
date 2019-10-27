@@ -79,6 +79,7 @@ void DominoOnlineMatch::SetStartPlayer(int firstPlayerIndex, DominoToken firstTo
     this->mPlayerTurnSocketDescriptor = this->mPlayers[firstPlayerIndex].GetSocketDescriptor();
     send(this->mPlayerTurnSocketDescriptor, "+Ok. Empiezas tu", 100, 0);
     this->mPlayers[firstPlayerIndex].QuitToken(firstToken);
+    this->PassTurn();
 }
 
 
@@ -105,11 +106,10 @@ void DominoOnlineMatch::RecreateFDSet(){
 void DominoOnlineMatch::HandleMessage(char * message){
     std::cout<<"From "<<this->mPlayerTurnSocketDescriptor<<" Recieved: "<<message<<std::endl;
 
-    if (std::regex_match(message, std::regex("COLOCAR-FICHA \\|[0-6]\\|[0-6]\\|,derecha|izquierda"))){
+    if (std::regex_match(message, std::regex("COLOCAR-FICHA \\|[0-6]\\|[0-6]\\|,(derecha|izquierda)"))){
         std::cmatch RegexMatches;
         std::regex_search(message, RegexMatches, std::regex("\\|([0-6])\\|([0-6])\\|,(derecha|izquierda)"));
         DominoToken token(atoi(RegexMatches.str(1).c_str()), atoi(RegexMatches.str(2).c_str()));
-        std::cout<<"LA FICHA DE LOS COJONES"<<token.GetPrintableToken()<<std::endl;
 
         this->PutTokenInBoard(token, RegexMatches.str(3).c_str());
     }
@@ -122,7 +122,13 @@ void DominoOnlineMatch::HandleMessage(char * message){
         }
         else{
             this->PassTurn();
+            if(this->mBoard.CanPlayerPutToken(this->mPlayers[this->mPlayerTurnIndex])){
+                this->EndMatch();
+            }
         }
+    }
+    else if(strcmp(message, "FIN") == 0){
+        this->EndMatch();
     }
     else{
         send(this->mPlayerTurnSocketDescriptor, "Err, Bad Message", 100, 0);
@@ -153,7 +159,7 @@ void DominoOnlineMatch::PutTokenInBoard(DominoToken token, const char * position
             if (this->mBoard.PutTokenOnRight(token)){
                 this->mPlayers[this->mPlayerTurnIndex].QuitToken(token);
                 if(this->mPlayers[this->mPlayerTurnIndex].GetNumberOfTokens() == 0){
-                    this->PlayerWins();
+                    this->EndMatch();
                 }
                 this->PassTurn();
             }
@@ -195,10 +201,13 @@ void DominoOnlineMatch::GetTokenFromDomino(){
 }
 
 
-void DominoOnlineMatch::PlayerWins(){
-    send(this->mPlayerTurnSocketDescriptor, "YOY WIN", 100, 0);
+void DominoOnlineMatch::EndMatch(){
+    this->SendMessageToBothPlayers("La Partida terminó");
+
     HubServer HubServer(1, 1);
     std::vector<int> ClientsToAdd = {this->mPlayers[0].GetSocketDescriptor(), this->mPlayers[1].GetSocketDescriptor()};
     HubServer.AddClients(ClientsToAdd);
+
     this->~DominoOnlineMatch();
 }
+

@@ -15,6 +15,10 @@ bool DominoToken::operator==(DominoToken const & dominoToken) const {
     if((this->GetFirstValue() == dominoToken.GetFirstValue()) && (this->GetSecondValue() == dominoToken.GetSecondValue())){
         return true;
     }
+    if((this->GetFirstValue() == dominoToken.GetSecondValue()) && (this->GetSecondValue() == dominoToken.GetFirstValue())){
+        return true;
+    }
+
     return false;
 }
 
