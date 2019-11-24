@@ -39,11 +39,11 @@ multiplicacion_1_svc(operandos *argp, struct svc_req *rqstp)
 int *
 division_1_svc(operandos *argp, struct svc_req *rqstp)
 {
-	static int result = 0;
+	static int  result;
 
-	if (argp->b != 0){
+	if( argp->b != 0 ){
 		result = argp->a / argp->b;
 	}
-
+	
 	return &result;
 }
