@@ -26,23 +26,26 @@ calculadora_prog_1(char *host, char *operation, struct operandos operands)
 			clnt_perror (clnt, "call failed");
 		}
 	}
-	if(strcmp(operation, "RESTA") == 0){
+	else if(strcmp(operation, "RESTA") == 0){
 		result_1 = resta_1(&operands, clnt);
 		if (result_1 == (int *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
 	}
-	if(strcmp(operation, "MULTIPLICACION") == 0){
+	else if(strcmp(operation, "MULTIPLICACION") == 0){
 		result_1 = multiplicacion_1(&operands, clnt);
 		if (result_1 == (int *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
 	}
-	if(strcmp(operation, "DIVISION") == 0){
+	else if(strcmp(operation, "DIVISION") == 0){
 		result_1 = division_1(&operands, clnt);
 		if (result_1 == (int *) NULL) {
 			clnt_perror (clnt, "call failed");
 		}
+	}
+	else{
+		return 0;
 	}
 
 	#ifndef	DEBUG
