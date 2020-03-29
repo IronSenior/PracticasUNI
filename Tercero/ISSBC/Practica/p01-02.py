@@ -19,8 +19,7 @@ class HelpButton(QtGui.QPushButton):
         self.resize(self.sizeHint())
 
 
-
-class Help(QtGui.QWidget):
+class Help(QtGui.QMainWindow):
     
     def __init__(self):
         super(Help, self).__init__()
@@ -31,8 +30,31 @@ class Help(QtGui.QWidget):
         # We define what the help message is going to say
         self.setToolTip('Esto es una ayuda emergente')
         false_button = HelpButton('Prueba', self)
-        self.setWindowTitle('Ayuda Emergente')    
+        self.setWindowTitle('Status Bar')
+        self.statusBar().showMessage('Todo Listo')  
         self.show()
+
+        exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), '&Exit', self)        
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip('Exit application')
+        exitAction.triggered.connect(QtGui.qApp.quit)
+
+        self.statusBar()
+
+        menubar = self.menuBar()
+
+
+        fileMenu = menubar.addMenu('&File')
+
+
+        fileMenu.addAction(exitAction)
+        
+        self.setGeometry(300, 300, 300, 200)
+        self.setWindowTitle('Menubar')    
+        self.show()
+
+        self.toolbar = self.addToolBar('Exit')
+        self.toolbar.addAction(exitAction)
 
 
 def main():
