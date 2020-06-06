@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:xml="http://www.w3.org/XML/1998/namespace"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:_5="http://www.snee.com/ns/misc#"
+   xmlns:_4="http://prismstandard.org/1.0#"
+   xmlns:_3="http://purl.org/dc/elements/1.1/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="http://www.snee.com/docs/d1001">
+    <_3:title>Sample Acrobat document</_3:title>
+    <_3:format>PDF</_3:format>
+    <_4:publicationTime>2002-12-19</_4:publicationTime>
+    <_3:creator>Billy Shears</_3:creator>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.snee.com/docs/d1003">
+    <_3:title>Sample LaTeX document</_3:title>
+    <_3:format>LaTeX</_3:format>
+    <_4:publicationTime>2002-12-16</_4:publicationTime>
+    <_3:creator>Richard Mutt</_3:creator>
+    <_5:quality>pretty good</_5:quality>
+    <_5:quality rdf:resource="http://www.snee.com/docs/d1003"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.snee.com/docs/d1002">
+    <_3:title>Sample RTF document</_3:title>
+    <_3:format>RTF</_3:format>
+    <_4:publicationTime>2002-12-15</_4:publicationTime>
+    <_3:creator>Nanker Phelge</_3:creator>
+  </rdf:Description>
+</rdf:RDF>

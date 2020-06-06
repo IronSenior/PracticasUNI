@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+	 <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	 <!ENTITY a 'http://protege.stanford.edu/system#'>
+	 <!ENTITY kb 'http://protege.stanford.edu/kb#'>
+	 <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+]>
+<rdf:RDF xmlns:rdf="&rdf;"
+	 xmlns:a="&a;"
+	 xmlns:kb="&kb;"
+	 xmlns:rdfs="&rdfs;">
+<a:_instance_annotation rdf:about="&kb;p1_Instance_6"
+	 a:_creation_timestamp="2007.11.14 16:00:13.641 CET"
+	 a:_creator="acalvo"
+	 rdfs:label="p1_Instance_6"/>
+<kb:Hombre rdf:about="&kb;p1_Instance_7"
+	 kb:edad="51"
+	 kb:nombre="Antonio"
+	 rdfs:label="p1_Instance_7">
+	<kb:instruyeA rdf:resource="&kb;p1_Instance_8"/>
+	<kb:trabajaEn>Casa</kb:trabajaEn>
+	<kb:trabajaEn>Enseñanza</kb:trabajaEn>
+</kb:Hombre>
+<kb:Mujer rdf:about="&kb;p1_Instance_8"
+	 kb:edad="30"
+	 kb:nombre="Araceli"
+	 rdfs:label="p1_Instance_8">
+	<kb:instruyeA rdf:resource="&kb;p1_Instance_7"/>
+	<kb:instruyeA rdf:resource="&kb;p1_Instance_8"/>
+</kb:Mujer>
+</rdf:RDF>

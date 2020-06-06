@@ -1,0 +1,159 @@
+SELECT ?subject ?object
+WHERE { ?subject rdfs:subClassOf ?object }
+
+
+SELECT ?subject  ?object
+WHERE { ?subject :apellidos ?object }
+
+SELECT ?subject   ?object
+WHERE { ?subject rdfs:subClassOf :Persona }
+
+SELECT ?subject   ?object 
+WHERE { ?subject    :nombre    ?object}
+
+SELECT ?subject   ?object 
+WHERE { ?subject    :nombre    Antonio}
+
+SELECT ?subject   ?object 
+WHERE { ?subject    :apellidos    ?object}
+
+
+
+
+Filtrando valores numéricos
+===========================
+SELECT ?subject   ?o
+WHERE { ?subject    :ayoNacimiento   ?o}
+
+SELECT ?subject   ?o
+WHERE { ?subject    :ayoNacimiento   ?o .
+                FILTER (?o > 1983)
+}
+
+
+SELECT ?subject   ?o
+WHERE { ?subject    :ayoNacimiento   ?o .
+                FILTER (?o > "1981"^^xsd:integer)
+}
+
+
+SELECT ?subject   ?o
+WHERE { ?subject    :residencias   ?o .
+   FILTER (?o = "Lucena"^^xsd:string)
+}
+
+
+SELECT ?subject   ?o
+WHERE { ?subject    :residencias   ?o .
+   FILTER (?o = "Lucena")
+}
+
+SELECT ?subject   ?o
+WHERE { ?subject    :residencias   ?o .
+   FILTER (?o = 'Lucena'@es)
+}
+
+
+SELECT ?subject   ?o
+WHERE { ?subject    :residencias   ?o .
+   FILTER (?o = 'Lucene'@fr)
+}
+
+
+SELECT $subject   ?o
+WHERE { $subject    :residencias   ?o .
+   FILTER (?o = 'Lucene'@fr)
+}
+
+
+
+
+
+Filtrando cadenas de caracteres
+===============================
+SELECT ?subject   ?o
+WHERE { ?subject    :nombre   ?o .
+                FILTER regex (?o, "ant", "i" )
+}
+
+
+Filtrando con optional
+======================
+SELECT ?nombre  ?edad
+WHERE { ?s    :nombre   ?nombre .
+   OPTIONAL
+      { 
+           ?s  :ayoNacimiento   ?edad  .}
+   
+}
+
+
+
+
+Odenando
+========
+SELECT ?s   ?o
+WHERE
+ {  ?s   :apellidos    ?o }
+
+ORDERBY ?o 
+
+
+SELECT ?s   ?o
+WHERE
+ {  ?s   :apellidos    ?o }
+ORDERBY DESC(?o )
+
+
+SELECT ?s   ?o
+WHERE
+ {  ?s   :apellidos    ?o }
+ORDERBY DESC(?o )
+LIMIT 2
+
+
+SELECT DISTINCT   ?o
+WHERE
+ {  ?s   :apellidos    ?o }
+ORDERBY DESC(?o )
+
+LIMIT 3
+
+
+Patrones de un grupo de grafos
+==============================
+
+SELECT ?n   ?ap
+WHERE { 
+                 ?s   :nombre   ?n .
+                 ?s  :apellidos ?ap .
+             }
+
+SELECT ?n   ?ap
+WHERE { 
+                 ?s   :nombre   ?n .
+                 ?s  :apellidos ?ap .
+             }
+ORDERBY ?ap
+
+
+
+SELECT ?n   ?ap
+WHERE { 
+                { ?s   :nombre   ?n .}
+                { ?s  :apellidos ?ap .}
+             }
+ORDERBY ?ap
+
+
+
+SELECT ?n ?ap ?lr
+WHERE 
+{ 
+   ?s :nombre ?n .
+   ?s :apellidos ?ap .
+  OPTIONAL { ?s :residencias ?lr .}
+}
+
+
+

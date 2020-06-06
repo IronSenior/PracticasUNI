@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <foaf:Person rdf:about="http://siva.uco.es/Mujer_donna">
+    <foaf:nick xml:lang="foo">donna</foaf:nick>
+    <foaf:name>Donna Fales</foaf:name>
+  </foaf:Person>
+  <foaf:Person rdf:nodeID="N0fc38c07acb84e2586b1d39a3f1f8e8b">
+    <foaf:nick xml:lang="foo">jhony</foaf:nick>
+    <foaf:name>Jhon Matews</foaf:name>
+  </foaf:Person>
+</rdf:RDF>

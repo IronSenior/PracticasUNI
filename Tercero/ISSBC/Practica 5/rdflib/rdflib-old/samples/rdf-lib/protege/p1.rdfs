@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+	 <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	 <!ENTITY a 'http://protege.stanford.edu/system#'>
+	 <!ENTITY kb 'http://protege.stanford.edu/kb#'>
+	 <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+]>
+<rdf:RDF xmlns:rdf="&rdf;"
+	 xmlns:a="&a;"
+	 xmlns:kb="&kb;"
+	 xmlns:rdfs="&rdfs;">
+<rdfs:Class rdf:about="&kb;Hombre"
+	 rdfs:label="Hombre">
+	<rdfs:subClassOf rdf:resource="&kb;Persona"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&kb;Mujer"
+	 rdfs:label="Mujer">
+	<rdfs:subClassOf rdf:resource="&kb;Persona"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&kb;Persona"
+	 a:role="abstract"
+	 rdfs:label="Persona">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdf:Property rdf:about="&kb;edad"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="integer"
+	 rdfs:label="edad">
+	<rdfs:domain rdf:resource="&kb;Persona"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&kb;instruyeA"
+	 rdfs:label="instruyeA">
+	<rdfs:range rdf:resource="&kb;Persona"/>
+	<rdfs:domain rdf:resource="&kb;Persona"/>
+</rdf:Property>
+<rdf:Property rdf:about="&kb;nombre"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="nombre">
+	<rdfs:domain rdf:resource="&kb;Persona"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&kb;trabajaEn"
+	 a:minCardinality="1"
+	 rdfs:label="trabajaEn">
+	<rdfs:domain rdf:resource="&kb;Persona"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+</rdf:RDF>

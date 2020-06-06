@@ -1,0 +1,18 @@
+@prefix per: <http://siva.uco.es/onto/personas-01#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+per:d1001 per:apellidos "Calvo Cuenca" ;
+    per:lugarNacimiento "Lucena" ;
+    per:nombre "Antonio" ;
+    per:residencia "Cordoba" .
+
+per:d1002 per:apellidos "Calvo Cuenca" ;
+    per:lugarNacimiento "Lucena" ;
+    per:nombre "Manuel" ;
+    per:residencia "Cordoba" .
+
+per:d1003 per:lugarNacimiento [ ] .
+

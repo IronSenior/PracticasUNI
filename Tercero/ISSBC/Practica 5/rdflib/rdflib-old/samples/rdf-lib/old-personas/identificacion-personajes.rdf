@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:xml="http://www.w3.org/XML/1998/namespace"
+   xmlns="http://siva.uco.es/onto/owl/identificacion-personajes#"
+   xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:per="http://siva.uco.es/onto/owl/personas-01#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+   xmlns:fich="http://siva.uco.es/onto/owl/fichas-01#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#IdentificacionPersona_felipe-v">
+    <per:apellidos xml:lang="es">Borbón</per:apellidos>
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#IdentificacionPersona"/>
+    <per:nombre xml:lang="es">Felipe</per:nombre>
+    <per:identificacion xml:lang="es">Felipe V</per:identificacion>
+    <per:identificacion xml:lang="es">Felipe de Anjou</per:identificacion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Hombre_Luis_I">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#Hombre"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Mujer_mariaLuisaGabrielaDeSaboya">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#Mujer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Mujer_IsabelDeFarnesio">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#Mujer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Hombre_delfin-luis">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#Hombre"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Fecha_1640">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/fichas-01#Fecha"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Hombre_FernandoVI">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#Hombre"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#IdentificacionPersona_Felipe-v">
+    <per:apellidos xml:lang="es">Bornón</per:apellidos>
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#IdentificacionPersona"/>
+    <per:nombre xml:lang="es">Felipe</per:nombre>
+    <per:identificacion xml:lang="es">Felipe V</per:identificacion>
+    <per:identificacion xml:lang="es">Felipe de Anjou</per:identificacion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Mujer_ana-cristina-baviera">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#Mujer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes">
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.0 by Antonio Calvo (acalvo@uco.es)</owl:versionInfo>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ejemplo de ontologia de personas.</rdfs:comment>
+    <owl:imports rdf:resource="http://siva.uco.es/onto/owl/personas-01"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Fecha_muere_felipe-v">
+    <fich:ayo rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">1655</fich:ayo>
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/fichas-01#Fecha"/>
+    <fich:dia rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">00</fich:dia>
+    <fich:mes rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">00</fich:mes>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Hombre_felipe-v">
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/personas-01#Hombre"/>
+    <per:esHijoDePadre rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Hombre_delfin-luis"/>
+    <per:naceEnLAFecha rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Fecha_4"/>
+    <per:esEsposoDe rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Mujer_mariaLuisaGabrielaDeSaboya"/>
+    <per:esEsposoDe rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Mujer_IsabelDeFarnesio"/>
+    <per:muereEnLaFecha rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Fecha_1640"/>
+    <per:indentificacionPersona rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#IdentificacionPersona_felipe-v"/>
+    <per:esPadreDeHijo rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Hombre_Luis_I"/>
+    <per:esPadreDeHijo rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Hombre_FernandoVI"/>
+    <per:esHijoMadre rdf:resource="http://siva.uco.es/onto/owl/identificacion-personajes#Mujer_ana-cristina-baviera"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Fecha_nace_felipe-v">
+    <fich:ayo rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">1657</fich:ayo>
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/fichas-01#Fecha"/>
+    <fich:dia rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">00</fich:dia>
+    <fich:mes rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">00</fich:mes>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/owl/identificacion-personajes#Fecha_4">
+    <fich:ayo rdf:datatype="http://www.w3.org/2001/XMLSchema#positiveInteger">1683</fich:ayo>
+    <rdf:type rdf:resource="http://siva.uco.es/onto/owl/fichas-01#Fecha"/>
+  </rdf:Description>
+</rdf:RDF>

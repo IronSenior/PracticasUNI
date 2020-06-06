@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:xml="http://www.w3.org/XML/1998/namespace"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:_7="http://www.example.com/my-unmappable-stuff#"
+   xmlns:contact="http://www.example.com/contact#"
+   xmlns:person="http://www.example.com/person#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema#"
+>
+  <rdf:Description rdf:about="http://www.example.com/contact#phone">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#employment_history">
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="sPHneSc106">
+    <rdf:rest rdf:nodeID="sPHneSc107"/>
+    <rdf:first>Wal-Mart</rdf:first>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#wife">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="sPHneSc104">
+    <contact:city>EveryVille</contact:city>
+    <contact:street>314159 There Street</contact:street>
+    <contact:state>NA</contact:state>
+    <contact:zip>12345</contact:zip>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#mary">
+    <contact:phone>123-4567</contact:phone>
+    <person:name>Mary</person:name>
+    <person:childname>bob</person:childname>
+    <person:childname>joe</person:childname>
+    <person:age>23</person:age>
+    <contact:www>http://www.example.org/~mary</contact:www>
+    <person:hair>blue</person:hair>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#bob">
+    <contact:phone>555-1212</contact:phone>
+    <person:employment_history rdf:nodeID="sPHneSc105"/>
+    <person:wife rdf:resource="http://www.example.com/person#mary"/>
+    <_7:special-thing>testing...</_7:special-thing>
+    <contact:address rdf:nodeID="sPHneSc104"/>
+    <person:age>27</person:age>
+    <person:name>Bob</person:name>
+    <person:childname>joe</person:childname>
+    <person:childname>bob</person:childname>
+    <rdf:type rdf:resource="http://www.example.com/person#Person"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#name">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#age">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="sPHneSc107">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first>Goldman Sachs</rdf:first>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/contact#www">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="sPHneSc105">
+    <rdf:rest rdf:nodeID="sPHneSc106"/>
+    <rdf:first>7-11</rdf:first>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.example.com/person#picture">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#base64Binary"/>
+  </rdf:Description>
+</rdf:RDF>
