@@ -1,6 +1,7 @@
 *.zip
 *.o
 *.out
+*.pyc
 build/
 dados_unitest/
 googletest-master/
