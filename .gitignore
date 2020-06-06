@@ -10,3 +10,4 @@ Enunciado/
 .gitignore
 Amazon.pem
 datos_SIF
+env/
