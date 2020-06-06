@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:tmp="http://siva.uco.es/onto/owl/tiempo-01#"
+    xmlns:hechos="http://siva.uco.es/onto/owl/hechos-01#"
+    xmlns:per="http://siva.uco.es/onto/owl/personas-01#"
+    xmlns:fich="http://siva.uco.es/onto/owl/fichas-01#"
+    xmlns:lug="http://siva.uco.es/onto/owl/lugares-01#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://siva.uco.es/onto/owl/identificacion-personajes-01#"
+    xmlns:idLug="http://siva.uco.es/onto/owl/identificacion-lugares-01#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:daml="http://www.daml.org/2001/03/daml+oil#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:base="http://siva.uco.es/onto/owl/identificacion-personajes-01">
+  <owl:Ontology rdf:about="">
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >0.0 by Antonio Calvo (acalvo@uco.es)</owl:versionInfo>
+    <owl:imports rdf:resource="http://siva.uco.es/onto/owl/personas-01"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Ejemplo de ontologia de personas.</rdfs:comment>
+  </owl:Ontology>
+  <per:Mujer rdf:ID="Mujer_Araceli_Calvo_Serrano">
+    <per:hijaDePadre>
+      <per:Hombre rdf:ID="Hombre_Antonio_Calvo_Cuenca">
+        <per:padreDeHijo>
+          <per:Hombre rdf:ID="Hombre_Antonio_Calvo_Serrano">
+            <per:hijoDeMadre>
+              <per:Mujer rdf:ID="Mujer_Araceli_Serrano_Tenllado">
+                <per:madreDeHijo rdf:resource="#Hombre_Antonio_Calvo_Serrano"/>
+                <per:esposaDe rdf:resource="#Hombre_Antonio_Calvo_Cuenca"/>
+                <per:madreDeHija rdf:resource="#Mujer_Araceli_Calvo_Serrano"/>
+                <per:madreDeHija>
+                  <per:Mujer rdf:ID="Mujer_Elisa_Calvo_Serano">
+                    <per:hijaDePadre rdf:resource="#Hombre_Antonio_Calvo_Cuenca"/>
+                    <per:hijaDeMadre rdf:resource="#Mujer_Araceli_Serrano_Tenllado"/>
+                  </per:Mujer>
+                </per:madreDeHija>
+                <per:madreDeHija>
+                  <per:Mujer rdf:ID="Mujer_Teresa_Calvo_Serrano">
+                    <per:hijaDePadre rdf:resource="#Hombre_Antonio_Calvo_Cuenca"/>
+                    <per:hijaDeMadre rdf:resource="#Mujer_Araceli_Serrano_Tenllado"/>
+                  </per:Mujer>
+                </per:madreDeHija>
+                <per:nombre xml:lang="es">María Araceli</per:nombre>
+              </per:Mujer>
+            </per:hijoDeMadre>
+            <per:hijoDePadre rdf:resource="#Hombre_Antonio_Calvo_Cuenca"/>
+          </per:Hombre>
+        </per:padreDeHijo>
+        <per:esposoDe rdf:resource="#Mujer_Araceli_Serrano_Tenllado"/>
+        <per:padreDeHija rdf:resource="#Mujer_Araceli_Calvo_Serrano"/>
+        <per:padreDeHija rdf:resource="#Mujer_Elisa_Calvo_Serano"/>
+        <per:padreDeHija rdf:resource="#Mujer_Teresa_Calvo_Serrano"/>
+        <per:nombre xml:lang="es">Antonio</per:nombre>
+        <per:apellidos xml:lang="es">Cuenca</per:apellidos>
+        <per:apellidos xml:lang="es">Calvo</per:apellidos>
+      </per:Hombre>
+    </per:hijaDePadre>
+    <per:hijaDeMadre rdf:resource="#Mujer_Araceli_Serrano_Tenllado"/>
+  </per:Mujer>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.2, Build 355)  http://protege.stanford.edu -->

@@ -1,0 +1,10 @@
+@prefix : <http://www.w3.org/2000/10/swap/test/demo1/about-pat#> .
+@prefix bio: <http://www.w3.org/2000/10/swap/test/demo1/biology#> .
+@prefix per: <http://www.w3.org/2000/10/swap/test/demo1/friends-vocab#> .
+    
+:pat     a bio:Human;
+     per:name "Pat Smith",
+              "Patrick Smith";
+     per:pet  [
+         a bio:Dog;
+         per:name "Rover" ] .

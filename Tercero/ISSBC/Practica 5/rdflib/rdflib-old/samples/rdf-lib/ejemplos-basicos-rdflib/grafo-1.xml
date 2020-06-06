@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:per="http://siva.uco.es/onto/personas-01#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/personas-01#d1003">
+    <per:lugarNacimiento rdf:nodeID="N6516c7148c48499aa74998e0c07baad1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/personas-01#d1002">
+    <per:nombre>Manuel</per:nombre>
+    <per:lugarNacimiento>Lucena</per:lugarNacimiento>
+    <per:apellidos>Calvo Cuenca</per:apellidos>
+    <per:residencia>Cordoba</per:residencia>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://siva.uco.es/onto/personas-01#d1001">
+    <per:nombre>Antonio</per:nombre>
+    <per:residencia>Cordoba</per:residencia>
+    <per:apellidos>Calvo Cuenca</per:apellidos>
+    <per:lugarNacimiento>Lucena</per:lugarNacimiento>
+  </rdf:Description>
+</rdf:RDF>
