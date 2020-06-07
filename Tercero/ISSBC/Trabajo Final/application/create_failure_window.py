@@ -1,11 +1,7 @@
-
-import sys
 from PyQt5.QtWidgets import *
-import uuid
 
 from src.observable import Observable
 from src.observable_repository import ObservableRepository
-
 
 COORDINATE_X = 300
 COORDINATE_Y = 300
@@ -13,19 +9,19 @@ COORDINATE_Y = 300
 WIGTH = 300
 HIGHT = 300
 
-VALUE_TYPES = ["Boolean", "Integer", "String"]
 
-class CreateObservableDialog(QDialog):
- 
+class CreateFailureDialog(QDialog):
+
     def __init__(self, domain_id):
         QDialog.__init__(self)
         self.domain_id = domain_id
+        self.saved_observable = None
         self._initUI()
         
  
     def _initUI(self):
         self.setGeometry(COORDINATE_X, COORDINATE_Y, WIGTH, HIGHT)
-        self.setWindowTitle("New Domain")
+        self.setWindowTitle("New Failure")
         self.createFormGroupBox()
 
         buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -40,20 +36,22 @@ class CreateObservableDialog(QDialog):
     def createFormGroupBox(self):
         self.formGroupBox = QGroupBox("Create Domain")
         layout = QFormLayout()
-        self.name = QLineEdit()
-        self.description = QLineEdit()
-        self.value_type = QComboBox()
-        self.value_type.addItems(VALUE_TYPES)
-        layout.addRow(QLabel("Name:"), self.name)
-        layout.addRow(QLabel("Description:"), self.description)
-        layout.addRow(QLabel("Value Type:"), self.value_type)
+        self.observable = QComboBox()
+        self.reloadObservables()
+        layout.addRow(QLabel("Observable:"), self.observable)
         self.formGroupBox.setLayout(layout)
 
+    def reloadObservables(self):
+        observable_repository = ObservableRepository()
+        self.observable.clear()
+        observable_list = observable_repository.getByDomain(self.domain_id)
+        if not observable_list:
+            return False
+        self.observable.addItems(list(map(lambda domain: domain.name, observable_list)))
 
     def accept(self):
         observable_repository = ObservableRepository()
-        observable = Observable(uuid.uuid4(), self.domain_id, self.name.text(), 
-                        self.description.text(), self.value_type.currentText()
-                        )
-        observable_repository.add(observable)
+        observable = observable_repository.getByName(self.observable.currentText())
+        observable.setValue(True)
+        self.saved_observable = observable
         return super().accept()

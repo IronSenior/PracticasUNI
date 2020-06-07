@@ -21,14 +21,14 @@ class TestDiagnosis(unittest.TestCase):
     def test_diagnosis(self):
         domain_id = uuid.uuid4()
 
-        tos = Observable(uuid.uuid4(), domain_id, "Tos", "Tiene tos", "boolean")
+        tos = Observable(uuid.uuid4(), domain_id, "Tos", "Tiene tos", "Boolean")
         tos.setValue(True)
-        mocos = Observable(uuid.uuid4(), domain_id, "Mocos", "Tiene Mocos", "boolean")
+        mocos = Observable(uuid.uuid4(), domain_id, "Mocos", "Tiene Mocos", "Boolean")
         mocos.setValue(True)
         observables = [tos, mocos]
         resfriado = Hypothesis(uuid.uuid4(), domain_id, "Resfriado", "Estas malito", observables)
 
-        fiebre = Observable(uuid.uuid4(), domain_id, "Fiebre", "Tiene Fiebre", "boolean")
+        fiebre = Observable(uuid.uuid4(), domain_id, "Fiebre", "Tiene Fiebre", "Boolean")
         fiebre.setValue(True)
         observables = [fiebre, tos]
         covid = Hypothesis(uuid.uuid4(), domain_id, "Covid", "Estas muy malito", observables)

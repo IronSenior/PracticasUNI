@@ -13,7 +13,7 @@ class ObservableRepository:
         self.__db_engine = db.create_engine(os.getenv('DB_ENGINE'))
         self.__db_connection = self.__db_engine.connect()
         self.__db_metadata = db.MetaData()
-        self.__observables = db.Table("hypothesis", self.__db_metadata,
+        self.__observables = db.Table("observables", self.__db_metadata,
                                 autoload=True, autoload_with=self.__db_engine)
 
     def add(self, observable: Observable):
@@ -36,6 +36,16 @@ class ObservableRepository:
     def getById(self, observable_id: UUID):
         query = db.select([self.__observables]).where(
             self.__observables.columns.observable_id == observable_id)
+        resultProxy = self.__db_connection.execute(query)
+        resultSet = resultProxy.fetchall()
+        if not resultSet:
+            return None
+        return self.__getObservableFromResult(resultSet[0])
+
+
+    def getByName(self, name):
+        query = db.select([self.__observables]).where(
+            self.__observables.columns.name == name)
         resultProxy = self.__db_connection.execute(query)
         resultSet = resultProxy.fetchall()
         if not resultSet:

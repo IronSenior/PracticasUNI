@@ -1,8 +1,8 @@
 
 value_type_dict = {
-    "int": int,
-    "boolean": bool,
-    "string": str
+    "Integer": int,
+    "Boolean": bool,
+    "String": str
 }
 
 class Observable:
@@ -34,6 +34,10 @@ class Observable:
     @property
     def observable_id(self):
         return self.__observable_id
+    
+    @property
+    def domain_id(self):
+        return self.__domain_id
 
     @property
     def name(self):

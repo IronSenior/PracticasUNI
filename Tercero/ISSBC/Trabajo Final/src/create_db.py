@@ -42,10 +42,13 @@ def create_hypo_observables_table():
     watched_movies = db.Table('hypo_observables', metadata,
                 db.Column('hypothesis_id', db.String(36), nullable=False, primary_key=True),
                 db.Column('observable_id', db.String(36), nullable=False, primary_key=True),
-                db.Column('value', db.String(255), nullable=False),
+                db.Column('value', db.Boolean(), nullable=False),
             )
 
 if __name__ == "__main__":
     remove_existing_tables()
-
+    create_domain_table()
+    create_observables_table()
+    create_hypothesis_table()
+    create_hypo_observables_table()
     metadata.create_all(engine)

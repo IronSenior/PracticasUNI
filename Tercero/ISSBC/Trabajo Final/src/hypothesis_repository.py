@@ -20,7 +20,7 @@ class HypothesisRepository:
 
     def add(self, hypothesis: Hypothesis):
         query = db.insert(self.__hypothesis).values(
-                    hypothesis_id=hypothesis.hypothesis_id, 
+                    hypothesis_id=str(hypothesis.hypothesis_id), 
                     domain_id=hypothesis.domain_id,
                     name=hypothesis.name,
                     description=hypothesis.description
@@ -29,7 +29,7 @@ class HypothesisRepository:
 
         for observable in hypothesis.observables:
             query = db.insert(self.__hypo_observables).values(
-                        hypothesis_id=hypothesis.hypothesis_id, 
+                        hypothesis_id=str(hypothesis.hypothesis_id), 
                         observable_id=observable.observable_id,
                         value=observable.value
                     )
@@ -92,7 +92,7 @@ class HypothesisRepository:
         observable_repository = ObservableRepository()
         for result in resultSet:
             observable = observable_repository.getById(result[1])
-            observable.setValue(result[2])
+            observable.setValue(True) # TODO lack of time
             observables.append(observable)
         return observables
         
